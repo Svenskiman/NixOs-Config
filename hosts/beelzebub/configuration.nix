@@ -1,23 +1,21 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+      ./../../modules/system/system-bundle.nix
+      
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "beelzebub"; # Define your hostname.
+  networking.hostName = "beelzebub";
+  myModules.networking.enable = true;
+  myModules.audio.enable = true;
 
-  # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -35,42 +33,13 @@
     isNormalUser = true;
     extraGroups = ["wheel"];
     packages = with pkgs; [
-	tree
+	    tree
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
-  programs.firefox.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    kitty
-    alacritty
-    git
-    waybar
-    hyprpaper
-    mako
-    libnotify
-    walker
-    brave
-    zed-editor
-    fastfetch
-    networkmanagerapplet
-    elephant
-    vscode
-  ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

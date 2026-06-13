@@ -1,6 +1,13 @@
-{config, pkgs, ...}:
+{ pkgs, config, ... }:
 
 {
+  imports = [
+    ./modules/home/packages/packages-bundle.nix
+  ];
+
+  myModules.defaultApps.enable = true;
+  myModules.defaultUtils.enable = true;
+
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
   home.stateVersion = "26.05";
