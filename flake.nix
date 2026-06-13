@@ -13,7 +13,7 @@
     nixosConfigurations.beelzebub = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
         modules = [
-	  ./configuration.nix
+	  ./hosts/beelzebub/configuration.nix
 	  home-manager.nixosModules.home-manager
 	  {
             home-manager = {
