@@ -3,15 +3,18 @@
 {
   imports = [
     ./modules/home/packages/packages-bundle.nix
+    ./modules/home/hyprland/hyprland.nix
   ];
 
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
+  myModules.hypr.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
   home.stateVersion = "26.05";
 
+  # Lauch Hyprland on login
   programs.bash = {
     enable = true;
     profileExtra = ''

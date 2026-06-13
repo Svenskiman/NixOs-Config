@@ -22,6 +22,7 @@
 
   services.getty.autologinUser = "svenski";
 
+  # Install Hyprland
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
