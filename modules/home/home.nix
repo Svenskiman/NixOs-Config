@@ -4,11 +4,13 @@
   imports = [
     ./packages/packages-bundle.nix
     ./hyprland/hyprland.nix
+    ./xdg.nix
   ];
 
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
   myModules.hypr.enable = true;
+  myModules.xdg.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
