@@ -17,9 +17,5 @@
         wayland.windowManager.hyprland = {
             enable = true;
         };
-
-        # Define the Hyprland config that Home Manager generates
-        # myModules.hypr.bindings.enable = true;
-        # myModules.hypr.autostart.enable = true;
     };
 }

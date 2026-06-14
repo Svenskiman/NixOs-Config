@@ -24,6 +24,9 @@
             # Launcher
             walker
             elephant
+
+            # File manager
+            nautilus
         ];
     };
 }
