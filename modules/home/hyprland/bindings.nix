@@ -26,6 +26,16 @@ in
                 hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
             end
 
+            -- Window management
+            hl.bind("SUPER + F", hl.dsp.window.fullscreen())
+            hl.bind("SUPER + T", hl.dsp.window.float())
+            hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+            hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })  
+            hl.bind("SUPER + CTRL + LEFT",  hl.dsp.window.swap({ direction = "left" }))
+            hl.bind("SUPER + CTRL + RIGHT", hl.dsp.window.swap({ direction = "right" }))
+            hl.bind("SUPER + CTRL + UP",    hl.dsp.window.swap({ direction = "up" }))
+            hl.bind("SUPER + CTRL + DOWN",  hl.dsp.window.swap({ direction = "down" }))
+
             -- Groups
             hl.bind("SUPER + G",           hl.dsp.group.toggle())
             hl.bind("SUPER + ALT + G",     hl.dsp.window.move({ out_of_group = true }))
