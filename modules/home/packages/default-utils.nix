@@ -12,6 +12,7 @@
             wget
             git
             btop
+            fastfetch
 
             # Desktop
             waybar

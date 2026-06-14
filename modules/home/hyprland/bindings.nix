@@ -25,6 +25,12 @@ in
                 hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
                 hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
             end
+
+            -- Groups
+            hl.bind("SUPER + G",           hl.dsp.group.toggle())
+            hl.bind("SUPER + ALT + G",     hl.dsp.window.move({ out_of_group = true }))
+            hl.bind("SUPER + ALT + LEFT",  hl.dsp.group.prev())
+            hl.bind("SUPER + ALT + RIGHT", hl.dsp.group.next())
         '';
     };
 }

@@ -4,6 +4,7 @@
     imports = [
         ./autostart.nix
         ./bindings.nix
+        ./looknfeel.nix
     ];
 
     # Allow Home Manger to manage Hyprland and activate my submodules
