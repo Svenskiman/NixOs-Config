@@ -19,6 +19,12 @@ in
             hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker"))
+
+            -- Workspaces
+            for i = 1, 5 do
+                hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
+                hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+            end
         '';
     };
 }
