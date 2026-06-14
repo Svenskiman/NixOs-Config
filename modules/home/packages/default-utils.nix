@@ -11,6 +11,7 @@
             # System
             wget
             git
+            btop
 
             # Desktop
             waybar
