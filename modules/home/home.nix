@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./modules/home/packages/packages-bundle.nix
-    ./modules/home/hyprland/hyprland.nix
+    ./packages/packages-bundle.nix
+    ./hyprland/hyprland.nix
   ];
 
   myModules.defaultApps.enable = true;
