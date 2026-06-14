@@ -5,12 +5,14 @@
     ./packages/packages-bundle.nix
     ./hyprland/hyprland.nix
     ./xdg.nix
+    ./shell.nix
   ];
 
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
   myModules.hypr.enable = true;
   myModules.xdg.enable = true;
+  myModules.shell.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";

@@ -15,12 +15,10 @@
   networking.hostName = "beelzebub";
   myModules.networking.enable = true;
   myModules.audio.enable = true;
-
+  services.getty.autologinUser = "svenski";
 
   # Set your time zone.
   time.timeZone = "Europe/London";
-
-  services.getty.autologinUser = "svenski";
 
   # Install Hyprland
   programs.hyprland = {
@@ -28,7 +26,6 @@
     xwayland.enable = true;
     withUWSM = true;
   };
-
 
   users.users.svenski = {
     isNormalUser = true;
@@ -45,7 +42,9 @@
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
 
 
