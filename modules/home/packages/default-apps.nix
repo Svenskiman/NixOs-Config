@@ -20,6 +20,12 @@
             vscode
             zed-editor
 
+            # Tools
+            mpv # Media player
+            foliate # E-reader
+            gnome-solanum # Timer
+            blanket # Sounds
+
         ];
     };
 }
