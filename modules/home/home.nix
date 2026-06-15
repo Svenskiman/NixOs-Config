@@ -4,6 +4,7 @@
   imports = [
     ./packages/packages-bundle.nix
     ./hyprland/hyprland.nix
+    ./waybar/waybar.nix
     ./terminal/terminal-bundle.nix
     ./xdg.nix
   ];
@@ -21,6 +22,9 @@
 
   # Default directories
   myModules.xdg.enable = true;
+
+  # Waybar
+  myModules.waybar.enable = true;
   
 
   home.username = "svenski";

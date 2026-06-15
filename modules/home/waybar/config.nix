@@ -1,0 +1,135 @@
+{
+    mainBar = {
+        layer = "top";
+        position = "top";
+        height = 32;
+        spacing = 0;
+        margin-top = 6;
+        margin-left = 8;
+        margin-right = 8;
+
+        modules-left = [
+            "group/nixmenu"
+            "hyprland/workspaces"
+        ];
+
+        modules-center = [
+            "clock"
+        ];
+
+        modules-right = [
+            "group/system-icons"
+            "group/ram"
+        ];
+
+        # ── Left ──────────────────────────────────────────────
+
+        "group/nixmenu" = {
+            orientation = "horizontal";
+            modules = [
+                "custom/nixlogo"
+                "custom/nixarrow"
+            ];
+        };
+
+        "custom/nixlogo" = {
+            format = "󱄅 ";
+            tooltip = false;
+        };
+
+        "custom/nixarrow" = {
+            format = "❯";
+            tooltip = false;
+        };
+
+        "hyprland/workspaces" = {
+            format = "{icon}";
+            on-click = "activate";
+            all-outputs = true;
+            active-only = false;
+            sort-by-number = true;
+            format-icons = {
+                "1" = "1";
+                "2" = "2";
+                "3" = "3";
+                "4" = "4";
+                "5" = "5";
+                active = "■";
+                default = "{name}";
+            };
+            persistent-workspaces = {
+                "1" = [];
+                "2" = [];
+                "3" = [];
+                "4" = [];
+                "5" = [];
+            };
+        };
+
+        # ── Centre ────────────────────────────────────────────
+
+        "clock" = {
+            format = "{:%A %H:%M}";
+            format-alt = "{:%d %B W%V %Y}";
+            tooltip = false;
+        };
+
+        # ── Right ─────────────────────────────────────────────
+
+        "group/system-icons" = {
+            orientation = "horizontal";
+            modules = [
+                "pulseaudio"
+                "bluetooth"
+                "network"
+                "cpu"
+            ];
+        };
+
+        "pulseaudio" = {
+            format = "{icon}";
+            format-icons = {
+                default = [ "󰕿" "󰖀" "󰕾" ];
+                muted = "󰝟";
+            };
+            on-click = "alacritty -e wiremix";
+            tooltip = false;
+        };
+
+        "bluetooth" = {
+            format = "󰂯";
+            format-disabled = "󰂲";
+            format-off = "󰂲";
+            format-connected = "󰂱";
+            on-click = "alacritty -e bluetui";
+            tooltip = false;
+        };
+
+        "network" = {
+            format-wifi = "󰤨";
+            format-disconnected = "󰤭";
+            format-ethernet = "󰈀";
+            on-click = "alacritty -e impala";
+            tooltip = false;
+        };
+
+        "cpu" = {
+            format = "";
+            on-click = "alacritty --option window.dimensions.columns=80 --option window.dimensions.lines=24 -e btop";
+            tooltip = false;
+        };
+
+        "group/ram" = {
+            orientation = "horizontal";
+            modules = [
+                "memory"
+            ];
+        };
+
+        "memory" = {
+            format = "  {used:0.1f}G/{total:0.1f}G";
+            interval = 5;
+            tooltip = false;
+        };
+    };
+}
