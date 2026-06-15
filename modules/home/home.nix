@@ -4,15 +4,24 @@
   imports = [
     ./packages/packages-bundle.nix
     ./hyprland/hyprland.nix
+    ./terminal/terminal-bundle.nix
     ./xdg.nix
-    ./shell.nix
   ];
 
+  # Packages modules
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
+
+  # Hyprland
   myModules.hypr.enable = true;
+
+  # Terminal modules
+  myModules.zsh.enable = true;
+  myModules.alacritty.enable = true;
+
+  # Default directories
   myModules.xdg.enable = true;
-  myModules.shell.enable = true;
+  
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
