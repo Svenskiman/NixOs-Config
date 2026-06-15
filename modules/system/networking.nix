@@ -8,6 +8,10 @@
 
     # Configure network connections interactively with nmcli or nmtui.
     config = lib.mkIf config.myModules.networking.enable {
-        networking.networkmanager.enable = true;
+        networking.networkmanager.enable = false;
+
+        # Use iwd as the WiFi backend for NetworkManager (required for Impala TUI)
+        networking.wireless.iwd.enable = true;
+        # networking.networkmanager.wifi.backend = "iwd";
     };
 }

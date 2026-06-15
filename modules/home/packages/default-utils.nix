@@ -12,12 +12,13 @@
             wget
             git
             btop
+            impala
+            bluetui
             fastfetch
 
             # Desktop
             waybar
             hyprpaper
-            networkmanagerapplet
 
             # Notifications
             mako

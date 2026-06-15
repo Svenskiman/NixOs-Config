@@ -13,9 +13,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "beelzebub";
+  services.getty.autologinUser = "svenski";
+
+  # System modules
   myModules.networking.enable = true;
   myModules.audio.enable = true;
-  services.getty.autologinUser = "svenski";
+  myModules.bluetooth.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
