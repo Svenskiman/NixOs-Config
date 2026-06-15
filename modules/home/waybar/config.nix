@@ -4,7 +4,7 @@
         position = "top";
         height = 32;
         spacing = 0;
-        margin-top = 6;
+        margin-top = 8;
         margin-left = 8;
         margin-right = 8;
 
@@ -19,7 +19,7 @@
 
         modules-right = [
             "group/system-icons"
-            "group/ram"
+            "group/battery-tray"
         ];
 
         # ── Left ──────────────────────────────────────────────
@@ -119,16 +119,53 @@
             tooltip = false;
         };
 
-        "group/ram" = {
+        "group/battery-tray" = {
             orientation = "horizontal";
+            click-to-reveal = true;
+            drawer = {
+                transition-duration = 600;
+                children-class = "battery-tray-item";
+                transition-left-to-right = true;
+            };
             modules = [
+                "group/battery-always"
                 "memory"
             ];
+        };
+
+        "group/battery-always" = {
+            orientation = "horizontal";
+            modules = [
+                "custom/battarrow"
+                "battery"
+            ];
+        };
+
+        "custom/battarrow" = {
+            format = "❮";
+            tooltip = false;
+            on-scroll-up = "";
+            on-scroll-down = "";
+            on-scroll-left = "";
+            on-scroll-right = "";
         };
 
         "memory" = {
             format = "  {used:0.1f}G/{total:0.1f}G";
             interval = 5;
+            tooltip = false;
+        };
+
+        "battery" = {
+            interval = 30;
+            states = {
+                warning = 49;
+                critical = 20;
+            };
+            format = "{capacity}% {icon}";
+            format-charging = "{capacity}% {icon}";
+            format-icons = ["󱊡" "󱊢" "󱊣"];
+            format-charging-icons = ["󱊤" "󱊥" "󱊦"];
             tooltip = false;
         };
     };

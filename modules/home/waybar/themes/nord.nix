@@ -25,4 +25,8 @@
     @define-color ws_empty    @nord3;
     @define-color ws_occupied @nord4;
     @define-color ws_active   @nord8;
+
+    @define-color battery_good    @nord14;
+    @define-color battery_warning @nord13;
+    @define-color battery_critical @nord11;
 ''

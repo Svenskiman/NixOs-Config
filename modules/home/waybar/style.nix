@@ -19,7 +19,7 @@
     #workspaces,
     #clock,
     #system-icons,
-    #ram {
+    #battery-tray {
         background-color: @pill_bg;
         color: @fg;
         border-radius: 9999px;
@@ -124,15 +124,29 @@
 
     /* ── RAM group ───────────────────────────────────────── */
 
-    #ram {
-        padding: 0 14px;
+    #battery-tray {
+        padding: 0 12px 0 4px;
+    }
+
+    #custom-battarrow {
+        background: transparent;
+        color: @fg;
+        padding: 0 4px 0 10px;
     }
 
     #memory {
         background: transparent;
         color: @fg;
-        padding: 0;
-        border-radius: 0;
-        margin: 0;
+        padding: 0 8px 0 14px;
     }
+
+    #battery {
+        background: transparent;
+        color: @fg;
+        padding: 0 0 0 4px;
+    }
+
+    #battery { color: @battery_good; }
+    #battery.warning { color: @battery_warning; }
+    #battery.critical { color: @battery_critical; }
 ''
