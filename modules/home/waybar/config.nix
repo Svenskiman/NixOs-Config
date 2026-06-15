@@ -92,7 +92,7 @@
                 default = [ "󰕿" "󰖀" "󰕾" ];
                 muted = "󰝟";
             };
-            on-click = "alacritty -e wiremix";
+            on-click = "alacritty --class floating -e wiremix";
             tooltip = false;
         };
 
@@ -101,7 +101,7 @@
             format-disabled = "󰂲";
             format-off = "󰂲";
             format-connected = "󰂱";
-            on-click = "alacritty -e bluetui";
+            on-click = "alacritty --class floating -e bluetui";
             tooltip = false;
         };
 
@@ -109,13 +109,13 @@
             format-wifi = "󰤨";
             format-disconnected = "󰤭";
             format-ethernet = "󰈀";
-            on-click = "alacritty -e impala";
+            on-click = "alacritty --class floating -e impala";
             tooltip = false;
         };
 
         "cpu" = {
             format = "";
-            on-click = "alacritty --option window.dimensions.columns=80 --option window.dimensions.lines=24 -e btop";
+            on-click = "alacritty --class floating -e btop";
             tooltip = false;
         };
 

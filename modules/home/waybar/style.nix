@@ -43,7 +43,7 @@
     #custom-nixarrow {
         color: @fg;
         background: transparent;
-        padding: 0 10px 0 8px;
+        padding: 0 10px 0 4px;
         margin: 0;
         font-size: 11px;
     }

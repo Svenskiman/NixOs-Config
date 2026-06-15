@@ -16,7 +16,7 @@ in
             hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("${file_manager}"))
             hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("${browser}"))
             hl.bind("SUPER + SHIFT + ALT + B", hl.dsp.exec_cmd("${browser} --incognito"))
-            hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} -e ${system_monitor}"))
+            hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} --class floating -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker"))
 
