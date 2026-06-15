@@ -11,10 +11,13 @@
             # System
             wget
             git
+            fastfetch
+
+            # TUIs
             btop
             impala
             bluetui
-            fastfetch
+            wiremix
 
             # Desktop
             waybar
