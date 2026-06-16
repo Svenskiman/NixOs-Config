@@ -51,6 +51,7 @@ in
         ./targets/hyprland-colours.nix
         ./theme-switcher.nix
         ./default.nix
+        ./targets/mako-colours.nix
     ];
 
     options = {

@@ -28,7 +28,14 @@ let
         pkill -SIGUSR2 waybar
 
         # ── Hyprland ──────────────────────────────────────────
-        hyprctl reload
+        hyprctl reload > /dev/null 2>&1
+
+        # ── Mako ──────────────────────────────────────────────
+        mkdir -p "$HOME/.config/mako"
+        cp "$THEME_DIR/mako.ini" "$HOME/.config/mako/config"
+        # As created file is read only
+        chmod 644 "$HOME/.config/mako/config"
+        makoctl reload
 
         echo "Theme set to $THEME"
     '';

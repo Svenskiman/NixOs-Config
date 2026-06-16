@@ -9,7 +9,6 @@
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
     ./xdg.nix
-    ./mako.nix
   ];
 
   # Packages
@@ -31,8 +30,6 @@
 
   # Waybar
   myModules.waybar.enable = true;
-
-  myModules.mako.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
