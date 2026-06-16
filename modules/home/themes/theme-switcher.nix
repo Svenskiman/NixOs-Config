@@ -28,9 +28,7 @@ let
         pkill -SIGUSR2 waybar
 
         # ── Hyprland ──────────────────────────────────────────
-        source "$THEME_DIR/hyprland-colours.sh"
-        hyprctl keyword general:col.active_border "$ACTIVE_BORDER"
-        hyprctl keyword general:col.inactive_border "$INACTIVE_BORDER"
+        hyprctl reload
 
         echo "Theme set to $THEME"
     '';

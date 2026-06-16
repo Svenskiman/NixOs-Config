@@ -5,18 +5,15 @@
         wayland.windowManager.hyprland.extraConfig = ''
             -- Look and Feel --
             -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/
-            local active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 }
-            local inactive_border = "rgba(595959aa)"
+
+            -- Load active theme colours into hl.config
+            dofile(os.getenv("HOME") .. "/.local/state/theme/current/hyprland-colours.lua")
 
             hl.config({
                 general = {
                     gaps_in          = 5,
                     gaps_out         = 10,
                     border_size      = 2,
-                    col = {
-                        active_border   = active_border,
-                        inactive_border = inactive_border,
-                    },
                     resize_on_border = false,
                     allow_tearing    = false,
                     layout           = "dwindle",
@@ -64,10 +61,6 @@
                         gradients                 = true,
                         gradient_rounding         = 0,
                         gradient_round_only_edges = false,
-                    },
-                    col = {
-                        border_active   = active_border,
-                        border_inactive = inactive_border,
                     },
                 },
 
