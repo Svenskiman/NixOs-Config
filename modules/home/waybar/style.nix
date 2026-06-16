@@ -20,8 +20,8 @@
     #clock,
     #system-icons,
     #battery-tray {
-        background-color: @pill_bg;
-        color: @fg;
+        background-color: @color0;
+        color: @foreground;
         border-radius: 9999px;
         margin: 0 6px;
     }
@@ -41,7 +41,7 @@
     }
 
     #custom-nixarrow {
-        color: @fg;
+        color: @foreground;
         background: transparent;
         padding: 0 10px 0 4px;
         margin: 0;
@@ -58,7 +58,7 @@
         all: initial;
         font-family: "JetBrainsMono Nerd Font";
         font-size: 13px;
-        color: @ws_empty;
+        color: @color8;
         padding: 0 6px;
         margin: 0 1px;
         min-width: 9px;
@@ -66,7 +66,7 @@
     }
 
     #workspaces button.active {
-        color: @ws_active;
+        color: @accent;
         opacity: 1;
     }
 
@@ -75,12 +75,12 @@
     }
 
     #workspaces button:not(.empty):not(.active) {
-        color: @ws_occupied;
+        color: @foreground;
         opacity: 1;
     }
 
     #workspaces button:hover {
-        color: @fg;
+        color: @foreground;
         opacity: 1;
     }
 
@@ -102,7 +102,7 @@
     #network,
     #cpu {
         background: transparent;
-        color: @fg;
+        color: @foreground;
         padding: 0 8px;
         border-radius: 0;
         margin: 0;
@@ -110,16 +110,16 @@
     }
 
     #pulseaudio.muted {
-        color: @muted;
+        color: @color8;
     }
 
     #bluetooth.disabled,
     #bluetooth.off {
-        color: @muted;
+        color: @color8;
     }
 
     #network.disconnected {
-        color: @muted;
+        color: @color8;
     }
 
     /* ── RAM group ───────────────────────────────────────── */
@@ -130,23 +130,23 @@
 
     #custom-battarrow {
         background: transparent;
-        color: @fg;
+        color: @foreground;
         padding: 0 4px 0 10px;
     }
 
     #memory {
         background: transparent;
-        color: @fg;
+        color: @foreground;
         padding: 0 8px 0 14px;
     }
 
     #battery {
         background: transparent;
-        color: @fg;
+        color: @foreground;
         padding: 0 0 0 4px;
     }
 
-    #battery { color: @battery_good; }
-    #battery.warning { color: @battery_warning; }
-    #battery.critical { color: @battery_critical; }
+    #battery { color: @color2; }
+    #battery.warning { color: @color3; }
+    #battery.critical { color: @color1; }
 ''

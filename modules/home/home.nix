@@ -5,6 +5,7 @@
     ./packages/packages-bundle.nix
     ./scripts/scripts-bundle.nix
     ./terminal/terminal-bundle.nix
+    ./themes/themes.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
     ./xdg.nix
