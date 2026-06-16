@@ -19,6 +19,8 @@ in
             hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} --class floating -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker"))
+            hl.bind("SUPER + SHIFT + grave", hl.dsp.exec_cmd("capture-screenshot"))
+            hl.bind("SUPER + CTRL + grave",  hl.dsp.exec_cmd("capture-screenshot-annotate"))
 
             -- Workspaces
             for i = 1, 5 do

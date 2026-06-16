@@ -22,9 +22,11 @@
 
             # Tools
             mpv # Media player
-            foliate # E-reader
-            gnome-solanum # Timer
             blanket # Sounds
+
+            # Disabled
+            # foliate # E-reader
+            # gnome-solanum # Timer
 
         ];
     };

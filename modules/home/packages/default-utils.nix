@@ -33,6 +33,8 @@
 
             # File manager
             nautilus
+
+            adwaita-icon-theme
         ];
     };
 }

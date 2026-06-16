@@ -3,29 +3,35 @@
 {
   imports = [
     ./packages/packages-bundle.nix
+    ./scripts/scripts-bundle.nix
+    ./terminal/terminal-bundle.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
-    ./terminal/terminal-bundle.nix
     ./xdg.nix
+    ./mako.nix
   ];
 
-  # Packages modules
+  # Packages
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
 
-  # Hyprland
-  myModules.hypr.enable = true;
+  # Scripts
+  myModules.scripts.screenshot.enable = true;
 
   # Terminal modules
   myModules.zsh.enable = true;
   myModules.alacritty.enable = true;
+
+  # Hyprland
+  myModules.hypr.enable = true;
 
   # Default directories
   myModules.xdg.enable = true;
 
   # Waybar
   myModules.waybar.enable = true;
-  
+
+  myModules.mako.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
