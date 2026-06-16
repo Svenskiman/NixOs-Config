@@ -28,8 +28,7 @@
             libnotify
             
             # Launcher
-            walker
-            elephant
+            # Walker is pulled via flake
 
             # File manager
             nautilus

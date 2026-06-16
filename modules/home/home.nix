@@ -8,6 +8,7 @@
     ./themes/themes.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
+    ./walker/walker.nix
     ./xdg.nix
   ];
 
@@ -30,6 +31,9 @@
 
   # Waybar
   myModules.waybar.enable = true;
+
+  # Walker
+  myModules.walker.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";

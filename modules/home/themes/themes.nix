@@ -52,6 +52,7 @@ in
         ./theme-switcher.nix
         ./default.nix
         ./targets/mako-colours.nix
+        ./targets/walker-colours.nix
     ];
 
     options = {

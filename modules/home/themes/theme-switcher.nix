@@ -23,12 +23,15 @@ let
         ln -sfn "$THEME_DIR" "$HOME/.local/state/theme/current"
         echo "$THEME" > "$HOME/.local/state/theme/active-theme"
 
+
         # ── Waybar ────────────────────────────────────────────
         # SIGUSR2 triggers a CSS reload without restarting
         pkill -SIGUSR2 waybar
 
+
         # ── Hyprland ──────────────────────────────────────────
         hyprctl reload > /dev/null 2>&1
+
 
         # ── Mako ──────────────────────────────────────────────
         mkdir -p "$HOME/.config/mako"
@@ -36,6 +39,9 @@ let
         # As created file is read only
         chmod 644 "$HOME/.config/mako/config"
         makoctl reload
+
+        # ── Walker ────────────────────────────────────────────
+        pkill walker
 
         echo "Theme set to $THEME"
     '';
