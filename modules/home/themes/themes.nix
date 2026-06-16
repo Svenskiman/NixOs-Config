@@ -48,6 +48,7 @@ in
     # per-theme config files into ~/.config/themes/<name>/
     imports = [
         ./targets/waybar-colours.nix
+        ./targets/hyprland-colours.nix
     ];
 
     options = {
