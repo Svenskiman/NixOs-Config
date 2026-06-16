@@ -49,6 +49,8 @@ in
     imports = [
         ./targets/waybar-colours.nix
         ./targets/hyprland-colours.nix
+        ./theme-switcher.nix
+        ./default.nix
     ];
 
     options = {
