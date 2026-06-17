@@ -41,7 +41,7 @@ let
         makoctl reload
 
         # ── Walker ────────────────────────────────────────────
-        pkill walker
+        systemctl --user restart walker
 
         echo "Theme set to $THEME"
     '';
