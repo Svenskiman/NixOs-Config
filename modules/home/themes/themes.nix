@@ -54,6 +54,7 @@ in
         ./targets/mako-colours.nix
         ./targets/walker-colours.nix
         ./targets/alacritty-colours.nix
+        ./targets/btop-colours.nix
     ];
 
     options = {

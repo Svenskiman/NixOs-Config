@@ -60,6 +60,14 @@ let
         cp "$THEME_DIR/alacritty.toml" "$HOME/.config/alacritty/colors.toml"
         chmod 644 "$HOME/.config/alacritty/colors.toml"
 
+
+        # ── Btop ──────────────────────────────────────────────
+        mkdir -p "$HOME/.config/btop/themes"
+        chmod 644 "$HOME/.config/btop/themes/current.theme" 2>/dev/null || true
+        cp "$THEME_DIR/btop.theme" "$HOME/.config/btop/themes/current.theme"
+        chmod 644 "$HOME/.config/btop/themes/current.theme"
+        pkill -SIGUSR2 btop 2>/dev/null || true
+
         echo "Theme set to $THEME"
     '';
 in

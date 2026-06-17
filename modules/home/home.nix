@@ -10,6 +10,7 @@
     ./waybar/waybar.nix
     ./walker/walker.nix
     ./xdg.nix
+    ./btop.nix
   ];
 
   # Packages
@@ -37,6 +38,10 @@
 
   # Wallpaper via awww (swww)
   services.awww.enable = true;
+
+  # TUIs
+  myModules.btop.enable = true;
+
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
