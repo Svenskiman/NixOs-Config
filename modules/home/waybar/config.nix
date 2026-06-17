@@ -28,18 +28,13 @@
             orientation = "horizontal";
             modules = [
                 "custom/nixlogo"
-                "custom/nixarrow"
             ];
         };
 
         "custom/nixlogo" = {
             format = "󱄅 ";
             tooltip = false;
-        };
-
-        "custom/nixarrow" = {
-            format = "❯";
-            tooltip = false;
+            on-click = "alacritty --class floating -e bash -c 'fastfetch; read -n1'";
         };
 
         "hyprland/workspaces" = {

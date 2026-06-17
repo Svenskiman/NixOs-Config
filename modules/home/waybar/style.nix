@@ -29,7 +29,7 @@
     /* ── Nix menu pill ───────────────────────────────────── */
 
     #nixmenu {
-        padding: 0 4px 0 12px;
+        padding: 0 12px 0 16px;
     }
 
     #custom-nixlogo {
@@ -38,14 +38,6 @@
         background: transparent;
         padding: 0;
         margin: 0;
-    }
-
-    #custom-nixarrow {
-        color: @foreground;
-        background: transparent;
-        padding: 0 10px 0 4px;
-        margin: 0;
-        font-size: 11px;
     }
 
     /* ── Workspaces ──────────────────────────────────────── */
