@@ -12,6 +12,7 @@
             wget
             git
             fastfetch
+            eza
 
             # TUIs
             btop

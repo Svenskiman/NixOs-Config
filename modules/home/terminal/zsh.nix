@@ -19,6 +19,14 @@
                 share = true;
             };
 
+            # Alias eza with ls
+            shellAliases = {
+                ls  = "eza -lh --group-directories-first --icons=auto";
+                lsa = "eza -lha --group-directories-first --icons=auto";
+                lt  = "eza --tree --level=2 --long --icons --git";
+                lta = "eza --tree --level=2 --long --icons --git -a";
+            };
+
 			# Case insensitive tab completion
             initContent = ''
                 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
