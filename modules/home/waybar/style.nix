@@ -103,7 +103,7 @@
     #cpu {
         background: transparent;
         color: @foreground;
-        padding: 0 8px;
+        padding: 0 14px 0 8px;
         border-radius: 0;
         margin: 0;
         font-size: 15px;
