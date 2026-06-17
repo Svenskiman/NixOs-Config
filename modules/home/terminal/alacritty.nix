@@ -13,7 +13,7 @@
                 general.import = [ "/home/svenski/.config/alacritty/colors.toml" ];
                 window = {
                     padding = {
-                        x = 8;
+                        x = 16;
                         y = 8;
                     };
                     decorations = "none";
