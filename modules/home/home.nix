@@ -5,10 +5,11 @@
     ./packages/packages-bundle.nix
     ./scripts/scripts-bundle.nix
     ./terminal/terminal-bundle.nix
+    ./themes/themes.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
+    ./walker/walker.nix
     ./xdg.nix
-    ./mako.nix
   ];
 
   # Packages
@@ -31,7 +32,11 @@
   # Waybar
   myModules.waybar.enable = true;
 
-  myModules.mako.enable = true;
+  # Walker
+  myModules.walker.enable = true;
+
+  # Wallpaper via awww (swww)
+  services.awww.enable = true;
 
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";

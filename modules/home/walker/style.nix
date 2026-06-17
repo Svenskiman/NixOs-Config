@@ -1,0 +1,76 @@
+''
+    * {
+        all: unset;
+        font-family: "JetBrainsMono Nerd Font";
+        font-size:   15px;
+    }
+
+    /* ── Outer container ─────────────────────────────────── */
+
+    .box-wrapper {
+        background:    @window_bg_color;
+        border:        1px solid @accent_bg_color;
+        border-radius: 12px;
+        padding:       16px;
+        box-shadow:
+            0 19px 38px rgba(0, 0, 0, 0.3),
+            0 15px 12px rgba(0, 0, 0, 0.22);
+        min-width:  480px;
+        max-width:  480px;
+    }
+
+    /* ── Search input ────────────────────────────────────── */
+
+    .input {
+        background:    transparent;
+        color:         @theme_fg_color;
+        caret-color:   @theme_fg_color;
+        padding:       10px;
+        border-radius: 8px;
+    }
+
+    .input placeholder {
+        opacity: 0.4;
+    }
+
+    /* ── List ────────────────────────────────────────────── */
+
+    .list {
+        color: @theme_fg_color;
+    }
+
+    child {
+        border-radius: 8px;
+    }
+
+    .large-icons {
+        -gtk-icon-size: 32px;
+    }
+
+    .item-box {
+        padding:       12px;
+        border-radius: 8px;
+    }
+
+    child:selected .item-box,
+    row:selected .item-box {
+        background: alpha(@accent_bg_color, 0.25);
+    }
+
+    /* ── Item text ───────────────────────────────────────── */
+
+    .item-subtext {
+        font-size: 12px;
+        opacity:   0.5;
+    }
+
+    .keybinds {
+        opacity: 0;
+    }
+
+    /* ── Scrollbar ───────────────────────────────────────── */
+
+    scrollbar {
+        opacity: 0;
+    }
+''
