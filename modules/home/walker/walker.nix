@@ -8,7 +8,8 @@ in
 {
 
     imports = [ 
-        ./menus/theme-switcher.nix 
+        ./menus/theme-switcher.nix
+        ./menus/wallpaper-switcher.nix
     ];
 
     options = {

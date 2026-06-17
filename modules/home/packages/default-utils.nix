@@ -33,6 +33,9 @@
             # File manager
             nautilus
 
+            # Wallpapers
+            awww
+
             adwaita-icon-theme
         ];
     };

@@ -19,6 +19,11 @@
         list  = "No Results";
     };
 
+    placeholders."menus:wallpapers" = {
+        input = "Search...";
+        list  = "No Results";
+    };
+
     # Only show desktop applications, limit results
     providers = {
         empty = [ "desktopapplications" ];

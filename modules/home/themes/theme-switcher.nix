@@ -40,8 +40,18 @@ let
         chmod 644 "$HOME/.config/mako/config"
         makoctl reload
 
+
         # ── Walker ────────────────────────────────────────────
         systemctl --user restart walker
+
+        
+        # ── Wallpaper ─────────────────────────────────────────
+        WALLPAPER_DIR="$HOME/.config/nixconf/assets/wallpapers/$THEME"
+        FIRST_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) | sort | head -1)
+
+        if [ -n "$FIRST_WALLPAPER" ]; then
+            awww img "$FIRST_WALLPAPER" --transition-type fade
+        fi
 
         echo "Theme set to $THEME"
     '';

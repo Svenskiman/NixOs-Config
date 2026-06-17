@@ -35,6 +35,9 @@
   # Walker
   myModules.walker.enable = true;
 
+  # Wallpaper via awww (swww)
+  services.awww.enable = true;
+
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
   home.stateVersion = "26.05";
