@@ -19,6 +19,7 @@ in
             hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} --class floating -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker --width 500 --maxheight 300"))
+            hl.bind("SUPER + SHIFT + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:themes --width 500 --maxheight 400"))
             hl.bind("SUPER + SHIFT + grave", hl.dsp.exec_cmd("capture-screenshot"))
             hl.bind("SUPER + CTRL + grave",  hl.dsp.exec_cmd("capture-screenshot-annotate"))
 

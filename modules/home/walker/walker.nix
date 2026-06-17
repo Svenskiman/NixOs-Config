@@ -6,6 +6,11 @@ let
 in
 
 {
+
+    imports = [ 
+        ./menus/theme-switcher.nix 
+    ];
+
     options = {
         myModules.walker.enable = lib.mkEnableOption "Walker";
     };

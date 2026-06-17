@@ -14,6 +14,11 @@
         list  = "No Results";
     };
 
+    placeholders."menus:themes" = {
+        input = "Search...";
+        list  = "No Results";
+    };
+
     # Only show desktop applications, limit results
     providers = {
         empty = [ "desktopapplications" ];
