@@ -61,7 +61,10 @@ in
         # To add a theme: append (import ./definitions/mytheme.nix) to this list.
         myModules.themes.definitions = lib.mkOption {
             type    = lib.types.listOf themeType;
-            default = [ (import ./definitions/nord.nix) ];
+            default = [ 
+                (import ./definitions/nord.nix)
+                (import ./definitions/gruvbox.nix) 
+            ];
         };
     };
 
