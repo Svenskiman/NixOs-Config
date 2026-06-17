@@ -40,7 +40,7 @@
                 };
 
                 git_branch = {
-                    format = "[git:\\(](bold blue)[$branch](bold #E06C75)[\\)](bold blue) ";
+                    format = "[git:\\(](bold blue)[$branch](bold red)[\\)](bold blue) ";
                 };
 
                 character = {

@@ -53,6 +53,7 @@ in
         ./default.nix
         ./targets/mako-colours.nix
         ./targets/walker-colours.nix
+        ./targets/alacritty-colours.nix
     ];
 
     options = {

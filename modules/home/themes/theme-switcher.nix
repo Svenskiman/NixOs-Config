@@ -29,6 +29,15 @@ let
         pkill -SIGUSR2 waybar
 
 
+        # ── Wallpaper ─────────────────────────────────────────
+        WALLPAPER_DIR="$HOME/.config/nixconf/assets/wallpapers/$THEME"
+        FIRST_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) | sort | head -1)
+
+        if [ -n "$FIRST_WALLPAPER" ]; then
+            awww img "$FIRST_WALLPAPER" --transition-type fade
+        fi
+
+
         # ── Hyprland ──────────────────────────────────────────
         hyprctl reload > /dev/null 2>&1
 
@@ -44,14 +53,12 @@ let
         # ── Walker ────────────────────────────────────────────
         systemctl --user restart walker
 
-        
-        # ── Wallpaper ─────────────────────────────────────────
-        WALLPAPER_DIR="$HOME/.config/nixconf/assets/wallpapers/$THEME"
-        FIRST_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) | sort | head -1)
 
-        if [ -n "$FIRST_WALLPAPER" ]; then
-            awww img "$FIRST_WALLPAPER" --transition-type fade
-        fi
+        # ── Alacritty ─────────────────────────────────────────
+        mkdir -p "$HOME/.config/alacritty"
+        chmod 644 "$HOME/.config/alacritty/colors.toml" 2>/dev/null || true
+        cp "$THEME_DIR/alacritty.toml" "$HOME/.config/alacritty/colors.toml"
+        chmod 644 "$HOME/.config/alacritty/colors.toml"
 
         echo "Theme set to $THEME"
     '';
