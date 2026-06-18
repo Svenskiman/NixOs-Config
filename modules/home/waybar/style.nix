@@ -76,12 +76,13 @@
         color: @foreground;
         opacity: 1;
     }
-    
+
     /* ── Media pill ──────────────────────────────────────── */
 
     #media {
         padding: 0 14px;
         min-width: 220px;
+        max-width: 220px;
     }
 
     #custom-title,
