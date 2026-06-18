@@ -3,7 +3,7 @@
 let
 	terminal = "alacritty";
     system_monitor = "btop";
-    file_manager = "nautilus --new-window";
+    file_manager = "thunar";
     browser = "brave";
 in
 

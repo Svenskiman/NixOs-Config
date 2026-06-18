@@ -32,12 +32,14 @@
             # Walker is pulled via flake
 
             # File manager
-            nautilus
+            thunar
+
 
             # Wallpapers
             awww
 
             adwaita-icon-theme
+            adw-gtk3
         ];
     };
 }

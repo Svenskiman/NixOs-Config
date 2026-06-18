@@ -47,6 +47,18 @@
   home.homeDirectory = "/home/svenski";
   home.stateVersion = "26.05";
 
+  home.sessionVariables = {
+    GTK_THEME = "adw-gtk3-dark";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
+    };
+  };
+
   # Lauch Hyprland on login
   programs.bash = {
     enable = true;
