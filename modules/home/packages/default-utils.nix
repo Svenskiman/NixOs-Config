@@ -13,6 +13,8 @@
             git
             fastfetch
             eza
+            glib
+            gtk3
 
             # TUIs
             btop
@@ -23,6 +25,7 @@
             # Desktop
             waybar
             hyprpaper
+            gsettings-desktop-schemas
 
             # Notifications
             mako
@@ -38,6 +41,8 @@
             awww
 
             adwaita-icon-theme
+            papirus-icon-theme
+            papirus-folders 
         ];
     };
 }

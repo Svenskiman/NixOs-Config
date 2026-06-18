@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 let
-    themeNames = map (t: t.name) config.myModules.themes.definitions;
+    schemaDir = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas";
 
     nix-theme-set = pkgs.writeShellScriptBin "nix-theme-set" ''
         THEME=$1
@@ -68,12 +68,22 @@ let
         chmod 644 "$HOME/.config/btop/themes/current.theme"
         pkill -SIGUSR2 btop 2>/dev/null || true
 
+
+        # ── Nautilus ──────────────────────────────────────────
+        FOLDER_COLOR=$(cat "$THEME_DIR/folder-color")
+        CURRENT_COLOR=$(cat "$HOME/.local/state/theme/active-folder-color" 2>/dev/null || echo "")
+        if [ "$FOLDER_COLOR" != "$CURRENT_COLOR" ]; then
+            papirus-folders -C "$FOLDER_COLOR" --theme Papirus-Dark
+            echo "$FOLDER_COLOR" > "$HOME/.local/state/theme/active-folder-color"
+        fi
+        GSETTINGS_SCHEMA_DIR="${schemaDir}" gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+        GSETTINGS_SCHEMA_DIR="${schemaDir}" gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
         echo "Theme set to $THEME"
     '';
 in
 
-{   
-    # Add to $PATH
+{
     config = {
         home.packages = [ nix-theme-set ];
     };
