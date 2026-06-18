@@ -11,6 +11,7 @@
         modules-left = [
             "group/nixmenu"
             "hyprland/workspaces"
+            "group/media"
         ];
 
         modules-center = [
@@ -59,6 +60,36 @@
                 "4" = [];
                 "5" = [];
             };
+        };
+
+        "group/media" = {
+            orientation = "horizontal";
+            modules = [
+                "mpris"
+                "custom/prev"
+                "custom/next"
+            ];
+        };
+
+        "custom/prev" = {
+            format = "";
+            on-click = "playerctl previous";
+            tooltip = false;
+        };
+
+        "mpris" = {
+            format = "{title}  󰏤";
+            format-paused = "{title}  󰐊";
+            dynamic-len = 25;
+            tooltip = false;
+            on-click = "playerctl play-pause";
+            player = "spotify_player";
+        };
+
+        "custom/next" = {
+            format = "";
+            on-click = "playerctl next";
+            tooltip = false;
         };
 
         # ── Centre ────────────────────────────────────────────

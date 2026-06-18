@@ -17,6 +17,7 @@
 
     #nixmenu,
     #workspaces,
+    #media,
     #clock,
     #system-icons,
     #battery-tray {
@@ -74,6 +75,25 @@
     #workspaces button:hover {
         color: @foreground;
         opacity: 1;
+    }
+
+    /* ── Media pill ──────────────────────────────────────── */
+
+    #media {
+        padding: 0 14px;
+    }
+
+    #custom-prev,
+    #custom-next {
+        background: transparent;
+        color: @color8;
+        padding: 0 6px;
+    }
+
+    #mpris {
+        background: transparent;
+        color: @foreground;
+        padding: 0 6px;
     }
 
     /* ── Clock ───────────────────────────────────────────── */

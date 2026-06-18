@@ -13,6 +13,7 @@
             git
             fastfetch
             eza
+            playerctl
 
             # TUIs
             btop
