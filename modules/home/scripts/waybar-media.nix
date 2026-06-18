@@ -9,8 +9,8 @@ let
             if [ -z "$title" ]; then
                 echo "Nothing playing"
             else
-                if [ ${#title} -gt 15 ]; then
-                    echo "${title:0:15}..."
+                if [ "''${#title}" -gt 15 ]; then
+                    echo "''${title:0:15}..."
                 else
                     echo "$title"
                 fi
@@ -30,6 +30,7 @@ let
             fi
         '';
     };
+
 in
 
 {
