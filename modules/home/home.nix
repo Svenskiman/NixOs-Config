@@ -19,6 +19,7 @@
 
   # Scripts
   myModules.scripts.screenshot.enable = true;
+  myModules.scripts.waybarMedia.enable = true;
 
   # Terminal modules
   myModules.zsh.enable = true;

@@ -76,21 +76,18 @@
         color: @foreground;
         opacity: 1;
     }
-
+    
     /* ── Media pill ──────────────────────────────────────── */
 
     #media {
         padding: 0 14px;
+        min-width: 220px;
     }
 
+    #custom-title,
     #custom-prev,
+    #custom-playpause,
     #custom-next {
-        background: transparent;
-        color: @color8;
-        padding: 0 6px;
-    }
-
-    #mpris {
         background: transparent;
         color: @foreground;
         padding: 0 6px;

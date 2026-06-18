@@ -65,10 +65,17 @@
         "group/media" = {
             orientation = "horizontal";
             modules = [
-                "mpris"
+                "custom/title"
                 "custom/prev"
+                "custom/playpause"
                 "custom/next"
             ];
+        };
+
+        "custom/title" = {
+            exec = "waybar-title";
+            interval = 1;
+            tooltip = false;
         };
 
         "custom/prev" = {
@@ -77,13 +84,11 @@
             tooltip = false;
         };
 
-        "mpris" = {
-            format = "{title}  󰏤";
-            format-paused = "{title}  󰐊";
-            dynamic-len = 25;
-            tooltip = false;
+        "custom/playpause" = {
+            exec = "waybar-playpause";
+            interval = 1;
             on-click = "playerctl play-pause";
-            player = "spotify_player";
+            tooltip = false;
         };
 
         "custom/next" = {
