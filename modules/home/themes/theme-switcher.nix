@@ -4,8 +4,6 @@ let
     themeNames = map (t: t.name) config.myModules.themes.definitions;
 
     nix-theme-set = pkgs.writeShellScriptBin "nix-theme-set" ''
-        export PATH="${pkgs.lib.makeBinPath [ pkgs.glib pkgs.gsettings-desktop-schemas ]}:$PATH"
-        export GSETTINGS_SCHEMA_DIR="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas"
         THEME=$1
 
         # Validate theme name
@@ -69,19 +67,6 @@ let
         cp "$THEME_DIR/btop.theme" "$HOME/.config/btop/themes/current.theme"
         chmod 644 "$HOME/.config/btop/themes/current.theme"
         pkill -SIGUSR2 btop 2>/dev/null || true
-
-        # ── GTK / Nautilus ────────────────────────────────────
-        case "$THEME" in
-            ${lib.concatStringsSep "\n    " (map (t: "${t.name}) GTK_THEME=\"${t.gtkTheme}\" ;;") config.myModules.themes.definitions)}
-            *) GTK_THEME="Adwaita-dark" ;;
-        esac
-        gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
-        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-        if pgrep -x nautilus > /dev/null 2>&1; then
-            nautilus -q
-            sleep 0.3
-            nautilus --no-desktop &
-        fi
 
         echo "Theme set to $THEME"
     '';

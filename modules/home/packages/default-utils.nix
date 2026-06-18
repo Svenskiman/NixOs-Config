@@ -37,9 +37,6 @@
             # Wallpapers
             awww
 
-            # Themes
-            nordic 
-            gruvbox-gtk-theme
             adwaita-icon-theme
         ];
     };
