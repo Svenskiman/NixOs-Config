@@ -74,7 +74,6 @@
 
         "custom/title" = {
             exec = "waybar-title";
-            interval = 1;
             signal = 8;
             tooltip = false;
         };
@@ -87,7 +86,6 @@
 
         "custom/playpause" = {
             exec = "waybar-playpause";
-            interval = 1;
             on-click = "playerctl play-pause && pkill -SIGRTMIN+8 waybar";
             tooltip = false;
             signal = 8;
