@@ -80,7 +80,7 @@
     /* ── Media pill ──────────────────────────────────────── */
 
     #media {
-        padding: 0 14px;
+        padding: 0 14 0 6px;
         min-width: 220px;
     }
 
