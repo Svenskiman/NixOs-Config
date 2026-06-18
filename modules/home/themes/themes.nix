@@ -39,6 +39,7 @@ let
             name        = lib.mkOption { type = lib.types.str; };
             displayName = lib.mkOption { type = lib.types.str; };
             colors      = lib.mkOption { type = colorType; };
+            gtkTheme    = lib.mkOption { type = lib.types.str; };
         };
     };
 in

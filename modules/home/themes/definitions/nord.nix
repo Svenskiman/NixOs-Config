@@ -27,4 +27,6 @@
         color14 = "#8FBCBB";   # bright cyan
         color15 = "#ECEFF4";   # bright white
     };
+
+    gtkTheme = "Nordic-darker";
 }

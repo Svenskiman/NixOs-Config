@@ -27,4 +27,6 @@
         color14 = "#8BBA7F";   # bright cyan
         color15 = "#E2CCA9";   # bright white
     };
+
+    gtkTheme = "Gruvbox-Dark-BL";
 }
