@@ -13,8 +13,6 @@
     ./btop.nix
   ];
 
-  
-
   # Packages
   myModules.defaultApps.enable = true;
   myModules.defaultUtils.enable = true;
@@ -48,10 +46,6 @@
   home.username = "svenski";
   home.homeDirectory = "/home/svenski";
   home.stateVersion = "26.05";
-
-  home.sessionVariables = {
-    GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas";
-  };
 
   # Lauch Hyprland on login
   programs.bash = {

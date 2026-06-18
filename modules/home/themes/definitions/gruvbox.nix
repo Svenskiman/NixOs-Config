@@ -1,7 +1,6 @@
 {
     name        = "gruvbox";
     displayName = "Gruvbox";
-    folderColor = "green";
 
     colors = {
         background           = "#282828";

@@ -43,8 +43,6 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  programs.dconf.enable = true;
-
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 

@@ -1,7 +1,6 @@
 {
     name        = "nord";
     displayName = "Nord";
-    folderColor = "indigo";
 
     colors = {
         background           = "#2E3440";   # nord0

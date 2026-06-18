@@ -38,7 +38,6 @@ let
         options = {
             name        = lib.mkOption { type = lib.types.str; };
             displayName = lib.mkOption { type = lib.types.str; };
-            folderColor = lib.mkOption { type = lib.types.str; };
             colors      = lib.mkOption { type = colorType; };
         };
     };
@@ -56,8 +55,6 @@ in
         ./targets/walker-colours.nix
         ./targets/alacritty-colours.nix
         ./targets/btop-colours.nix
-        ./targets/nautilus-colours.nix
-        ./targets/papirus-icons.nix
     ];
 
     options = {
