@@ -21,8 +21,10 @@
             zed-editor
 
             # Tools
-            mpv # Media player
+            mpv
             blanket # Sounds
+
+            spotify-player
 
             # Disabled
             # foliate # E-reader
