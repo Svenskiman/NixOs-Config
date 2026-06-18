@@ -86,6 +86,7 @@
 
     #custom-title {
         min-width: 120px;
+        font-size: 12px;
     }
 
     #custom-title,
