@@ -82,7 +82,10 @@
     #media {
         padding: 0 14px;
         min-width: 220px;
-        max-width: 220px;
+    }
+
+    #custom-title {
+        min-width: 120px;
     }
 
     #custom-title,
