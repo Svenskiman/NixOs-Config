@@ -22,7 +22,8 @@
             wiremix
 
             # Desktop
-            waybar
+            eww
+            # waybar
             hyprpaper
 
             # Notifications

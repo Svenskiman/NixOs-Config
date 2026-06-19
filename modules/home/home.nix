@@ -8,6 +8,7 @@
     ./themes/themes.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
+    ./eww/eww.nix
     ./walker/walker.nix
     ./xdg.nix
     ./btop.nix
@@ -33,6 +34,7 @@
   myModules.xdg.enable = true;
 
   # System bar
+  myModules.eww.enable = true;
   myModules.waybar.enable = false;
 
   # Walker
