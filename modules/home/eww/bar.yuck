@@ -1,3 +1,13 @@
+;; -- Date/time state --
+
+(defvar datetime-alt false)
+
+(defpoll datetime-default :interval "1s"
+    "date +'%A %H:%M'")
+
+(defpoll datetime-alt-format :interval "1s"
+    "date +'%d %B W%V %Y'")
+
 ;; -- Bar window --
 
 (defwindow bar
@@ -66,14 +76,17 @@
 
 
 ;; -- Date/time pill --
+;; Click toggles between two formats, stays until clicked again.
 
 (defwidget datetime-pill []
-    (box :class "pill"
-        :orientation "h"
-        :space-evenly false
-        :halign "center"
-        :valign "center"
-        (label :class "datetime-label" :text "Friday 19:44")))
+    (eventbox :onclick "eww update datetime-alt=${!datetime-alt}"
+        (box :class "pill"
+            :orientation "h"
+            :space-evenly false
+            :halign "center"
+            :valign "center"
+            (label :class "datetime-label"
+                :text {datetime-alt ? datetime-alt-format : datetime-default}))))
 
 
 ;; -- System pill (audio / bluetooth / wifi) --

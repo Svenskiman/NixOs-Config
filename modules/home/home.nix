@@ -21,7 +21,8 @@
 
   # Scripts
   myModules.scripts.screenshot.enable = true;
-  myModules.scripts.waybarMedia.enable = true;
+  myModules.scripts.eww.enable = true;
+  myModules.scripts.waybarMedia.enable = false;
 
   # Terminal modules
   myModules.zsh.enable = true;
