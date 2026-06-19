@@ -28,6 +28,9 @@ let
         # SIGUSR2 triggers a CSS reload without restarting
         # pkill -SIGUSR2 waybar
 
+        # ── Eww ───────────────────────────────────────────────
+        eww reload 2>/dev/null || true
+
 
         # ── Wallpaper ─────────────────────────────────────────
         WALLPAPER_DIR="$HOME/.config/nixconf/assets/wallpapers/$THEME"

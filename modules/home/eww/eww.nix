@@ -9,7 +9,12 @@
 
         xdg.configFile = {
             "eww/eww.yuck".source = ./bar.yuck;
-            "eww/eww.css".source  = ./style.scss;
+
+            "eww/eww.css".text =
+                ''
+                    @import "/home/svenski/.local/state/theme/current/eww.css";
+                ''
+                + builtins.readFile ./style.css;
         };
     };
 }

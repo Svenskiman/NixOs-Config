@@ -47,6 +47,7 @@ in
     # Import target files — each one reads definitions and writes
     # per-theme config files into ~/.config/themes/<name>/
     imports = [
+        ./targets/eww-colours.nix
         ./targets/waybar-colours.nix
         ./targets/hyprland-colours.nix
         ./theme-switcher.nix
