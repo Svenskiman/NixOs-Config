@@ -20,17 +20,21 @@
 (defpoll audio-status :interval "1s"
     "eww-audio-status")
 
-
 ;; -- Bluetooth state --
 
 (defpoll bluetooth-status :interval "2s"
     "eww-bluetooth-status")
 
-
 ;; -- Network state --
 
 (defpoll network-status :interval "2s"
     "eww-network-status")
+
+
+;; -- Battery state --
+
+(defpoll battery-status :interval "30s"
+    "eww-battery-status")
 
 
 ;; -- Bar window --
@@ -153,7 +157,6 @@
                                     ? "󰤢"
                                     : "󰤟"))))}))))
 
-
 ;; -- Battery pill --
 
 (defwidget battery-pill []
@@ -162,4 +165,15 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "battery-label" :text "100% 󱊣")))
+        (label :class "battery-label"
+            :text {jq(battery-status, ".capacity") + "% " + (jq(battery-status, ".charging") == "true"
+                ? (jq(battery-status, ".capacity | tonumber") > 66
+                    ? "󱊦"
+                    : (jq(battery-status, ".capacity | tonumber") > 33
+                        ? "󱊥"
+                        : "󱊤"))
+                : (jq(battery-status, ".capacity | tonumber") > 66
+                    ? "󱊣"
+                    : (jq(battery-status, ".capacity | tonumber") > 33
+                        ? "󱊢"
+                        : "󱊡")))})))

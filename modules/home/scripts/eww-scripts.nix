@@ -87,6 +87,7 @@ let
 
     # Polls WiFi connection state via iwctl (iwd's CLI)
     # Emits one JSON line: {"connected": true|false, "signal": <0-100>}
+    # Calculate signal strength using Microsoft WLAN_ASSOCIATION_ATTRIBUTES standard
     eww-network-status = pkgs.writeShellApplication {
         name = "eww-network-status";
         runtimeInputs = [ pkgs.iwd pkgs.jq pkgs.gawk pkgs.gnused ];
@@ -109,7 +110,7 @@ let
                 connected=true
                 rssi=$(echo "$output" | awk '/RSSI/ {print $2; exit}')
 
-                # Calculate signal strength with Microsoft WLAN_ASSOCIATION_ATTRIBUTES standard
+                # Calculate signal strength
                 signal=$(awk -v r="$rssi" 'BEGIN {
                     pct = 2 * (r + 100)
                     if (pct > 100) pct = 100
@@ -126,6 +127,36 @@ let
                 '{connected: $connected, signal: $signal}'
         '';
     };
+
+    # Polls battery capacity/charging state from sysfs.
+    # Emits one JSON line: {"capacity": <0-100>, "charging": true|false}
+    eww-battery-status = pkgs.writeShellApplication {
+        name = "eww-battery-status";
+        runtimeInputs = [ pkgs.jq ];
+        text = ''
+            bat_path=""
+            for bat in /sys/class/power_supply/BAT*; do
+                [ -d "$bat" ] && bat_path="$bat" && break
+            done
+
+            if [ -z "$bat_path" ]; then
+                jq -nc '{capacity: 0, charging: false}'
+                exit 0
+            fi
+
+            capacity=$(cat "$bat_path/capacity")
+            status=$(cat "$bat_path/status")
+
+            if [ "$status" = "Charging" ]; then
+                charging=true
+            else
+                charging=false
+            fi
+
+            jq -nc --argjson capacity "$capacity" --argjson charging "$charging" \
+                '{capacity: $capacity, charging: $charging}'
+        '';
+    };
 in
 
 {
@@ -139,6 +170,7 @@ in
             eww-audio-status
             eww-bluetooth-status
             eww-network-status
+            eww-battery-status
         ];
     };
 }
