@@ -61,6 +61,29 @@ let
                 '{volume: $volume, muted: $muted}'
         '';
     };
+
+    # Polls Bluetooth power/connection state via bluetoothctl.
+    # Emits one JSON line: {"powered": true|false, "connected": true|false}
+    eww-bluetooth-status = pkgs.writeShellApplication {
+        name = "eww-bluetooth-status";
+        runtimeInputs = [ pkgs.bluez pkgs.jq pkgs.gnugrep ];
+        text = ''
+            if bluetoothctl show | grep -q "Powered: yes"; then
+                powered=true
+            else
+                powered=false
+            fi
+
+            if bluetoothctl info | grep -q "Connected: yes"; then
+                connected=true
+            else
+                connected=false
+            fi
+
+            jq -nc --argjson powered "$powered" --argjson connected "$connected" \
+                '{powered: $powered, connected: $connected}'
+        '';
+    };
 in
 
 {
@@ -72,6 +95,7 @@ in
         home.packages = [
             eww-workspace-listener
             eww-audio-status
+            eww-bluetooth-status
         ];
     };
 }

@@ -1,3 +1,9 @@
+;; -- Workspaces state --
+
+(deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
+    "eww-workspace-listener")
+
+    
 ;; -- Date/time state --
 
 (defvar datetime-alt false)
@@ -8,17 +14,17 @@
 (defpoll datetime-alt-format :interval "1s"
     "date +'%d %B W%V %Y'")
 
-
-;; -- Workspaces state --
-
-(deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
-    "eww-workspace-listener")
-
     
 ;; -- Audio state --
 
-(defpoll audio-status :interval "2s"
+(defpoll audio-status :interval "1s"
     "eww-audio-status")
+
+
+;; -- Bluetooth state --
+
+(defpoll bluetooth-status :interval "2s"
+    "eww-bluetooth-status")
 
 
 ;; -- Bar window --
@@ -120,7 +126,13 @@
                         : (jq(audio-status, ".volume | tonumber") > 33
                             ? "󰖀"
                             : "󰕿"))}))
-        (label :class "sys-icon" :text "󰂯")
+        (eventbox :onclick "bash -c 'alacritty --class floating -e bluetui &'"
+            (label :class "sys-icon"
+                :text {jq(bluetooth-status, ".powered") == "false"
+                    ? "󰂲"
+                    : (jq(bluetooth-status, ".connected") == "true"
+                        ? "󰂱"
+                        : "󰂯")}))
         (label :class "sys-icon" :text "󰤨")))
 
 
