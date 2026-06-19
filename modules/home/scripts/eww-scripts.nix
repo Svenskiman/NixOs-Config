@@ -84,6 +84,48 @@ let
                 '{powered: $powered, connected: $connected}'
         '';
     };
+
+    # Polls WiFi connection state via iwctl (iwd's CLI)
+    # Emits one JSON line: {"connected": true|false, "signal": <0-100>}
+    eww-network-status = pkgs.writeShellApplication {
+        name = "eww-network-status";
+        runtimeInputs = [ pkgs.iwd pkgs.jq pkgs.gawk pkgs.gnused ];
+        text = ''
+            # iwctl emits ANSI colour codes even when piped. Strip them.
+            strip_ansi() {
+                sed -E 's/\x1b\[[0-9;]*[a-zA-Z]//g'
+            }
+
+            device=$(iwctl device list | strip_ansi | awk '/station/ {print $1; exit}')
+
+            if [ -z "$device" ]; then
+                jq -nc '{connected: false, signal: 0}'
+                exit 0
+            fi
+
+            output=$(iwctl station "$device" show | strip_ansi)
+
+            if echo "$output" | grep -q "State *connected"; then
+                connected=true
+                rssi=$(echo "$output" | awk '/RSSI/ {print $2; exit}')
+
+                # Calculate signal strength with Microsoft WLAN_ASSOCIATION_ATTRIBUTES standard
+                signal=$(awk -v r="$rssi" 'BEGIN {
+                    pct = 2 * (r + 100)
+                    if (pct > 100) pct = 100
+                    if (pct < 0) pct = 0
+                    printf "%d", pct
+                }')
+
+            else
+                connected=false
+                signal=0
+            fi
+
+            jq -nc --argjson connected "$connected" --argjson signal "$signal" \
+                '{connected: $connected, signal: $signal}'
+        '';
+    };
 in
 
 {
@@ -96,6 +138,7 @@ in
             eww-workspace-listener
             eww-audio-status
             eww-bluetooth-status
+            eww-network-status
         ];
     };
 }

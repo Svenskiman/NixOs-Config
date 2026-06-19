@@ -27,6 +27,12 @@
     "eww-bluetooth-status")
 
 
+;; -- Network state --
+
+(defpoll network-status :interval "2s"
+    "eww-network-status")
+
+
 ;; -- Bar window --
 
 (defwindow bar
@@ -133,7 +139,19 @@
                     : (jq(bluetooth-status, ".connected") == "true"
                         ? "󰂱"
                         : "󰂯")}))
-        (label :class "sys-icon" :text "󰤨")))
+        (eventbox :onclick "bash -c 'alacritty --class floating -e impala &'"
+            (label :class "sys-icon"
+                :text {jq(network-status, ".type") == "\"ethernet\""
+                    ? "󰈀"
+                    : (jq(network-status, ".type") == "\"disconnected\""
+                        ? "󰤮"
+                        : (jq(network-status, ".signal") > 75
+                            ? "󰖩"
+                            : (jq(network-status, ".signal") > 50
+                                ? "󰤥"
+                                : (jq(network-status, ".signal") > 25
+                                    ? "󰤢"
+                                    : "󰤟"))))}))))
 
 
 ;; -- Battery pill --
