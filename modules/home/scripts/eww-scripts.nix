@@ -39,6 +39,28 @@ let
             done
         '';
     };
+
+
+    # Polls the default audio sink's volume/mute state via wpctl.
+    # Emits one JSON line: {"volume": <0-100>, "muted": true|false}
+    eww-audio-status = pkgs.writeShellApplication {
+        name = "eww-audio-status";
+        runtimeInputs = [ pkgs.wireplumber pkgs.jq ];
+        text = ''
+            status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+            raw=$(echo "$status" | awk '{print $2}')
+            volume=$(awk -v v="$raw" 'BEGIN { printf "%d", v * 100 }')
+
+            if echo "$status" | grep -q MUTED; then
+                muted=true
+            else
+                muted=false
+            fi
+
+            jq -nc --argjson volume "$volume" --argjson muted "$muted" \
+                '{volume: $volume, muted: $muted}'
+        '';
+    };
 in
 
 {
@@ -49,6 +71,7 @@ in
     config = lib.mkIf config.myModules.scripts.eww.enable {
         home.packages = [
             eww-workspace-listener
+            eww-audio-status
         ];
     };
 }

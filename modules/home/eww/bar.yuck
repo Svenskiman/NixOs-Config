@@ -14,6 +14,12 @@
 (deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
     "eww-workspace-listener")
 
+    
+;; -- Audio state --
+
+(defpoll audio-status :interval "2s"
+    "eww-audio-status")
+
 
 ;; -- Bar window --
 
@@ -105,7 +111,15 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "sys-icon" :text "󰕾")
+        (eventbox :onclick "bash -c 'alacritty --class floating -e wiremix &'"
+            (label :class "sys-icon"
+                :text {jq(audio-status, ".muted") == "true"
+                    ? "󰝟"
+                    : (jq(audio-status, ".volume | tonumber") > 66
+                        ? "󰕾"
+                        : (jq(audio-status, ".volume | tonumber") > 33
+                            ? "󰖀"
+                            : "󰕿"))}))
         (label :class "sys-icon" :text "󰂯")
         (label :class "sys-icon" :text "󰤨")))
 
