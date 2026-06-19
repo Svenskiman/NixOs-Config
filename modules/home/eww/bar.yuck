@@ -47,7 +47,7 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "nixos-icon" :text "󱄅 ")))
+        (label :class "nixos-icon" :text "󱄅")))
 
 
 ;; -- Workspaces pill --
