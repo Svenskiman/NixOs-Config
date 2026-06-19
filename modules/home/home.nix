@@ -32,8 +32,8 @@
   # Default directories
   myModules.xdg.enable = true;
 
-  # Waybar
-  myModules.waybar.enable = true;
+  # System bar
+  myModules.waybar.enable = false;
 
   # Walker
   myModules.walker.enable = true;
