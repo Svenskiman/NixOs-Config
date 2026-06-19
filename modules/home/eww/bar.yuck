@@ -8,6 +8,13 @@
 (defpoll datetime-alt-format :interval "1s"
     "date +'%d %B W%V %Y'")
 
+
+;; -- Workspaces state --
+
+(deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
+    "eww-workspace-listener")
+
+
 ;; -- Bar window --
 
 (defwindow bar
@@ -61,6 +68,7 @@
 
 
 ;; -- Workspaces pill --
+;; Fixed 1-5 always shown. Active workspace displays as "X".
 
 (defwidget workspaces-pill []
     (box :class "pill"
@@ -68,11 +76,11 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "ws-item ws-active" :text "1")
-        (label :class "ws-item" :text "2")
-        (label :class "ws-item" :text "3")
-        (label :class "ws-item" :text "4")
-        (label :class "ws-item" :text "5")))
+        (for ws in {[1,2,3,4,5]}
+            (eventbox :onclick "hyprctl dispatch workspace ${ws}"
+                (label
+                    :class "ws-item ${ws == workspace-state.active ? "ws-active" : ""}"
+                    :text {ws == workspace-state.active ? "X" : "${ws}"})))))
 
 
 ;; -- Date/time pill --
