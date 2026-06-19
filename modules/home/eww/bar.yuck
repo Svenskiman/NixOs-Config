@@ -1,4 +1,5 @@
-;; ── Bar window ─────────────────────────────────────────────
+;; -- Bar window --
+
 (defwindow bar
     :monitor 0
     :geometry (geometry
@@ -14,4 +15,86 @@
     (box :class "bar"
         :orientation "h"
         :space-evenly false
-        "eww bar"))
+
+        (box :class "left-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "start"
+            :hexpand true
+            (nixos-pill)
+            (workspaces-pill))
+
+        (box :class "centre-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "center"
+            (datetime-pill))
+
+        (box :class "right-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "end"
+            :hexpand true
+            (system-pill)
+            (battery-pill))))
+
+
+;; -- NixOS pill --
+
+(defwidget nixos-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class "nixos-icon" :text "󱄅 ")))
+
+
+;; -- Workspaces pill --
+
+(defwidget workspaces-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class "ws-item ws-active" :text "1")
+        (label :class "ws-item" :text "2")
+        (label :class "ws-item" :text "3")
+        (label :class "ws-item" :text "4")
+        (label :class "ws-item" :text "5")))
+
+
+;; -- Date/time pill --
+
+(defwidget datetime-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class "datetime-label" :text "Friday 19:44")))
+
+
+;; -- System pill (audio / bluetooth / wifi) --
+
+(defwidget system-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class "sys-icon" :text "󰕾")
+        (label :class "sys-icon" :text "󰂯")
+        (label :class "sys-icon" :text "󰤨")))
+
+
+;; -- Battery pill --
+
+(defwidget battery-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class "battery-label" :text "100% 󱊣")))

@@ -3,9 +3,65 @@
     font-size: 13px;
 }
 
+window {
+    background-color: transparent;
+}
+
 .bar {
     background-color: rgba(40, 40, 40, 0.55);
     border-radius: 16px;
-    padding: 0 16px;
+    padding: 0 8px;
     color: #ffffff;
+}
+
+.left-group,
+.centre-group,
+.right-group {
+    padding: 4px 0;
+}
+
+/* -- Pill base -- */
+
+.pill {
+    background-color: red;
+    border-radius: 9999px;
+    margin: 0 4px;
+    padding: 0 14px;
+}
+
+/* -- NixOS pill -- */
+
+.nixos-icon {
+    color: #88c0d0;
+    font-size: 16px;
+}
+
+/* -- Workspaces pill -- */
+
+.ws-item {
+    color: #808080;
+    padding: 0 4px;
+}
+
+.ws-active {
+    color: #ffffff;
+}
+
+/* -- Date/time pill -- */
+
+.datetime-label {
+    font-weight: 500;
+}
+
+/* -- System pill -- */
+
+.sys-icon {
+    padding: 0 6px;
+    font-size: 15px;
+}
+
+/* -- Battery pill -- */
+
+.battery-label {
+    padding: 0 4px;
 }
