@@ -68,6 +68,23 @@ let
         chmod 644 "$HOME/.config/btop/themes/current.theme"
         pkill -SIGUSR2 btop 2>/dev/null || true
 
+
+        # ── Spicetify ─────────────────────────────────────────
+        # One-time bootstrap: point Spicetify at the installed Spotify
+        # binary and register our theme folder, only if never done before.
+        if [ ! -f "$HOME/.config/spicetify/config-xpui.ini" ]; then
+            spicetify config spotify_path "$(dirname "$(readlink -f "$(command -v spotify)")")"
+            spicetify config current_theme Nixconf
+            spicetify config color_scheme Nixconf
+            spicetify backup apply 2>/dev/null || true
+        fi
+
+        mkdir -p "$HOME/.config/spicetify/Themes/Nixconf"
+        chmod 644 "$HOME/.config/spicetify/Themes/Nixconf/color.ini" 2>/dev/null || true
+        cp "$THEME_DIR/spicetify-color.ini" "$HOME/.config/spicetify/Themes/Nixconf/color.ini"
+        chmod 644 "$HOME/.config/spicetify/Themes/Nixconf/color.ini"
+        spicetify apply --no-restart 2>/dev/null || true
+
         echo "Theme set to $THEME"
     '';
 in

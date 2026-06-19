@@ -86,7 +86,7 @@
 
         "custom/playpause" = {
             exec = "waybar-playpause";
-            on-click = "playerctl play-pause && sleep 0.1 && pkill -SIGRTMIN+8 waybar";
+            on-click = "playerctl play-pause && pkill -SIGRTMIN+8 waybar";
             tooltip = false;
             signal = 8;
         };

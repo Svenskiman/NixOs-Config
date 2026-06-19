@@ -5,7 +5,7 @@ let
     system_monitor = "btop";
     file_manager = "thunar";
     browser = "brave";
-    music_player = "spotify_player";
+    music_player = "spotify";
 in
 
 {
@@ -19,7 +19,7 @@ in
             hl.bind("SUPER + SHIFT + ALT + B", hl.dsp.exec_cmd("${browser} --incognito"))
             hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} --class floating -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
-            hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("${terminal} --class floating -e ${music_player}"))
+            hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("${music_player}"))
 
             -- Walker Menus 
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker --width 500 --maxheight 300"))
