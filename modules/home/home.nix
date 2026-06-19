@@ -11,6 +11,7 @@
     ./walker/walker.nix
     ./xdg.nix
     ./btop.nix
+    ./spicetify.nix
   ];
 
   # Packages
@@ -36,6 +37,9 @@
 
   # Walker
   myModules.walker.enable = true;
+
+  # Spicetify
+  myModules.spicetify.enable = true;
 
   # Wallpaper via awww (swww)
   services.awww.enable = true;

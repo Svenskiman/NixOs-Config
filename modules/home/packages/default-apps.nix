@@ -20,15 +20,17 @@
             vscode
             zed-editor
 
-            # Tools
+            # Media
             mpv
             blanket # Sounds
-
-            spotify-player
 
             # Disabled
             # foliate # E-reader
             # gnome-solanum # Timer
+
+            # Installed via flake
+            # spotify
+            # spicetify-cli
 
         ];
     };
