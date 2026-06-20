@@ -160,11 +160,8 @@ let
 in
 
 {
-    options = {
-        myModules.scripts.eww.enable = lib.mkEnableOption "Eww scripts";
-    };
-
-    config = lib.mkIf config.myModules.scripts.eww.enable {
+    # Disabled if eww is off
+    config = lib.mkIf config.myModules.eww.enable {
         home.packages = [
             eww-workspace-listener
             eww-audio-status

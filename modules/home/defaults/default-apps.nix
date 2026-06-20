@@ -9,8 +9,7 @@
         home.packages = with pkgs; [
 
             # Terminals
-            alacritty
-            kitty
+            kitty # Hyprland's default 
 
             # Browsers
             brave
@@ -18,20 +17,14 @@
             # Editors
             vim
             vscode
-            zed-editor
 
             # Media
             mpv
-            blanket # Sounds
+            blanket
 
             # Disabled
             # foliate # E-reader
             # gnome-solanum # Timer
-
-            # Installed via flake
-            # spotify
-            # spicetify-cli
-
         ];
     };
 }
