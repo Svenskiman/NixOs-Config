@@ -165,7 +165,11 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "battery-label"
+        (label :class {jq(battery-status, ".capacity | tonumber") <= 20
+                ? "battery-label battery-critical"
+                : (jq(battery-status, ".capacity | tonumber") <= 49
+                    ? "battery-label battery-warning"
+                    : "battery-label battery-normal")}
             :text {jq(battery-status, ".capacity") + "% " + (jq(battery-status, ".charging") == "true"
                 ? (jq(battery-status, ".capacity | tonumber") > 66
                     ? "󱊦"

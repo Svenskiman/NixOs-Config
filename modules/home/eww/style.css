@@ -66,3 +66,15 @@ window {
 .battery-label {
     padding: 0 4px;
 }
+
+.battery-normal {
+    color: @color2;
+}
+
+.battery-warning {
+    color: @color3;
+}
+
+.battery-critical {
+    color: @color1;
+}
