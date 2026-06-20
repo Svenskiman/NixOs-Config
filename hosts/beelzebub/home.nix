@@ -47,12 +47,13 @@
         };
     };
 
-    programs.bash = {
-        enable = true;
-        profileExtra = ''
-            if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-                exec start-hyprland
-            fi
-        '';
-    };
+    # Uncomment if not using SDDM
+    # programs.bash = {
+    #     enable = true;
+    #     profileExtra = ''
+    #         if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+    #             exec start-hyprland
+    #         fi
+    #     '';
+    # };
 }
