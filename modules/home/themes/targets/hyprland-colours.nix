@@ -20,10 +20,10 @@ let
         name  = "themes/${theme.name}/hyprland-colours.lua";
         value = { text = makeHyprlandLua theme; };
     }) config.myModules.themes.definitions);
-
 in
+
 {
-    config = {
+    config = lib.mkIf config.myModules.hypr.enable {
         xdg.configFile = themeFiles;
     };
 }

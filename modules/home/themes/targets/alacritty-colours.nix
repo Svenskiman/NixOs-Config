@@ -58,7 +58,7 @@ let
 in
 
 {
-    config = {
+    config = lib.mkIf config.myModules.alacritty.enable {
         xdg.configFile = themeFiles;
     };
 }

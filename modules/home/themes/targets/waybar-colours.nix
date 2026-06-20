@@ -16,10 +16,10 @@ let
         name  = "themes/${theme.name}/waybar.css";
         value = { text = makeWaybarCSS theme; };
     }) config.myModules.themes.definitions);
-
 in
+
 {
-    config = {
+    config = lib.mkIf config.myModules.waybar.enable {
         xdg.configFile = themeFiles;
     };
 }
