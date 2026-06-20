@@ -47,11 +47,10 @@ in
     # Import target files — each one reads definitions and writes
     # per-theme config files into ~/.config/themes/<name>/
     imports = [
+        ./default.nix
         ./targets/eww-colours.nix
         ./targets/waybar-colours.nix
         ./targets/hyprland-colours.nix
-        ./theme-switcher.nix
-        ./default.nix
         ./targets/mako-colours.nix
         ./targets/walker-colours.nix
         ./targets/alacritty-colours.nix
