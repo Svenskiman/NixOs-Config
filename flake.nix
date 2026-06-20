@@ -33,7 +33,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.svenski = import ./modules/home/home.nix;
+            users.svenski = import ./hosts/beelzebub/home.nix;
             backupFileExtension = "backup";
             sharedModules = [
                 walker.homeManagerModules.default

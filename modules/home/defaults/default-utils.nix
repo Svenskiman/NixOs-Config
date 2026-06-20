@@ -16,29 +16,20 @@
             playerctl
 
             # TUIs
-            btop
             impala
             bluetui
             wiremix
 
             # Desktop
-            eww
             # waybar
             hyprpaper
 
             # Notifications
             mako
             libnotify
-            
-            # Launcher
-            # Walker is pulled via flake
 
             # File manager
             thunar
-
-
-            # Wallpapers
-            awww
 
             adwaita-icon-theme
             adw-gtk3

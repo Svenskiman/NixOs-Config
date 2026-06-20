@@ -17,7 +17,7 @@ let
 in
 
 {
-    config = {
+    config = lib.mkIf config.myModules.walker.enable {
         xdg.configFile."elephant/menus/themes.toml".text = menuContent;
     };
 }

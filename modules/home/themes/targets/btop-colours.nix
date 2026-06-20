@@ -94,7 +94,7 @@ let
 in
 
 {
-    config = {
+    config = lib.mkIf config.myModules.btop.enable {
         xdg.configFile = themeFiles;
     };
 }

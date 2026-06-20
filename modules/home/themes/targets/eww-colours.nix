@@ -19,7 +19,7 @@ let
 in
 
 {
-    config = {
+    config = lib.mkIf config.myModules.eww.enable {
         xdg.configFile = themeFiles;
     };
 }
