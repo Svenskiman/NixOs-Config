@@ -44,7 +44,7 @@ window {
 /* -- Workspaces pill -- */
 
 .ws-item {
-    color: @color8;
+    color: @color7;
     padding: 0 4px;
 }
 
