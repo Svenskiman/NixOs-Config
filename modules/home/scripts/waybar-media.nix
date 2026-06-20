@@ -30,15 +30,10 @@ let
             fi
         '';
     };
-
 in
 
 {
-    options = {
-        myModules.scripts.waybarMedia.enable = lib.mkEnableOption "Waybar media scripts";
-    };
-
-    config = lib.mkIf config.myModules.scripts.waybarMedia.enable {
+    config = lib.mkIf config.myModules.waybar.enable {
         home.packages = [
             waybar-title
             waybar-playpause

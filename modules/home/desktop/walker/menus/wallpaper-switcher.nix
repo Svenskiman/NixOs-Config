@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 {
-    config = {
+    config = lib.mkIf config.myModules.walker.enable {
         # Generate the wallpaper switcher Lua menu for Elephant.
         # Dynamically scans the active theme's wallpaper directory at runtime.
         xdg.configFile."elephant/menus/wallpapers.lua".text = ''

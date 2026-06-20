@@ -9,7 +9,7 @@
 
         xdg.configFile = {
             "eww/eww.yuck".source = ./bar.yuck;
-            "eww/nixos-logo.svg".source = ../../../assets/icons/NixOS.svg;
+            "eww/nixos-logo.svg".source = ../../../../assets/icons/NixOS.svg;
 
             "eww/eww.css".text =
                 ''
