@@ -80,13 +80,25 @@
 
 ;; -- NixOS pill --
 
+;; Glyph version 
+; (defwidget nixos-pill []
+;     (box :class "pill"
+;         :orientation "h"
+;         :space-evenly false
+;         :halign "center"
+;         :valign "center"
+;         (label :class "nixos-icon" :text "󱄅")))
+
+;; SVG version 
 (defwidget nixos-pill []
     (box :class "pill"
         :orientation "h"
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class "nixos-icon" :text "󱄅")))
+        (image :path "${EWW_CONFIG_DIR}/nixos-logo.svg"
+            :image-width 18
+            :image-height 18)))
 
 
 ;; -- Workspaces pill --

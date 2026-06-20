@@ -30,13 +30,16 @@ window {
     min-height: 28px;
 }
 
+
 /* -- NixOS pill -- */
 
-.nixos-icon {
+/* Uncomment when using glpyh instead of svg */
+/* .nixos-icon {
     color: @accent;
     font-size: 16px;
     padding: 0 6px 0 3px;
-}
+} */
+
 
 /* -- Workspaces pill -- */
 
