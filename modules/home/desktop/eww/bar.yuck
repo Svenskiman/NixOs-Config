@@ -14,6 +14,12 @@
 (defpoll datetime-alt-format :interval "1s"
     "date +'%d %B W%V %Y'")
 
+
+;; -- Dropbox state --
+
+(defpoll dropbox-status :interval "2s"
+    "eww-dropbox-status")
+
     
 ;; -- Audio state --
 
@@ -74,6 +80,7 @@
             :space-evenly false
             :halign "end"
             :hexpand true
+            (dropbox-pill)
             (system-pill)
             (battery-pill))))
 
@@ -130,6 +137,23 @@
             (label :class "datetime-label"
                 :text {datetime-alt ? datetime-alt-format : datetime-default}))))
 
+
+;; -- Dropbox pill --
+
+(defwidget dropbox-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class {jq(dropbox-status, ".status") == "\"synced\""
+                ? "dropbox-icon dropbox-synced"
+                : (jq(dropbox-status, ".status") == "\"syncing\""
+                    ? "dropbox-icon dropbox-syncing"
+                    : (jq(dropbox-status, ".status") == "\"paused\""
+                        ? "dropbox-icon dropbox-paused"
+                        : "dropbox-icon dropbox-error"))}
+            :text "")))
 
 ;; -- System pill (audio / bluetooth / wifi) --
 

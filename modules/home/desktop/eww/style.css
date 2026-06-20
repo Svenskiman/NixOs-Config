@@ -58,6 +58,18 @@ window {
     font-weight: 500;
 }
 
+/* -- Dropbox pill -- */
+
+.dropbox-icon {
+    padding: 0 6px;
+    font-size: 15px;
+}
+
+.dropbox-synced  { color: @foreground; }
+.dropbox-syncing { color: @color2; }
+.dropbox-paused  { color: @color3; }
+.dropbox-error   { color: @color1; }
+
 /* -- System pill -- */
 
 .sys-icon {

@@ -29,6 +29,7 @@
 
     # Media
     myModules.spicetify.enable = true;
+    myModules.dropbox.enable = true;
 
     home.username = "svenski";
     home.homeDirectory = "/home/svenski";

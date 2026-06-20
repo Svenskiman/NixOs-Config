@@ -157,6 +157,33 @@ let
                 '{capacity: $capacity, charging: $charging}'
         '';
     };
+
+    # Polls Dropbox sync state via `dropbox status`.
+    # Emits one JSON line: {"status": "synced"|"syncing"|"paused"|"error"}
+    eww-dropbox-status = pkgs.writeShellApplication {
+        name = "eww-dropbox-status";
+        runtimeInputs = [ pkgs.dropbox-cli pkgs.jq pkgs.gnugrep pkgs.procps ];
+        text = ''
+            if ! pgrep -f "dropbox-lnx" >/dev/null 2>&1; then
+                jq -nc '{status: "error"}'
+                exit 0
+            fi
+
+            output=$(timeout 10 dropbox status 2>/dev/null || echo "")
+
+            if echo "$output" | grep -qiE "up to date"; then
+                status="synced"
+            elif echo "$output" | grep -qiE "syncing|downloading|uploading|indexing|starting|connecting"; then
+                status="syncing"
+            elif echo "$output" | grep -qiE "paused"; then
+                status="paused"
+            else
+                status="error"
+            fi
+
+            jq -nc --arg status "$status" '{status: $status}'
+        '';
+    };
 in
 
 {
@@ -168,6 +195,7 @@ in
             eww-bluetooth-status
             eww-network-status
             eww-battery-status
+            eww-dropbox-status
         ];
     };
 }

@@ -7,6 +7,8 @@
 
     config = lib.mkIf config.myModules.eww.enable {
 
+        home.packages = [ pkgs.eww ];
+
         xdg.configFile = {
             "eww/eww.yuck".source = ./bar.yuck;
             "eww/nixos-logo.svg".source = ../../../../assets/icons/NixOS.svg;
