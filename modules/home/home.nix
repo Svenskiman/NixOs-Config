@@ -8,6 +8,7 @@
     ./themes/themes.nix
     ./hyprland/hyprland.nix
     ./waybar/waybar.nix
+    ./eww/eww.nix
     ./walker/walker.nix
     ./xdg.nix
     ./btop.nix
@@ -20,7 +21,8 @@
 
   # Scripts
   myModules.scripts.screenshot.enable = true;
-  myModules.scripts.waybarMedia.enable = true;
+  myModules.scripts.eww.enable = true;
+  myModules.scripts.waybarMedia.enable = false;
 
   # Terminal modules
   myModules.zsh.enable = true;
@@ -32,8 +34,9 @@
   # Default directories
   myModules.xdg.enable = true;
 
-  # Waybar
-  myModules.waybar.enable = true;
+  # System bar
+  myModules.eww.enable = true;
+  myModules.waybar.enable = false;
 
   # Walker
   myModules.walker.enable = true;

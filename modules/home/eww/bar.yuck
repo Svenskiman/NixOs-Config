@@ -1,0 +1,195 @@
+;; -- Workspaces state --
+
+(deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
+    "eww-workspace-listener")
+
+    
+;; -- Date/time state --
+
+(defvar datetime-alt false)
+
+(defpoll datetime-default :interval "1s"
+    "date +'%A %H:%M'")
+
+(defpoll datetime-alt-format :interval "1s"
+    "date +'%d %B W%V %Y'")
+
+    
+;; -- Audio state --
+
+(defpoll audio-status :interval "1s"
+    "eww-audio-status")
+
+;; -- Bluetooth state --
+
+(defpoll bluetooth-status :interval "2s"
+    "eww-bluetooth-status")
+
+;; -- Network state --
+
+(defpoll network-status :interval "2s"
+    "eww-network-status")
+
+
+;; -- Battery state --
+
+(defpoll battery-status :interval "30s"
+    "eww-battery-status")
+
+
+;; -- Bar window --
+
+(defwindow bar
+    :monitor 0
+    :geometry (geometry
+        :x "0%"
+        :y "8px"
+        :width "98%"
+        :height "40px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive true
+    :focusable false
+
+    (box :class "bar"
+        :orientation "h"
+        :space-evenly false
+
+        (box :class "left-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "start"
+            :hexpand true
+            (nixos-pill)
+            (workspaces-pill))
+
+        (box :class "centre-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "center"
+            (datetime-pill))
+
+        (box :class "right-group"
+            :orientation "h"
+            :space-evenly false
+            :halign "end"
+            :hexpand true
+            (system-pill)
+            (battery-pill))))
+
+
+;; -- NixOS pill --
+
+;; Glyph version 
+; (defwidget nixos-pill []
+;     (box :class "pill"
+;         :orientation "h"
+;         :space-evenly false
+;         :halign "center"
+;         :valign "center"
+;         (label :class "nixos-icon" :text "󱄅")))
+
+;; SVG version 
+(defwidget nixos-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (image :path "${EWW_CONFIG_DIR}/nixos-logo.svg"
+            :image-width 18
+            :image-height 18)))
+
+
+;; -- Workspaces pill --
+;; Fixed 1-5 always shown. Active workspace displays as "X".
+
+(defwidget workspaces-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (for ws in {[1,2,3,4,5]}
+            (eventbox :onclick "hyprctl dispatch workspace ${ws}"
+                (label
+                    :class "ws-item ${ws == workspace-state.active ? "ws-active" : ""}"
+                    :text {ws == workspace-state.active ? "X" : "${ws}"})))))
+
+
+;; -- Date/time pill --
+;; Click toggles between two formats, stays until clicked again.
+
+(defwidget datetime-pill []
+    (eventbox :onclick "eww update datetime-alt=${!datetime-alt}"
+        (box :class "pill"
+            :orientation "h"
+            :space-evenly false
+            :halign "center"
+            :valign "center"
+            (label :class "datetime-label"
+                :text {datetime-alt ? datetime-alt-format : datetime-default}))))
+
+
+;; -- System pill (audio / bluetooth / wifi) --
+
+(defwidget system-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (eventbox :onclick "bash -c 'alacritty --class floating -e wiremix &'"
+            (label :class "sys-icon"
+                :text {jq(audio-status, ".muted") == "true"
+                    ? "󰝟"
+                    : (jq(audio-status, ".volume | tonumber") > 66
+                        ? "󰕾"
+                        : (jq(audio-status, ".volume | tonumber") > 33
+                            ? "󰖀"
+                            : "󰕿"))}))
+        (eventbox :onclick "bash -c 'alacritty --class floating -e bluetui &'"
+            (label :class "sys-icon"
+                :text {jq(bluetooth-status, ".powered") == "false"
+                    ? "󰂲"
+                    : (jq(bluetooth-status, ".connected") == "true"
+                        ? "󰂱"
+                        : "󰂯")}))
+        (eventbox :onclick "bash -c 'alacritty --class floating -e impala &'"
+            (label :class "sys-icon"
+                :text {jq(network-status, ".type") == "\"ethernet\""
+                    ? "󰈀"
+                    : (jq(network-status, ".type") == "\"disconnected\""
+                        ? "󰤮"
+                        : (jq(network-status, ".signal") > 75
+                            ? "󰖩"
+                            : (jq(network-status, ".signal") > 50
+                                ? "󰤥"
+                                : (jq(network-status, ".signal") > 25
+                                    ? "󰤢"
+                                    : "󰤟"))))}))))
+
+;; -- Battery pill --
+
+(defwidget battery-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+        (label :class {jq(battery-status, ".capacity | tonumber") <= 20
+                ? "battery-label battery-critical"
+                : (jq(battery-status, ".capacity | tonumber") <= 49
+                    ? "battery-label battery-warning"
+                    : "battery-label battery-normal")}
+            :text {jq(battery-status, ".capacity") + "% " + (jq(battery-status, ".charging") == "true"
+                ? (jq(battery-status, ".capacity | tonumber") > 66
+                    ? "󱊦"
+                    : (jq(battery-status, ".capacity | tonumber") > 33
+                        ? "󱊥"
+                        : "󱊤"))
+                : (jq(battery-status, ".capacity | tonumber") > 66
+                    ? "󱊣"
+                    : (jq(battery-status, ".capacity | tonumber") > 33
+                        ? "󱊢"
+                        : "󱊡")))})))
