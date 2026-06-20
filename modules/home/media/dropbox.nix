@@ -4,6 +4,6 @@
     options.myModules.dropbox.enable = lib.mkEnableOption "Dropbox sync";
 
     config = lib.mkIf config.myModules.dropbox.enable {
-        services.dropbox.enable = false;
+        services.dropbox.enable = true;
     };
 }
