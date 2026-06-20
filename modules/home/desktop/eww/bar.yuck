@@ -63,26 +63,26 @@
 
         (box :class "left-group"
             :orientation "h"
-            :space-evenly false
             :halign "start"
-            :hexpand true
-            (nixos-pill)
-            (workspaces-pill))
+            :width 280
+            (box :orientation "h" :space-evenly false :halign "start"
+                (nixos-pill)
+                (workspaces-pill)))
 
         (box :class "centre-group"
             :orientation "h"
-            :space-evenly false
+            :hexpand true
             :halign "center"
             (datetime-pill))
 
         (box :class "right-group"
             :orientation "h"
-            :space-evenly false
             :halign "end"
-            :hexpand true
-            (dropbox-pill)
-            (system-pill)
-            (battery-pill))))
+            :width 280
+            (box :orientation "h" :space-evenly false :halign "end"
+                (dropbox-pill)
+                (system-pill)
+                (battery-pill)))))
 
 
 ;; -- NixOS pill --
