@@ -17,10 +17,13 @@
             # Editors
             vim
             vscode
+            sublime4
 
             # Media
             mpv
             blanket
+
+            obsidian
 
             # Disabled
             # foliate # E-reader
