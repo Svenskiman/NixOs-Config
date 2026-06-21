@@ -184,6 +184,38 @@ let
             jq -nc --arg status "$status" '{status: $status}'
         '';
     };
+
+    # Polls Discord process + voice state via pactl.
+    #   - "off"   : process not running (expected resting state - not autostarted)
+    #   - "on"    : running, no active mic-capture source-output (not in a call)
+    #   - "call"  : running, has an active source-output, and it's unmuted
+    #   - "muted" : running, has an active source-output, and it's muted
+    eww-discord-status = pkgs.writeShellApplication {
+        name = "eww-discord-status";
+        runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.procps pkgs.gnugrep ];
+        text = ''
+            if ! pgrep -i discord >/dev/null 2>&1; then
+                jq -nc '{status: "off"}'
+                exit 0
+            fi
+
+            # Discord's mic-capture stream shows up as a source-output
+            # with application.process.binary = "Discord".
+            stream=$(pactl list source-outputs | awk \
+                '/^Source Output #/{block=""} {block=block"\n"$0} /application.process.binary = "Discord"/{print block}')
+
+            if [ -z "$stream" ]; then
+                jq -nc '{status: "on"}'
+                exit 0
+            fi
+
+            if echo "$stream" | grep -q "Mute: yes"; then
+                jq -nc '{status: "muted"}'
+            else
+                jq -nc '{status: "call"}'
+            fi
+        '';
+    };
 in
 
 {
@@ -196,6 +228,7 @@ in
             eww-network-status
             eww-battery-status
             eww-dropbox-status
+            eww-discord-status
         ];
     };
 }

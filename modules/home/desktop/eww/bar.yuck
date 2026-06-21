@@ -20,6 +20,11 @@
 (defpoll dropbox-status :interval "2s"
     "eww-dropbox-status")
 
+;; -- Discord state --
+
+(defpoll discord-status :interval "2s"
+    "eww-discord-status")
+
     
 ;; -- Audio state --
 
@@ -80,7 +85,7 @@
             :halign "end"
             :width 280
             (box :orientation "h" :space-evenly false :halign "end"
-                (dropbox-pill)
+                (applications-pill)
                 (system-pill)
                 (battery-pill)))))
 
@@ -138,22 +143,30 @@
                 :text {datetime-alt ? datetime-alt-format : datetime-default}))))
 
 
-;; -- Dropbox pill --
+;; -- Applications pill (dropbox / discord) --
 
-(defwidget dropbox-pill []
+(defwidget applications-pill []
     (box :class "pill"
         :orientation "h"
         :space-evenly false
         :halign "center"
         :valign "center"
         (label :class {jq(dropbox-status, ".status") == "\"synced\""
-                ? "dropbox-icon dropbox-synced"
+                ? "app-icon dropbox-synced"
                 : (jq(dropbox-status, ".status") == "\"syncing\""
-                    ? "dropbox-icon dropbox-syncing"
+                    ? "app-icon dropbox-syncing"
                     : (jq(dropbox-status, ".status") == "\"paused\""
-                        ? "dropbox-icon dropbox-paused"
-                        : "dropbox-icon dropbox-error"))}
-            :text "")))
+                        ? "app-icon dropbox-paused"
+                        : "app-icon dropbox-error"))}
+            :text "")
+        (label :class {jq(discord-status, ".status") == "\"off\""
+                ? "app-icon discord-off"
+                : (jq(discord-status, ".status") == "\"on\""
+                    ? "app-icon discord-on"
+                    : (jq(discord-status, ".status") == "\"call\""
+                        ? "app-icon discord-call"
+                        : "app-icon discord-muted"))}
+            :text "")))
 
 ;; -- System pill (audio / bluetooth / wifi) --
 

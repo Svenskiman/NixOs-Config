@@ -30,6 +30,7 @@
     # Media
     myModules.spicetify.enable = true;
     myModules.dropbox.enable = true;
+    myModules.discord.enable = true;
 
     # Clamshell
     myModules.clamshell.enable = false;
