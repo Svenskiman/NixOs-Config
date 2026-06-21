@@ -61,7 +61,7 @@ window {
 /* -- Applications pill (dropbox / discord) -- */
 
 .app-icon {
-    padding: 0 6px;
+    padding: 0 8px;
     font-size: 15px;
 }
 
@@ -70,10 +70,9 @@ window {
 .dropbox-paused  { color: @color3; }
 .dropbox-error   { color: @color1; }
 
-.discord-off   { color: @color7; }
-.discord-on    { color: @foreground; }
-.discord-call  { color: @color2; }
-.discord-muted { color: @color3; }
+.discord-off  { color: @color7; }
+.discord-on   { color: @foreground; }
+.discord-call { color: @color2; }
 
 /* -- System pill -- */
 

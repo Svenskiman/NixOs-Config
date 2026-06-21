@@ -186,36 +186,34 @@ let
     };
 
     # Polls Discord process + voice state via pactl.
-    #   - "off"   : process not running (expected resting state - not autostarted)
-    #   - "on"    : running, no active mic-capture source-output (not in a call)
-    #   - "call"  : running, has an active source-output, and it's unmuted
-    #   - "muted" : running, has an active source-output, and it's muted
+    #   - "off"  : discord not running
+    #   - "on"   : running, no active mic-capture source-output (not in a call)
+    #   - "call" : running, has an active source-output (in a voice call)
     eww-discord-status = pkgs.writeShellApplication {
-        name = "eww-discord-status";
-        runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.procps pkgs.gnugrep ];
-        text = ''
-            if ! pgrep -i discord >/dev/null 2>&1; then
-                jq -nc '{status: "off"}'
-                exit 0
-            fi
+            name = "eww-discord-status";
+            runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.procps pkgs.gawk ];
+            text = ''
+                if ! pgrep -f '/opt/Discord/' >/dev/null 2>&1; then
+                    jq -nc '{status: "off"}'
+                    exit 0
+                fi
 
-            # Discord's mic-capture stream shows up as a source-output
-            # with application.process.binary = "Discord".
-            stream=$(pactl list source-outputs | awk \
-                '/^Source Output #/{block=""} {block=block"\n"$0} /application.process.binary = "Discord"/{print block}')
+                # application.process.binary is ".Discord-wrapped" (Flatpak-style),
+                # so match loosely on "discord" rather than an exact string.
+                found=$(pactl list source-outputs | awk '
+                    BEGIN { IGNORECASE = 1 }
+                    /application\.process\.binary = / {
+                        if ($0 ~ /discord/) { print "yes"; exit }
+                    }
+                ')
 
-            if [ -z "$stream" ]; then
-                jq -nc '{status: "on"}'
-                exit 0
-            fi
-
-            if echo "$stream" | grep -q "Mute: yes"; then
-                jq -nc '{status: "muted"}'
-            else
-                jq -nc '{status: "call"}'
-            fi
-        '';
-    };
+                if [ "$found" = "yes" ]; then
+                    jq -nc '{status: "call"}'
+                else
+                    jq -nc '{status: "on"}'
+                fi
+            '';
+        };
 in
 
 {
