@@ -151,14 +151,15 @@
         :space-evenly false
         :halign "center"
         :valign "center"
-        (label :class {jq(dropbox-status, ".status") == "\"synced\""
-                ? "app-icon dropbox-synced"
-                : (jq(dropbox-status, ".status") == "\"syncing\""
-                    ? "app-icon dropbox-syncing"
-                    : (jq(dropbox-status, ".status") == "\"paused\""
-                        ? "app-icon dropbox-paused"
-                        : "app-icon dropbox-error"))}
-            :text "")
+        (eventbox :onclick "bash -c 'dropbox-open &'"
+            (label :class {jq(dropbox-status, ".status") == "\"synced\""
+                    ? "app-icon dropbox-synced"
+                    : (jq(dropbox-status, ".status") == "\"syncing\""
+                        ? "app-icon dropbox-syncing"
+                        : (jq(dropbox-status, ".status") == "\"paused\""
+                            ? "app-icon dropbox-paused"
+                            : "app-icon dropbox-error"))}
+                :text ""))
         (eventbox :onclick "bash -c 'discord-toggle &'"
             (label :class {jq(discord-status, ".status") == "\"off\""
                 ? "app-icon discord-off"
