@@ -17,7 +17,7 @@
     # Scripts
     myModules.scripts.screenshot.enable = true;
 
-    # Desktop
+    # Desktop environment
     myModules.hypr.enable = true;
     myModules.eww.enable = true;
     myModules.waybar.enable = false;
@@ -30,6 +30,9 @@
     # Media
     myModules.spicetify.enable = true;
     myModules.dropbox.enable = true;
+
+    # Clamshell
+    myModules.clamshell.enable = false;
 
     home.username = "svenski";
     home.homeDirectory = "/home/svenski";

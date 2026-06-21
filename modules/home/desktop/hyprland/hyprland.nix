@@ -4,6 +4,7 @@
     imports = [
         ./autostart.nix
         ./bindings.nix
+        ./clamshell-binds.nix
         ./looknfeel.nix
         ./input.nix
         ./windowrules.nix
