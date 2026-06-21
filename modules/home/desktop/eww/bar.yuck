@@ -159,12 +159,13 @@
                         ? "app-icon dropbox-paused"
                         : "app-icon dropbox-error"))}
             :text "")
-        (label :class {jq(discord-status, ".status") == "\"off\""
-            ? "app-icon discord-off"
-            : (jq(discord-status, ".status") == "\"call\""
-                ? "app-icon discord-call"
-                : "app-icon discord-on")}
-            :text "")))
+        (eventbox :onclick "bash -c 'discord-toggle &'"
+            (label :class {jq(discord-status, ".status") == "\"off\""
+                ? "app-icon discord-off"
+                : (jq(discord-status, ".status") == "\"call\""
+                    ? "app-icon discord-call"
+                    : "app-icon discord-on")}
+                :text ""))))
 
 ;; -- System pill (audio / bluetooth / wifi) --
 
