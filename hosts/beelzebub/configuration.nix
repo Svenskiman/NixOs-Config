@@ -28,6 +28,9 @@
         withUWSM = true;
     };
 
+    # VFS Daemon
+    services.gvfs.enable = true;
+
     # Do NOT change this value
     system.stateVersion = "26.05";
 }
