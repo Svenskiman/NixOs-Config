@@ -7,6 +7,8 @@
     ];
 
     networking.hostName = "beelzebub";
+
+    # Enable if not using SDDM
     # services.getty.autologinUser = "svenski";
 
     # System modules

@@ -9,5 +9,6 @@
         ./media
         ./desktop
         ./user-dirs.nix
+        ./services
     ];
 }

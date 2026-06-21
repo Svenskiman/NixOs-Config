@@ -35,6 +35,9 @@
     # Clamshell
     myModules.clamshell.enable = false;
 
+    # Fixes
+    myModules.audioFixes.zenbookMicBoost.enable = true;
+
     home.username = "svenski";
     home.homeDirectory = "/home/svenski";
     home.stateVersion = "26.05";
