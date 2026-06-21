@@ -65,7 +65,8 @@ in
             type    = lib.types.listOf themeType;
             default = [ 
                 (import ./definitions/nord.nix)
-                (import ./definitions/gruvbox.nix) 
+                (import ./definitions/gruvbox.nix)
+                (import ./definitions/everforest.nix)
             ];
         };
     };
