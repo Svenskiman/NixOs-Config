@@ -68,6 +68,7 @@ in
                 (import ./definitions/gruvbox.nix)
                 (import ./definitions/everforest.nix)
                 (import ./definitions/silent-hill.nix)
+                (import ./definitions/silent-hill-v2.nix)
             ];
         };
     };
