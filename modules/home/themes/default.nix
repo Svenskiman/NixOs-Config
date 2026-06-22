@@ -69,6 +69,7 @@ in
                 (import ./definitions/everforest.nix)
                 (import ./definitions/silent-hill.nix)
                 (import ./definitions/silent-hill-v2.nix)
+                (import ./definitions/silent-hill-v3.nix)
             ];
         };
     };
