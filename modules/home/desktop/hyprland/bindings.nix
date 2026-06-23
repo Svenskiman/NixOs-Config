@@ -35,6 +35,10 @@ in
                 hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
             end
 
+            -- Scratchpad
+            hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("scratchpad"))
+            hl.bind("SUPER + ALT + S", hl.dsp.window.move({ workspace = "special:scratchpad" }))
+
             -- Window management
             hl.bind("SUPER + F", hl.dsp.window.fullscreen())
             hl.bind("SUPER + T", hl.dsp.window.float())
