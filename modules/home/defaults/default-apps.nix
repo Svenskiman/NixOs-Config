@@ -22,6 +22,7 @@
             # Media
             mpv
             blanket
+            spotify
 
             obsidian
 

@@ -15,12 +15,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # For configuring spicetify with home manager
-        spicetify-nix = {
-            url = "github:Gerg-L/spicetify-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
         # For lazy SDDM login screen styling
         silentSDDM = {
             url = "github:uiriansan/SilentSDDM";
@@ -28,7 +22,7 @@
         };
     };
 
-    outputs = {nixpkgs, home-manager, walker, spicetify-nix, silentSDDM, ...}: {
+    outputs = {nixpkgs, home-manager, walker, silentSDDM, ...}: {
         nixosConfigurations.beelzebub = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             # Load my stuff
@@ -44,11 +38,7 @@
                         backupFileExtension = "backup";
                         sharedModules = [
                             walker.homeManagerModules.default
-                            spicetify-nix.homeManagerModules.spicetify
                         ];
-                        extraSpecialArgs = {
-                            inherit spicetify-nix;
-                        };
                     };
                 }
             ];

@@ -29,7 +29,6 @@
     myModules.xdg.enable = true;
 
     # Media
-    myModules.spicetify.enable = true;
     myModules.dropbox.enable = true;
     myModules.discord.enable = true;
 
