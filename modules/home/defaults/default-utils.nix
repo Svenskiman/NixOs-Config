@@ -28,10 +28,6 @@
             mako
             libnotify
 
-            # File manager
-            thunar
-
-            adwaita-icon-theme
             adw-gtk3
         ];
     };

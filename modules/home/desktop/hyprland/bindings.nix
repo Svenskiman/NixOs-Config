@@ -3,7 +3,7 @@
 let
 	terminal = "alacritty";
     system_monitor = "btop";
-    file_manager = "thunar";
+    file_manager = "nautilus";
     browser = "brave";
     music_player = "spotify";
 in

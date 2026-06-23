@@ -5,9 +5,9 @@
 let
     dropbox-open = pkgs.writeShellApplication {
         name = "dropbox-open";
-        runtimeInputs = [ pkgs.thunar ];
+        runtimeInputs = [ pkgs.nautilus ];
         text = ''
-            thunar /home/svenski/.dropbox-hm/Dropbox/
+            nautilus /home/svenski/.dropbox-hm/Dropbox/
         '';
     };
 in
