@@ -1,6 +1,7 @@
 {
     name        = "gruvbox";
     displayName = "Gruvbox";
+    iconTheme = "Yaru-olive";
 
     colors = {
         background           = "#282828";

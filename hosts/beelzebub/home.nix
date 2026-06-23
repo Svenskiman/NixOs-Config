@@ -23,6 +23,7 @@
     myModules.waybar.enable = false;
     myModules.walker.enable = true;
     myModules.wallpaper.enable = true;
+    myModules.nautilus.enable = true;
 
     # User dirs
     myModules.xdg.enable = true;

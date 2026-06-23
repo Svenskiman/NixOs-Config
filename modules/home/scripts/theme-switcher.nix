@@ -84,6 +84,15 @@ let
         '';
     };
 
+    apply-theme-nautilus = pkgs.writeShellApplication {
+        name = "apply-theme-nautilus";
+        runtimeInputs = [ pkgs.dconf ];
+        text = ''
+            ICON_THEME=$1
+            dconf write /org/gnome/desktop/interface/icon-theme "'$ICON_THEME'"
+        '';
+    };
+
 
     # ── Inactive ──────────────────────────────────────────
     apply-theme-waybar = pkgs.writeShellApplication {
@@ -101,7 +110,6 @@ let
     nix-theme-set = pkgs.writeShellScriptBin "nix-theme-set" ''
         THEME=$1
 
-        # Validate theme name
         if [ -z "$THEME" ]; then
             echo "Usage: nix-theme-set <theme-name>"
             exit 1
@@ -114,12 +122,18 @@ let
             exit 1
         fi
 
-        # Update the active theme symlink atomically
+        # Icon theme lookup — baked in at build time by Nix
+        declare -A ICON_THEMES=(
+            ${lib.concatStringsSep "\n        " (
+                map (t: "[\"${t.name}\"]=\"${t.iconTheme}\"")
+                config.myModules.themes.definitions
+            )}
+        )
+        ICON_THEME="''${ICON_THEMES[$THEME]:-Yaru-blue}"
+
         ln -sfn "$THEME_DIR" "$HOME/.local/state/theme/current"
         echo "$THEME" > "$HOME/.local/state/theme/active-theme"
 
-
-        # ── Apply to each program ───────────────────────────────────
         ${apply-theme-eww}/bin/apply-theme-eww
         ${apply-theme-wallpaper}/bin/apply-theme-wallpaper "$THEME"
         ${apply-theme-hyprland}/bin/apply-theme-hyprland
@@ -127,6 +141,7 @@ let
         ${apply-theme-walker}/bin/apply-theme-walker
         ${apply-theme-alacritty}/bin/apply-theme-alacritty "$THEME_DIR"
         ${apply-theme-btop}/bin/apply-theme-btop "$THEME_DIR"
+        ${apply-theme-nautilus}/bin/apply-theme-nautilus "$ICON_THEME"
 
         echo "Theme set to $THEME"
     '';

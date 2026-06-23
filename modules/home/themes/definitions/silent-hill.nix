@@ -1,6 +1,7 @@
 {
     name        = "silent-hill";
     displayName = "Silent Hill";
+    iconTheme = "Yaru-sage";
 
     colors = {
         background           = "#1C1E1A";   # near-black olive dark

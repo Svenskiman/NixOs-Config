@@ -1,6 +1,7 @@
 {
     name        = "nord";
     displayName = "Nord";
+    iconTheme   = "Yaru-blue";
 
     colors = {
         background           = "#2E3440";   # nord0

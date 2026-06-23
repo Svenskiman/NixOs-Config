@@ -1,6 +1,7 @@
 {
     name        = "everforest";
     displayName = "Everforest";
+    iconTheme = "Yaru-sage";
 
     colors = {
         background           = "#2D353B";   # bg0

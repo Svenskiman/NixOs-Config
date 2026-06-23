@@ -33,11 +33,12 @@ let
         };
     };
 
-    # A complete theme — name, display name, and a validated colour set
+    # A complete theme — name, display name, iconTheme, and a validated colour set
     themeType = lib.types.submodule {
         options = {
             name        = lib.mkOption { type = lib.types.str; };
             displayName = lib.mkOption { type = lib.types.str; };
+            iconTheme   = lib.mkOption { type = lib.types.str; default = "Yaru-blue"; };
             colors      = lib.mkOption { type = colorType; };
         };
     };
