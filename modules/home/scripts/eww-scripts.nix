@@ -217,26 +217,44 @@ let
 
     # Polls Spotify playback state via playerctl.
     # Emits one JSON line: {"title": "...", "position": "m:ss", "length": "m:ss", "status": "Playing"|"Paused", "active": true|false}
-    # Title is truncated to 15 characters with trailing ellipsis if exceeded.
+    # Title takes priority — remaining characters filled with " - artist", truncated if needed.
     # Position and length are empty strings when nothing is playing.
     eww-spotify-status = pkgs.writeShellApplication {
         name = "eww-spotify-status";
         runtimeInputs = [ pkgs.playerctl pkgs.jq ];
         text = ''
+
+            MAX_CHARS=25       # Max characters before truncation
+            PAD_TO=28          # Fixed display width (MAX_CHARS + 3 for "...")
+
             output=$(playerctl --player=spotify metadata \
-                --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}' 2>/dev/null)
+                --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}§{{artist}}' 2>/dev/null)
 
             if [ -z "$output" ]; then
                 jq -nc '{title: "Nothing playing...", position: "", length: "", status: "Paused", active: false}'
                 exit 0
             fi
 
-            IFS='§' read -r title status position length <<< "$output"
+            IFS='§' read -r title status position length artist <<< "$output"
 
-            # Truncate title to 15 characters
-            if [ "''${#title}" -gt 15 ]; then
-                title="''${title:0:15}..."
+            # Build display string — title takes priority, fill remainder with " - artist"
+            if [ "''${#title}" -lt $MAX_CHARS ]; then
+                remaining=$(( MAX_CHARS - ''${#title} ))
+                suffix=" - $artist"
+                if [ "''${#suffix}" -gt "$remaining" ]; then
+                    suffix="''${suffix:0:$remaining}..."
+                fi
+                display="$title$suffix"
+            elif [ "''${#title}" -gt $MAX_CHARS ]; then
+                display="''${title:0:$MAX_CHARS}..."
+            else
+                display="$title"
             fi
+
+            # Pad to fixed width so the label never changes size
+            while [ "''${#display}" -lt $PAD_TO ]; do
+                display="$display "
+            done
 
             # Convert microseconds to m:ss
             to_timestamp() {
@@ -251,7 +269,7 @@ let
             length_fmt=$(to_timestamp "$length")
 
             jq -nc \
-                --arg title "$title" \
+                --arg title "$display" \
                 --arg position "$position_fmt" \
                 --arg length "$length_fmt" \
                 --arg status "$status" \

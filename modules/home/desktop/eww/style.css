@@ -72,6 +72,10 @@ window {
     font-size: 13px;
 }
 
+.spotify-pill {
+    min-width: 320px;
+}
+
 /* -- Date/time pill -- */
 
 .datetime-label {

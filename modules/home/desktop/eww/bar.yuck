@@ -70,27 +70,22 @@
     (box :class "bar"
         :orientation "h"
         :space-evenly false
-
-        (box :class "left-group"
-            :orientation "h"
-            :halign "start"
-            :width 280
-            (box :orientation "h" :space-evenly false :halign "start"
+        (centerbox :orientation "h"
+            :hexpand true
+            (box :class "left-group"
+                :orientation "h"
+                :halign "start"
+                :space-evenly false
                 (nixos-pill)
                 (workspaces-pill)
-                (spotify-pill)))
-
-        (box :class "centre-group"
-            :orientation "h"
-            :hexpand true
-            :halign "center"
-            (datetime-pill))
-
-        (box :class "right-group"
-            :orientation "h"
-            :halign "end"
-            :width 280
-            (box :orientation "h" :space-evenly false :halign "end"
+                (spotify-pill))
+            (box :class "centre-group"
+                :halign "center"
+                (datetime-pill))
+            (box :class "right-group"
+                :orientation "h"
+                :halign "end"
+                :space-evenly false
                 (applications-pill)
                 (system-pill)
                 (battery-pill)))))
@@ -138,19 +133,20 @@
 ;; -- Spotify pill --
 
 (defwidget spotify-pill []
-    (box :class "pill"
+    (box :class "pill spotify-pill"
         :orientation "h"
         :space-evenly false
         :halign "center"
         :valign "center"
+        :width 320
 
         (label :class "spotify-title"
-            :text {jq(spotify-status, ".title")}
+            :text {replace(jq(spotify-status, ".title"), "\"", "")}
             :xalign 0)
 
         (label :class "spotify-timestamp"
             :text {jq(spotify-status, ".active") == "true"
-                ? jq(spotify-status, ".position") + " / " + jq(spotify-status, ".length")
+                ? replace(jq(spotify-status, ".position"), "\"", "") + " / " + replace(jq(spotify-status, ".length"), "\"", "")
                 : ""}
             :xalign 0)
 
