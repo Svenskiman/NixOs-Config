@@ -3,6 +3,11 @@
 (deflisten workspace-state :initial "{\"active\": 1, \"occupied\": []}"
     "eww-workspace-listener")
 
+;; -- Spotify state --
+
+(defpoll spotify-status :interval "1s" :initial "{\"title\": \"Nothing playing...\", \"position\": \"\", \"length\": \"\", \"status\": \"Paused\", \"active\": false}"
+    "eww-spotify-status")
+
     
 ;; -- Date/time state --
 
@@ -72,7 +77,8 @@
             :width 280
             (box :orientation "h" :space-evenly false :halign "start"
                 (nixos-pill)
-                (workspaces-pill)))
+                (workspaces-pill)
+                (spotify-pill)))
 
         (box :class "centre-group"
             :orientation "h"
@@ -127,6 +133,41 @@
                 (label
                     :class "ws-item ${ws == workspace-state.active ? "ws-active" : ""}"
                     :text {ws == workspace-state.active ? "X" : "${ws}"})))))
+
+
+;; -- Spotify pill --
+
+(defwidget spotify-pill []
+    (box :class "pill"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        :valign "center"
+
+        (label :class "spotify-title"
+            :text {jq(spotify-status, ".title")}
+            :xalign 0)
+
+        (label :class "spotify-timestamp"
+            :text {jq(spotify-status, ".active") == "true"
+                ? jq(spotify-status, ".position") + " / " + jq(spotify-status, ".length")
+                : ""}
+            :xalign 0)
+
+        (eventbox :onclick "playerctl --player=spotify previous"
+            :visible {jq(spotify-status, ".active") == "true"}
+            (label :class "spotify-control" :text ""))
+
+        (eventbox :onclick "playerctl --player=spotify play-pause"
+            :visible {jq(spotify-status, ".active") == "true"}
+            (label :class "spotify-control"
+                :text {jq(spotify-status, ".status") == "\"Playing\""
+                    ? "󰏤"
+                    : "󰐊"}))
+
+        (eventbox :onclick "playerctl --player=spotify next"
+            :visible {jq(spotify-status, ".active") == "true"}
+            (label :class "spotify-control" :text ""))))
 
 
 ;; -- Date/time pill --

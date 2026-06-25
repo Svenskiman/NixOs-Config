@@ -190,30 +190,75 @@ let
     #   - "on"   : running, no active mic-capture source-output (not in a call)
     #   - "call" : running, has an active source-output (in a voice call)
     eww-discord-status = pkgs.writeShellApplication {
-            name = "eww-discord-status";
-            runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.procps pkgs.gawk ];
-            text = ''
-                if ! pgrep -f '/opt/Discord/' >/dev/null 2>&1; then
-                    jq -nc '{status: "off"}'
-                    exit 0
-                fi
+        name = "eww-discord-status";
+        runtimeInputs = [ pkgs.pulseaudio pkgs.jq pkgs.procps pkgs.gawk ];
+        text = ''
+            if ! pgrep -f '/opt/Discord/' >/dev/null 2>&1; then
+                jq -nc '{status: "off"}'
+                exit 0
+            fi
 
-                # application.process.binary is ".Discord-wrapped" (Flatpak-style),
-                # so match loosely on "discord" rather than an exact string.
-                found=$(pactl list source-outputs | awk '
-                    BEGIN { IGNORECASE = 1 }
-                    /application\.process\.binary = / {
-                        if ($0 ~ /discord/) { print "yes"; exit }
-                    }
-                ')
+            # application.process.binary is ".Discord-wrapped" (Flatpak-style),
+            # so match loosely on "discord" rather than an exact string.
+             found=$(pactl list source-outputs | awk '
+                BEGIN { IGNORECASE = 1 }
+                /application\.process\.binary = / {
+                    if ($0 ~ /discord/) { print "yes"; exit }
+                }
+            ')
 
-                if [ "$found" = "yes" ]; then
-                    jq -nc '{status: "call"}'
-                else
-                    jq -nc '{status: "on"}'
-                fi
-            '';
-        };
+            if [ "$found" = "yes" ]; then
+                jq -nc '{status: "call"}'
+            else
+                jq -nc '{status: "on"}'
+            fi
+        '';
+    };
+
+    # Polls Spotify playback state via playerctl.
+    # Emits one JSON line: {"title": "...", "position": "m:ss", "length": "m:ss", "status": "Playing"|"Paused", "active": true|false}
+    # Title is truncated to 15 characters with trailing ellipsis if exceeded.
+    # Position and length are empty strings when nothing is playing.
+    eww-spotify-status = pkgs.writeShellApplication {
+        name = "eww-spotify-status";
+        runtimeInputs = [ pkgs.playerctl pkgs.jq ];
+        text = ''
+            output=$(playerctl --player=spotify metadata \
+                --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}' 2>/dev/null)
+
+            if [ -z "$output" ]; then
+                jq -nc '{title: "Nothing playing...", position: "", length: "", status: "Paused", active: false}'
+                exit 0
+            fi
+
+            IFS='§' read -r title status position length <<< "$output"
+
+            # Truncate title to 15 characters
+            if [ "''${#title}" -gt 15 ]; then
+                title="''${title:0:15}..."
+            fi
+
+            # Convert microseconds to m:ss
+            to_timestamp() {
+                local us=$1
+                local total_seconds=$(( us / 1000000 ))
+                local minutes=$(( total_seconds / 60 ))
+                local seconds=$(( total_seconds % 60 ))
+                printf "%d:%02d" "$minutes" "$seconds"
+            }
+
+            position_fmt=$(to_timestamp "$position")
+            length_fmt=$(to_timestamp "$length")
+
+            jq -nc \
+                --arg title "$title" \
+                --arg position "$position_fmt" \
+                --arg length "$length_fmt" \
+                --arg status "$status" \
+                '{title: $title, position: $position, length: $length, status: $status, active: true}'
+        '';
+    };
+    
 in
 
 {
@@ -227,6 +272,7 @@ in
             eww-battery-status
             eww-dropbox-status
             eww-discord-status
+            eww-spotify-status
         ];
     };
 }

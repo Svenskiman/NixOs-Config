@@ -52,6 +52,26 @@ window {
     color: @accent;
 }
 
+/* -- Spotify pill -- */
+
+.spotify-title {
+    min-width: 140px;
+    padding: 0 8px 0 4px;
+    font-size: 13px;
+}
+
+.spotify-timestamp {
+    min-width: 90px;
+    padding: 0 12px 0 0;
+    font-size: 12px;
+    color: alpha(@foreground, 0.5);
+}
+
+.spotify-control {
+    padding: 0 6px;
+    font-size: 13px;
+}
+
 /* -- Date/time pill -- */
 
 .datetime-label {
