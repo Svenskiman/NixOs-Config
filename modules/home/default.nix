@@ -10,5 +10,6 @@
         ./desktop
         ./user-dirs.nix
         ./services
+        ./patches
     ];
 }

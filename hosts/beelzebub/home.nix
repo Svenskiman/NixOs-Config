@@ -35,11 +35,11 @@
     myModules.dropbox.enable = true;
     myModules.discord.enable = true;
 
+    # Patches
+    myModules.audioFixes.zenbookMicBoost.enable = true;
+
     # Clamshell
     myModules.clamshell.enable = false;
-
-    # Fixes
-    myModules.audioFixes.zenbookMicBoost.enable = true;
 
     home.username = "svenski";
     home.homeDirectory = "/home/svenski";

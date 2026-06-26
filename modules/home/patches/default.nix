@@ -2,6 +2,6 @@
 
 {
     imports = [
-        ./swayosd.nix
+        ./audio.nix
     ];
 }
