@@ -22,6 +22,15 @@
     };
 
 
+    # Applications (configured)
+    myModules.discord.enable = true;
+    myModules.alacritty.enable = true;
+    myModules.btop.enable = true;
+
+    # Config
+    myModules.xdg.enable = true;
+    myModules.zsh.enable = true;
+
     # Defaults
     myModules.defaultApps.enable = true;
     myModules.defaultUtils.enable = true;
@@ -33,27 +42,16 @@
     myModules.walker.enable = true;
     myModules.nautilus.enable = true;
 
-    # Services
-    myModules.swayosd.enable = true;
-    myModules.wallpaper.enable = true;
-    myModules.dropbox.enable = true;
-
-    # Config
-    myModules.xdg.enable = true;
-    myModules.zsh.enable = true;
-
-    # Terminal
-    myModules.alacritty.enable = true;
-    myModules.btop.enable = true;
+    # Patches
+    myModules.audioFixes.zenbookMicBoost.enable = true;
 
     # Scripts
     myModules.scripts.screenshot.enable = true;
 
-    # Media
-    myModules.discord.enable = true;
-
-    # Patches
-    myModules.audioFixes.zenbookMicBoost.enable = true;
+    # Services
+    myModules.swayosd.enable = true;
+    myModules.wallpaper.enable = true;
+    myModules.dropbox.enable = true;
 
     # Clamshell
     myModules.clamshell.enable = false;

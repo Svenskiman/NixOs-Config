@@ -3,10 +3,9 @@
 {
     imports = [
         ./defaults
-        ./terminal
+        ./apps
         ./scripts
         ./themes
-        ./media
         ./desktop
         ./services
         ./patches

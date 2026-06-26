@@ -2,7 +2,6 @@
 
 {
     imports = [
-        ./nautilus.nix
         ./hyprland/hyprland.nix
         ./eww/eww.nix
         ./waybar/waybar.nix
