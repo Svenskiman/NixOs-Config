@@ -277,6 +277,31 @@ let
         '';
     };
     
+
+    # Polls Mullvad VPN tunnel state via the mullvad CLI.
+    # Emits one JSON line: {"status": "connected"|"connecting"|"blocked"|"disconnected"|"error"}
+    eww-mullvad-status = pkgs.writeShellApplication {
+        name = "eww-mullvad-status";
+        runtimeInputs = [ pkgs.mullvad pkgs.jq ];
+        text = ''
+            output=$(mullvad status 2>/dev/null)
+
+            if echo "$output" | grep -q "^Connected"; then
+                status="connected"
+            elif echo "$output" | grep -q "^Connecting"; then
+                status="connecting"
+            elif echo "$output" | grep -q "^Blocked"; then
+                status="blocked"
+            elif echo "$output" | grep -q "^Disconnected"; then
+                status="disconnected"
+            else
+                status="error"
+            fi
+
+            jq -nc --arg status "$status" '{status: $status}'
+        '';
+    };
+
 in
 
 {
@@ -291,6 +316,7 @@ in
             eww-dropbox-status
             eww-discord-status
             eww-spotify-status
+            eww-mullvad-status
         ];
     };
 }

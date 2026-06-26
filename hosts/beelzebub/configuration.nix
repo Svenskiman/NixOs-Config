@@ -13,6 +13,7 @@
 
     # System modules
     myModules.networking.enable = true;
+    myModules.vpn.mullvad.enable = true;
     myModules.audio.enable = true;
     myModules.bluetooth.enable = true;
     myModules.displayManager.sddm.enable = true;

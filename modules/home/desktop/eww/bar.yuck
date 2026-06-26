@@ -20,6 +20,11 @@
     "date +'%d %B W%V %Y'")
 
 
+;; -- Mullvad state --
+
+(defpoll mullvad-status :interval "5s" :initial "{\"status\": \"disconnected\"}"
+    "eww-mullvad-status")
+
 ;; -- Dropbox state --
 
 (defpoll dropbox-status :interval "2s"
@@ -188,6 +193,24 @@
         :space-evenly false
         :halign "center"
         :valign "center"
+        (eventbox
+            :onclick {jq(mullvad-status, ".status") == "\"disconnected\""
+                || jq(mullvad-status, ".status") == "\"error\""
+                ? "bash -c 'mullvad connect &'"
+                : "bash -c 'mullvad disconnect &'"}
+            (label :class {jq(mullvad-status, ".status") == "\"connected\""
+                    ? "app-icon mullvad-connected"
+                    : (jq(mullvad-status, ".status") == "\"connecting\""
+                        ? "app-icon mullvad-connecting"
+                        : (jq(mullvad-status, ".status") == "\"blocked\""
+                            ? "app-icon mullvad-blocked"
+                            : (jq(mullvad-status, ".status") == "\"disconnected\""
+                                ? "app-icon mullvad-disconnected"
+                                : "app-icon mullvad-error")))}
+                :text {jq(mullvad-status, ".status") == "\"disconnected\""
+                    || jq(mullvad-status, ".status") == "\"error\""
+                    ? "󱦛"
+                    : "󰳌"}))
         (eventbox :onclick "bash -c 'dropbox-open &'"
             (label :class {jq(dropbox-status, ".status") == "\"synced\""
                     ? "app-icon dropbox-synced"
@@ -204,6 +227,7 @@
                     ? "app-icon discord-call"
                     : "app-icon discord-on")}
                 :text ""))))
+
 
 ;; -- System pill (audio / bluetooth / wifi) --
 

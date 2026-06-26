@@ -82,19 +82,25 @@ window {
     font-weight: 500;
 }
 
-/* -- Applications pill (dropbox / discord) -- */
+/* -- Applications pill (dropbox / discord / mullvad) -- */
 
 .app-icon {
     padding: 0 8px;
     font-size: 15px;
 }
 
+.mullvad-connected    { color: @color2; }
+.mullvad-connecting   { color: @color3; }
+.mullvad-blocked      { color: @color1; }
+.mullvad-disconnected { color: @color8; }
+.mullvad-error        { color: @color1; }
+
 .dropbox-synced  { color: @foreground; }
 .dropbox-syncing { color: @color2; }
 .dropbox-paused  { color: @color3; }
 .dropbox-error   { color: @color1; }
 
-.discord-off  { color: @color7; }
+.discord-off  { color: @color8; }
 .discord-on   { color: @foreground; }
 .discord-call { color: @color2; }
 
