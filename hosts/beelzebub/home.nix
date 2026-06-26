@@ -26,6 +26,7 @@
     myModules.discord.enable = true;
     myModules.alacritty.enable = true;
     myModules.btop.enable = true;
+    myModules.keepassxc.enable = true;
 
     # Config
     myModules.xdg.enable = true;

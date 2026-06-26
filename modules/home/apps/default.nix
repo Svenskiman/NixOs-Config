@@ -6,5 +6,6 @@
         ./btop.nix
         ./nautilus.nix
         ./discord.nix
+        ./keepassxc.nix
     ];
 }
