@@ -5,46 +5,10 @@
         ./../../modules/home/default.nix
     ];
 
-    # Defaults
-    myModules.defaultApps.enable = true;
-    myModules.defaultUtils.enable = true;
-
-    # Terminal
-    myModules.zsh.enable = true;
-    myModules.alacritty.enable = true;
-    myModules.btop.enable = true;
-
-    # Scripts
-    myModules.scripts.screenshot.enable = true;
-
-    # Desktop environment
-    myModules.hypr.enable = true;
-    myModules.eww.enable = true;
-    myModules.waybar.enable = false;
-    myModules.walker.enable = true;
-    myModules.wallpaper.enable = true;
-    myModules.nautilus.enable = true;
-
-    # User dirs
-    myModules.xdg.enable = true;
-
-    # Services
-    myModules.swayosd.enable = true;
-
-    # Media
-    myModules.dropbox.enable = true;
-    myModules.discord.enable = true;
-
-    # Patches
-    myModules.audioFixes.zenbookMicBoost.enable = true;
-
-    # Clamshell
-    myModules.clamshell.enable = false;
-
+    # Core
     home.username = "svenski";
     home.homeDirectory = "/home/svenski";
     home.stateVersion = "26.05";
-
     home.sessionVariables = {
         GTK_THEME = "adw-gtk3-dark";
     };
@@ -56,6 +20,43 @@
             package = pkgs.adw-gtk3;
         };
     };
+
+
+    # Defaults
+    myModules.defaultApps.enable = true;
+    myModules.defaultUtils.enable = true;
+
+    # Desktop environment
+    myModules.hypr.enable = true;
+    myModules.eww.enable = true;
+    myModules.waybar.enable = false;
+    myModules.walker.enable = true;
+    myModules.nautilus.enable = true;
+
+    # Services
+    myModules.swayosd.enable = true;
+    myModules.wallpaper.enable = true;
+    myModules.dropbox.enable = true;
+
+    # Config
+    myModules.xdg.enable = true;
+    myModules.zsh.enable = true;
+
+    # Terminal
+    myModules.alacritty.enable = true;
+    myModules.btop.enable = true;
+
+    # Scripts
+    myModules.scripts.screenshot.enable = true;
+
+    # Media
+    myModules.discord.enable = true;
+
+    # Patches
+    myModules.audioFixes.zenbookMicBoost.enable = true;
+
+    # Clamshell
+    myModules.clamshell.enable = false;
 
     # Uncomment if not using SDDM
     # programs.bash = {

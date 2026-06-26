@@ -8,8 +8,8 @@
         ./themes
         ./media
         ./desktop
-        ./user-dirs.nix
         ./services
         ./patches
+        ./config
     ];
 }
