@@ -93,6 +93,14 @@ let
         '';
     };
 
+    apply-theme-swayosd = pkgs.writeShellApplication {
+        name = "apply-theme-swayosd";
+        runtimeInputs = [ pkgs.systemd ];
+        text = ''
+            systemctl --user restart swayosd-server 2>/dev/null || true
+        '';
+    };
+
 
     # ── Inactive ──────────────────────────────────────────
     apply-theme-waybar = pkgs.writeShellApplication {
@@ -142,6 +150,7 @@ let
         ${apply-theme-alacritty}/bin/apply-theme-alacritty "$THEME_DIR"
         ${apply-theme-btop}/bin/apply-theme-btop "$THEME_DIR"
         ${apply-theme-nautilus}/bin/apply-theme-nautilus "$ICON_THEME"
+        ${apply-theme-swayosd}/bin/apply-theme-swayosd
 
         echo "Theme set to $THEME"
     '';

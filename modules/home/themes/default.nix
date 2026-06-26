@@ -56,6 +56,7 @@ in
         ./targets/walker-colours.nix
         ./targets/alacritty-colours.nix
         ./targets/btop-colours.nix
+        ./targets/swayosd-colours.nix
     ];
 
     options = {

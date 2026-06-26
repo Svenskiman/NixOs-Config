@@ -26,8 +26,13 @@ in
             hl.bind("SUPER + SHIFT + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:themes --width 500 --maxheight 300"))
             hl.bind("SUPER + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:wallpapers --width 800 --maxheight 400"))
 
+            -- Screenshots
             hl.bind("SUPER + SHIFT + grave", hl.dsp.exec_cmd("capture-screenshot"))
             hl.bind("SUPER + CTRL + grave",  hl.dsp.exec_cmd("capture-screenshot-annotate"))
+
+            -- SwayOSD
+            hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("swayosd-client --brightness raise"))
+            hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"))
 
             -- Workspaces
             for i = 1, 5 do

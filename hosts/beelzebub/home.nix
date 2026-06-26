@@ -28,6 +28,9 @@
     # User dirs
     myModules.xdg.enable = true;
 
+    # Services
+    myModules.swayosd.enable = true;
+
     # Media
     myModules.dropbox.enable = true;
     myModules.discord.enable = true;
