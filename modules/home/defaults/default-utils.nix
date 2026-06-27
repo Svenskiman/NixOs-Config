@@ -22,8 +22,8 @@
             lazydocker
 
             # Desktop
-            # waybar
             hyprpaper
+            gnome-calculator
 
             # Notifications
             mako

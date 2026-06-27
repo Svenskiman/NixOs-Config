@@ -7,5 +7,6 @@
         ./nautilus.nix
         ./discord.nix
         ./keepassxc.nix
+        ./imv.nix
     ];
 }

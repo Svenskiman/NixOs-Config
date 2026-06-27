@@ -27,6 +27,7 @@
     myModules.alacritty.enable = true;
     myModules.btop.enable = true;
     myModules.keepassxc.enable = true;
+    myModules.imv.enable = true;
 
     # Config
     myModules.xdg.enable = true;

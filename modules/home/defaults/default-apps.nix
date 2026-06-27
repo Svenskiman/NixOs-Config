@@ -18,13 +18,13 @@
             vim
             vscode
             sublime4
+            obsidian
 
             # Media
             mpv
             blanket
             spotify
 
-            obsidian
 
             # Disabled
             # foliate # E-reader
