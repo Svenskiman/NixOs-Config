@@ -3,6 +3,12 @@
     displayName = "Gruvbox";
     iconTheme = "Yaru-olive";
 
+    vscode = {
+        name      = "Gruvbox Dark Medium";
+        extension = "jdinhlife.gruvbox";
+        settings  = {};
+    };
+
     colors = {
         background           = "#282828";
         foreground           = "#E2CCA9";

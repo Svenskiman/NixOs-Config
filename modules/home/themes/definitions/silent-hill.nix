@@ -2,6 +2,12 @@
     name        = "silent-hill";
     displayName = "Silent Hill";
     iconTheme = "Yaru-sage";
+    
+    vscode = {
+        name      = "Kiro Dark";
+        extension = "MohdZaid.kiro-theme";
+        settings  = {};
+    };
 
     colors = {
         background           = "#1C1E1A";   # near-black olive dark

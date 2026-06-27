@@ -2,8 +2,6 @@
 
 let
     # ── Schema ────────────────────────────────────────────────────────────────
-    # Required colour keys every theme must provide.
-    # Missing any of these fails the build at eval time.
     colorType = lib.types.submodule {
         options = {
             background           = lib.mkOption { type = lib.types.str; };
@@ -13,7 +11,6 @@ let
             selection_background = lib.mkOption { type = lib.types.str; };
             selection_foreground = lib.mkOption { type = lib.types.str; };
 
-            # Standard 16-colour ANSI terminal palette
             color0  = lib.mkOption { type = lib.types.str; };
             color1  = lib.mkOption { type = lib.types.str; };
             color2  = lib.mkOption { type = lib.types.str; };
@@ -33,20 +30,31 @@ let
         };
     };
 
-    # A complete theme — name, display name, iconTheme, and a validated colour set
+    # VS Code theme metadata — extension to install and theme name to set.
+    # settings holds any extra keys to merge into settings.json (e.g. everforest.contrast).
+    vscodeType = lib.types.submodule {
+        options = {
+            name      = lib.mkOption { type = lib.types.str; };
+            extension = lib.mkOption { type = lib.types.str; };
+            settings  = lib.mkOption {
+                type    = lib.types.attrsOf lib.types.str;
+                default = {};
+            };
+        };
+    };
+
     themeType = lib.types.submodule {
         options = {
             name        = lib.mkOption { type = lib.types.str; };
             displayName = lib.mkOption { type = lib.types.str; };
             iconTheme   = lib.mkOption { type = lib.types.str; default = "Yaru-blue"; };
             colors      = lib.mkOption { type = colorType; };
+            vscode      = lib.mkOption { type = lib.types.nullOr vscodeType; default = null; };
         };
     };
 in
 
 {
-    # Import target files — each one reads definitions and writes
-    # per-theme config files into ~/.config/themes/<name>/
     imports = [
         ./first-boot.nix
         ./targets/eww-colours.nix
@@ -57,15 +65,13 @@ in
         ./targets/alacritty-colours.nix
         ./targets/btop-colours.nix
         ./targets/swayosd-colours.nix
+        ./targets/vscode-colours.nix
     ];
 
     options = {
-        # List of all available themes, each validated against themeType.
-        # Nord is always present by default.
-        # To add a theme: append (import ./definitions/mytheme.nix) to this list.
         myModules.themes.definitions = lib.mkOption {
             type    = lib.types.listOf themeType;
-            default = [ 
+            default = [
                 (import ./definitions/nord.nix)
                 (import ./definitions/gruvbox.nix)
                 (import ./definitions/everforest.nix)

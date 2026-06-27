@@ -101,6 +101,42 @@ let
         '';
     };
 
+    apply-theme-vscode = pkgs.writeShellApplication {
+        name = "apply-theme-vscode";
+        runtimeInputs = [ pkgs.jq ];
+        text = ''
+            THEME_DIR=$1
+            VSCODE_JSON="$THEME_DIR/vscode.json"
+            SETTINGS="$HOME/.config/Code/User/settings.json"
+
+            # Theme has no VS Code mapping — leave settings.json untouched
+            if [ ! -f "$VSCODE_JSON" ]; then
+                exit 0
+            fi
+
+            # settings.json must exist before we can patch it
+            if [ ! -f "$SETTINGS" ]; then
+                exit 0
+            fi
+
+            THEME_NAME=$(jq -r '.name' "$VSCODE_JSON")
+            EXTENSION=$(jq -r '.extension' "$VSCODE_JSON")
+
+            # Install extension if not already present
+            if ! code --list-extensions 2>/dev/null | grep -qi "^''${EXTENSION}$"; then
+                code --install-extension "$EXTENSION" --force 2>/dev/null || true
+            fi
+
+            # Merge workbench.colorTheme and any extra settings into settings.json
+            EXTRA=$(jq '.settings' "$VSCODE_JSON")
+            jq --arg theme "$THEME_NAME" \
+            --argjson extra "$EXTRA" \
+            '. + {"workbench.colorTheme": $theme} + $extra' \
+            "$SETTINGS" > /tmp/vscode-settings.json \
+            && mv /tmp/vscode-settings.json "$SETTINGS"
+        '';
+    };
+
 
     # ── Inactive ──────────────────────────────────────────
     apply-theme-waybar = pkgs.writeShellApplication {
@@ -151,6 +187,7 @@ let
         ${apply-theme-btop}/bin/apply-theme-btop "$THEME_DIR"
         ${apply-theme-nautilus}/bin/apply-theme-nautilus "$ICON_THEME"
         ${apply-theme-swayosd}/bin/apply-theme-swayosd
+        ${apply-theme-vscode}/bin/apply-theme-vscode "$THEME_DIR"
 
         echo "Theme set to $THEME"
     '';

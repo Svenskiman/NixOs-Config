@@ -3,6 +3,15 @@
     displayName = "Everforest";
     iconTheme = "Yaru-sage";
 
+    vscode = {
+        name      = "Everforest Dark";
+        extension = "sainnhe.everforest";
+        settings  = {
+            "everforest.contrast"       = "medium";
+            "everforest.workbenchStyle" = "material";
+        };
+    };
+
     colors = {
         background           = "#2D353B";   # bg0
         foreground            = "#D3C6AA";   # fg

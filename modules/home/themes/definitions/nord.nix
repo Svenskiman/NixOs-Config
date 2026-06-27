@@ -3,6 +3,12 @@
     displayName = "Nord";
     iconTheme   = "Yaru-blue";
 
+    vscode = {
+        name      = "Nord";
+        extension = "arcticicestudio.nord-visual-studio-code";
+        settings  = {};
+    };
+
     colors = {
         background           = "#2E3440";   # nord0
         foreground           = "#D8DEE9";   # nord4
