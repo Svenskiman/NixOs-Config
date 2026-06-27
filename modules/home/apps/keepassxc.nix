@@ -27,8 +27,8 @@ in
 
         home.packages = [ keepassxc-scaled ];
 
-        xdg.autostart.enable = true;
-        xdg.configFile."autostart/keepassxc.desktop".text = desktopEntry;
+        # xdg.autostart.enable = true;
+        # xdg.configFile."autostart/keepassxc.desktop".text = desktopEntry;
         xdg.dataFile."applications/keepassxc.desktop".text = desktopEntry;
     };
 }
