@@ -7,7 +7,8 @@ in
 
 {
 
-    imports = [ 
+    imports = [
+        ./desktop-overrides.nix
         ./menus/theme-switcher.nix
         ./menus/wallpaper-switcher.nix
     ];
