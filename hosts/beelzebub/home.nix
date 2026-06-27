@@ -43,6 +43,9 @@
     myModules.walker.enable = true;
     myModules.nautilus.enable = true;
 
+    # Dev environment
+    myModules.direnv.enable = true;
+
     # Patches
     myModules.audioFixes.zenbookMicBoost.enable = true;
 

@@ -2,13 +2,14 @@
 
 {
     imports = [
-        ./defaults
         ./apps
-        ./scripts
-        ./themes
-        ./desktop
-        ./services
-        ./patches
         ./config
+        ./defaults
+        ./desktop
+        ./dev
+        ./patches
+        ./scripts
+        ./services
+        ./themes
     ];
 }
