@@ -302,6 +302,30 @@ let
         '';
     };
 
+    # Polls Docker daemon state via docker ps.
+    # Emits one JSON line: {"status": "running"|"idle"|"error", "count": <n>}
+    eww-docker-status = pkgs.writeShellApplication {
+        name = "eww-docker-status";
+        runtimeInputs = [ pkgs.docker pkgs.jq ];
+        text = ''
+            if ! docker info >/dev/null 2>&1; then
+                jq -nc '{status: "error", count: 0}'
+                exit 0
+            fi
+
+            count=$(docker ps -q | wc -l)
+
+            if [ "$count" -gt 0 ]; then
+                status="running"
+            else
+                status="idle"
+            fi
+
+            jq -nc --argjson count "$count" --arg status "$status" \
+                '{status: $status, count: $count}'
+        '';
+    };
+
 in
 
 {
@@ -317,6 +341,7 @@ in
             eww-discord-status
             eww-spotify-status
             eww-mullvad-status
+            eww-docker-status
         ];
     };
 }

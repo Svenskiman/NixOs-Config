@@ -19,6 +19,7 @@
             impala
             bluetui
             wiremix
+            lazydocker
 
             # Desktop
             # waybar

@@ -30,6 +30,11 @@
 (defpoll dropbox-status :interval "2s"
     "eww-dropbox-status")
 
+;; -- Dcoker state --
+
+(defpoll docker-status :interval "5s" :initial "{\"status\": \"error\", \"count\": 0}"
+    "eww-docker-status")
+
 ;; -- Discord state --
 
 (defpoll discord-status :interval "2s"
@@ -211,6 +216,15 @@
                     || jq(mullvad-status, ".status") == "\"error\""
                     ? "󱦛"
                     : "󰳌"}))
+
+        (eventbox :onclick "bash -c 'alacritty --class floating -e lazydocker &'"
+            (label :class {jq(docker-status, ".status") == "\"running\""
+                    ? "app-icon docker-running"
+                    : (jq(docker-status, ".status") == "\"idle\""
+                        ? "app-icon docker-idle"
+                        : "app-icon docker-error")}
+                :text ""))
+
         (eventbox :onclick "bash -c 'dropbox-open &'"
             (label :class {jq(dropbox-status, ".status") == "\"synced\""
                     ? "app-icon dropbox-synced"
@@ -220,6 +234,7 @@
                             ? "app-icon dropbox-paused"
                             : "app-icon dropbox-error"))}
                 :text ""))
+
         (eventbox :onclick "bash -c 'discord-toggle &'"
             (label :class {jq(discord-status, ".status") == "\"off\""
                 ? "app-icon discord-off"

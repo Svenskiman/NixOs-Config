@@ -100,6 +100,10 @@ window {
 .dropbox-paused  { color: @color3; }
 .dropbox-error   { color: @color1; }
 
+.docker-running { color: @foreground; }
+.docker-idle    { color: @color8; }
+.docker-error   { color: @color1; }
+
 .discord-off  { color: @color8; }
 .discord-on   { color: @foreground; }
 .discord-call { color: @color2; }
