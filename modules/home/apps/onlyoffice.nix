@@ -26,7 +26,7 @@ in
             Comment=Edit office documents
             Exec=onlyoffice-desktopeditors %U
             Terminal=false
-            Icon=onlyoffice-desktopeditors
+            Icon=${pkgs.onlyoffice-desktopeditors}/share/icons/hicolor/256x256/apps/onlyoffice-desktopeditors.png
             Categories=Office;WordProcessor;Spreadsheet;Presentation;
             StartupWMClass=ONLYOFFICE
         '';
