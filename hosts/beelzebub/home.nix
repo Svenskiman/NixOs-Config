@@ -28,6 +28,7 @@
     myModules.btop.enable = true;
     myModules.keepassxc.enable = true;
     myModules.imv.enable = true;
+    myModules.onlyoffice.enable = true;
 
     # Config
     myModules.xdg.enable = true;

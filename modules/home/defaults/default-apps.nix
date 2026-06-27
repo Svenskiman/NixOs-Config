@@ -18,6 +18,8 @@
             vim
             vscode
             sublime4
+
+            # Productivity
             obsidian
 
             # Media

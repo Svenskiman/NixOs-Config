@@ -8,5 +8,6 @@
         ./discord.nix
         ./keepassxc.nix
         ./imv.nix
+        ./onlyoffice.nix
     ];
 }
