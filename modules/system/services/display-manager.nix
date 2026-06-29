@@ -23,7 +23,5 @@
         };
 
         services.displayManager.sddm.wayland.enable = true;
-
-        environment.sessionVariables.QT_SCALE_FACTOR = "2";
     };
 }

@@ -34,6 +34,9 @@
         withUWSM = true;
     };
 
+    # Scaling
+    environment.sessionVariables.QT_SCALE_FACTOR = "2";
+
     # VFS Daemon
     services.gvfs.enable = true;
 
