@@ -32,10 +32,11 @@
     myModules.onlyoffice.enable = true;
 
     # Config
+    myModules.isLaptop = true;
     myModules.xdg.enable = true;
     myModules.zsh.enable = true;
 
-    # Defaults
+    # Defaults (not configured)
     myModules.defaultApps.enable = true;
     myModules.defaultUtils.enable = true;
 
