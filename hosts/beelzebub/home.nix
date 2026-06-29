@@ -59,6 +59,8 @@
     myModules.swayosd.enable = true;
     myModules.wallpaper.enable = true;
     myModules.dropbox.enable = true;
+    myModules.hyprlock.enable = true;
+    myModules.hypridle.enable = true;
 
     # Clamshell
     myModules.clamshell.enable = false;

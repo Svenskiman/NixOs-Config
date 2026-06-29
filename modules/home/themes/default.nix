@@ -66,6 +66,7 @@ in
         ./targets/btop-colours.nix
         ./targets/swayosd-colours.nix
         ./targets/vscode-colours.nix
+        ./targets/hyprlock-colours.nix
     ];
 
     options = {

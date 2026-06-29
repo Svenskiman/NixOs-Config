@@ -20,6 +20,7 @@ in
             hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("${terminal} --class floating -e ${system_monitor}"))
             hl.bind("SUPER + W", hl.dsp.window.close())
             hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("${music_player}"))
+            hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
             -- Walker Menus 
             hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker --width 500 --maxheight 300"))
