@@ -33,13 +33,7 @@
 
 
     # Applications (configured)
-    myModules.discord.enable = true;
-    myModules.alacritty.enable = true;
-    myModules.btop.enable = true;
-    myModules.keepassxc.enable = true;
-    myModules.imv.enable = true;
-    myModules.evince.enable = true;
-    myModules.onlyoffice.enable = true;
+    myModules.applications.enable = true;
 
     # Config
     myModules.isLaptop = true;
@@ -51,11 +45,8 @@
     myModules.defaultUtils.enable = true;
 
     # Desktop environment
-    myModules.hypr.enable = true;
-    myModules.eww.enable = true;
-    myModules.waybar.enable = false;
-    myModules.walker.enable = true;
-    myModules.nautilus.enable = true;
+    myModules.desktop.enable = true;
+    myModules.waybar.enable = false; # Override as we use EWW instead
 
     # Dev environment
     myModules.direnv.enable = true;
@@ -67,11 +58,7 @@
     myModules.scripts.screenshot.enable = true;
 
     # Services
-    myModules.swayosd.enable = true;
-    myModules.wallpaper.enable = true;
-    myModules.dropbox.enable = true;
-    myModules.hyprlock.enable = true;
-    myModules.hypridle.enable = true;
+    myModules.services.enable = true;
 
     # Clamshell
     myModules.clamshell.enable = false;
