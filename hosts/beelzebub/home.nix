@@ -21,6 +21,16 @@
         };
     };
 
+    # Monitors
+    myModules.hypr.monitors = [
+        {
+            output = "eDP-1";
+            mode = "preferred";
+            position = "auto";
+            scale = 2.0;
+        }
+    ];
+
 
     # Applications (configured)
     myModules.discord.enable = true;
