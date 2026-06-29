@@ -58,10 +58,10 @@
 
 
 ;; -- Battery state --
+(defvar battery-enabled false)
 
-(defpoll battery-status :interval "30s"
+(defpoll battery-status :interval "30s" :run-while battery-enabled
     "eww-battery-status")
-
 
 ;; -- Bar window --
 
@@ -98,7 +98,8 @@
                 :space-evenly false
                 (applications-pill)
                 (system-pill)
-                (battery-pill)))))
+                (box :visible battery-enabled
+                    (battery-pill))))))
 
 
 ;; -- NixOS pill --

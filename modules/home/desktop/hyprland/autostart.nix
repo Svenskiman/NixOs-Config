@@ -9,7 +9,9 @@
 
                 hl.exec_cmd("eww daemon")
                 hl.exec_cmd("eww open bar")
-                -- hl.exec_cmd("waybar")
+                ${lib.optionalString config.myModules.isLaptop ''
+                    hl.exec_cmd("eww update battery-enabled=true")
+                ''}
 
                 hl.exec_cmd("nm-applet --indicator")
             end)
