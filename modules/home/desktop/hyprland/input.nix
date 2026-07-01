@@ -25,7 +25,7 @@
 
                     sensitivity = ${toString config.myModules.hypr.sensitivity},
                     force_no_accel = false,
-                    follow_mouse = 1,
+                    follow_mouse = 0,
 
                     touchpad = {
                         natural_scroll = false,

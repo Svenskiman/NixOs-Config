@@ -20,8 +20,16 @@
         };
     };
 
+	# Host specific Hyprland settings
 	myModules.hypr.singleWindowAspectRatio = "14 16";
 	myModules.hypr.sensitivity = -0.50;
+	myModules.hypr.workspaceMonitors = [
+		{ id = 1; monitor = "DP-3"; }
+		{ id = 2; monitor = "DP-1"; }
+		{ id = 3; monitor = "DP-1"; }
+		{ id = 4; monitor = "DP-1"; }
+		{ id = 5; monitor = "DP-2"; }
+	];
 	myModules.hypr.monitors = [
 		{
 			output = "DP-1";

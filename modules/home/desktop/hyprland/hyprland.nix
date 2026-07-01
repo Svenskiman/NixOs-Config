@@ -10,6 +10,7 @@
         ./windowrules.nix
         ./env.nix
         ./monitors.nix
+        ./workspaces.nix
     ];
 
     # Allow Home Manger to manage Hyprland and activate my submodules
