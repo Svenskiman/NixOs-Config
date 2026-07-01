@@ -51,6 +51,10 @@
                     },
                 },
 
+                xwayland = {
+                    force_zero_scaling = true,
+                },
+
                 animations = {
                     enabled = true,
                 },
