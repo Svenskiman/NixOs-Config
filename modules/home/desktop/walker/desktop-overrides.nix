@@ -35,7 +35,7 @@ let
             file = "nixconf-settings";
             name = "Settings";
             icon = "preferences-system";
-            exec = "code /home/svenski/.config/nixconf";
+            exec = "code ${config.home.homeDirectory}/.config/nixconf";
         }
     ];
 

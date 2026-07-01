@@ -15,7 +15,7 @@
 
             "eww/eww.css".text =
                 ''
-                    @import "/home/svenski/.local/state/theme/current/eww.css";
+                    @import "${config.home.homeDirectory}/.local/state/theme/current/eww.css";
                 ''
                 + builtins.readFile ./style.css;
         };

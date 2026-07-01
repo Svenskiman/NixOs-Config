@@ -25,7 +25,7 @@
         };
 
         xdg.configFile."swayosd/style.css".text = ''
-            @import "/home/svenski/.local/state/theme/current/swayosd.css";
+            @import "${config.home.homeDirectory}/.local/state/theme/current/swayosd.css";
 
             window {
                 border-radius: 12px;

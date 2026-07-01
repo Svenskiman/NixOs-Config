@@ -10,7 +10,7 @@
             enable = true;
 
             settings = {
-                source = [ "/home/svenski/.local/state/theme/current/hyprlock.conf" ];
+                source = [ "${config.home.homeDirectory}/.local/state/theme/current/hyprlock.conf" ];
 
                 general = {
                     ignore_empty_input = true;

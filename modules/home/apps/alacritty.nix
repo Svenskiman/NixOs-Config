@@ -10,7 +10,7 @@
         programs.alacritty = {
             enable = true;
             settings = {
-                general.import = [ "/home/svenski/.config/alacritty/colors.toml" ];
+                general.import = [ "${config.home.homeDirectory}/.config/alacritty/colors.toml" ];
                 window = {
                     padding = {
                         x = 16;

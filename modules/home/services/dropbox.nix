@@ -7,7 +7,7 @@ let
         name = "dropbox-open";
         runtimeInputs = [ pkgs.nautilus ];
         text = ''
-            nautilus /home/svenski/.dropbox-hm/Dropbox/
+            nautilus "$HOME/.dropbox-hm/Dropbox/"
         '';
     };
 in

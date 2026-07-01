@@ -31,7 +31,7 @@ in
             # Must come before style.nix so variables are defined before use.
             themes.${defaultTheme.name} = {
                 style = ''
-                    @import "/home/svenski/.local/state/theme/current/walker.css";
+                    @import "${config.home.homeDirectory}/.local/state/theme/current/walker.css";
                 '' + (import ./style.nix);
 
                 # layouts.layout = builtins.readFile ./layout.xml;
