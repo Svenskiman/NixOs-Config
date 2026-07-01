@@ -1,6 +1,20 @@
 { lib, config, ... }:
 
 {
+    options = {
+        myModules.hypr.singleWindowAspectRatio = lib.mkOption {
+            type = lib.types.str;
+            default = "0 0";
+            description = "Aspect ratio for lone windows";
+        };
+
+        myModules.hypr.singleWindowAspectRatioTolerance = lib.mkOption {
+            type = lib.types.float;
+            default = 0.1;
+            description = "Tolerance for singleWindowAspectRatio.";
+        };
+    };
+
     config = {
         wayland.windowManager.hyprland.extraConfig = ''
             -- Look and Feel --
@@ -67,6 +81,11 @@
                 dwindle = {
                     force_split    = 2,
                     preserve_split = true,
+                },
+
+                layout = {
+                    single_window_aspect_ratio = "${config.myModules.hypr.singleWindowAspectRatio}",
+                    single_window_aspect_ratio_tolerance = ${toString config.myModules.hypr.singleWindowAspectRatioTolerance},
                 },
 
                 misc = {

@@ -43,5 +43,27 @@
                 }
             ];
         };
+
+	nixosConfigurations.behemoth = nixpkgs.lib.nixosSystem {
+		system = "x86_64-linux";
+		modules = [
+			./hosts/behemoth/configuration.nix
+			home-manager.nixosModules.default
+			silentSDDM.nixosModules.default
+			{
+				home-manager = {
+					useGlobalPkgs = true;
+					useUserPackages = true;
+					users.svenski = import ./hosts/behemoth/home.nix;
+					backupFileExtension = "backup";
+					sharedModules = [
+						walker.homeManagerModules.default
+					];
+				};
+
+			}
+
+		];
+    	};
     };
 }

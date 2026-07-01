@@ -5,8 +5,9 @@ let
         let
             base = "hl.monitor({ output = \"${monitor.output}\", mode = \"${monitor.mode}\", position = \"${monitor.position}\", scale = ${toString monitor.scale}";
             transform = lib.optionalString (monitor.transform != 0) ", transform = ${toString monitor.transform}";
+            bitdepth = lib.optionalString (monitor.bitdepth != null) ",  bitdepth = ${toString monitor.bitdepth}";
         in
-        "${base}${transform} })\n";
+        "${base}${transform}${bitdepth} })\n";
 in
 
 {
@@ -19,6 +20,7 @@ in
                     position = lib.mkOption { type = lib.types.str; default = "auto"; };
                     scale = lib.mkOption { type = lib.types.float; default = 1.0; };
                     transform = lib.mkOption { type = lib.types.int; default = 0; };
+                    bitdepth = lib.mkOption { type = lib.types.nullOr lib.types.int; default = null; };
                 };
             });
             default = [];
