@@ -50,6 +50,7 @@ in
 
             -- Window management
             hl.bind("SUPER + F", hl.dsp.window.fullscreen())
+            hl.bind("ALT + F", hl.dsp.window.pseudo())
             hl.bind("SUPER + T", hl.dsp.window.float())
             hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
             hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })  
@@ -63,6 +64,19 @@ in
             hl.bind("SUPER + ALT + G",     hl.dsp.window.move({ out_of_group = true }))
             hl.bind("SUPER + ALT + LEFT",  hl.dsp.group.prev())
             hl.bind("SUPER + ALT + RIGHT", hl.dsp.group.next())
+
+            -- Toggle single-window aspect ratio constraint
+            local aspectRatioDisabled = false
+            hl.bind("ALT + F", function()
+                aspectRatioDisabled = not aspectRatioDisabled
+                hl.config({
+                    layout = {
+                        single_window_aspect_ratio = aspectRatioDisabled
+                            and "0 0"
+                            or "${config.myModules.hypr.singleWindowAspectRatio}",
+                    },
+                })
+            end)
         '';
     };
 }
