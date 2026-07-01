@@ -18,6 +18,14 @@ in
     config = lib.mkIf config.myModules.dropbox.enable {
         services.dropbox.enable = true;
 
+        # Sometimes 'dropbox status' cant find daemons socket
+        home.activation.dropboxSymlink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            if [ ! -e "$HOME/.dropbox" ]; then
+                $DRY_RUN_CMD ln -s "$HOME/.dropbox-hm/.dropbox" "$HOME/.dropbox"
+            fi
+        '';
+
         home.packages = [ dropbox-open ];
     };
 }
+
