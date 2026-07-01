@@ -1,0 +1,36 @@
+window {
+    border-radius: 12px;
+    opacity: 0.97;
+    border: 1px solid @border;
+    background: @background;
+}
+
+#container {
+    padding: 12px 24px;
+}
+
+#icon {
+    color: @foreground;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+#label {
+    color: @foreground;
+    font-size: 13px;
+    margin: 0 8px;
+}
+
+progressbar,
+progress {
+    min-height: 4px;
+    border-radius: 9999px;
+}
+
+progressbar {
+    background: @progress-empty;
+}
+
+progress {
+    background: @progress-fill;
+}

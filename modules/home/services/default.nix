@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ./swayosd.nix
+        ./swayosd/swayosd.nix
         ./dropbox.nix
         ./wallpaper.nix
         ./hypridle.nix
