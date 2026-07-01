@@ -8,7 +8,6 @@ in
 {
 
     imports = [
-        ./desktop-overrides.nix
         ./menus/theme-switcher.nix
         ./menus/wallpaper-switcher.nix
     ];
@@ -22,7 +21,7 @@ in
             enable = true;
             runAsService = true;
 
-            # Global config — behaviour, providers, dimensions
+            # Merge static config with the default theme name
             config = (import ./config.nix) // {
                 theme = defaultTheme.name;
             };

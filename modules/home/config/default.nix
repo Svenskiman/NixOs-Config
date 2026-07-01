@@ -3,7 +3,7 @@
 {
     imports = [
         ./settings.nix
-        ./user-dirs.nix
+        ./xdg.nix
         ./zsh.nix
     ];
 }
