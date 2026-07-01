@@ -10,6 +10,7 @@
 	home.stateVersion = "26.05";
 	home.sessionVariables = {
         GTK_THEME = "adw-gtk3-dark";
+		ELECTRON_FORCE_DEVICE_SCALE_FACTOR = "1.5";
     };
 
 	gtk = {
@@ -21,7 +22,7 @@
     };
 
 	# Host specific Hyprland settings
-	myModules.hypr.singleWindowAspectRatio = "14 16";
+	myModules.hypr.singleWindowAspectRatio = "18 16";
 	myModules.hypr.sensitivity = -0.50;
 	myModules.hypr.workspaceMonitors = [
 		{ id = 1; monitor = "DP-3"; }
