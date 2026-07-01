@@ -7,5 +7,6 @@
         ./display-manager.nix
         ./docker.nix
         ./hyprlock.nix
+        ./steam.nix
     ];
 }

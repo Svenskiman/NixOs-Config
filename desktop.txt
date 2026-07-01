@@ -25,3 +25,5 @@ myModules.hypr.monitors = [
 myModules.hypr.sensitivity = -0.25;
 
 myModules.gpu = "amd";
+
+myModules.gaming.enable = true;

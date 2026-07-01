@@ -2,6 +2,7 @@
 
 {
     imports = [
+        ./games
         ./alacritty.nix
         ./btop.nix
         ./nautilus.nix

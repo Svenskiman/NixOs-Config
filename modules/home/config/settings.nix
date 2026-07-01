@@ -11,6 +11,7 @@
         myModules.applications.enable = lib.mkEnableOption "Default applications bundle";
         myModules.desktop.enable = lib.mkEnableOption "Desktop environment bundle";
         myModules.services.enable = lib.mkEnableOption "Services bundle";
+        myModules.gaming.enable = lib.mkEnableOption "Gaming apps bundle";
     };
 
     config = lib.mkMerge [
@@ -39,6 +40,10 @@
             myModules.dropbox.enable = lib.mkDefault true;
             myModules.hyprlock.enable = lib.mkDefault true;
             myModules.hypridle.enable = lib.mkDefault true;
+        })
+
+        (lib.mkIf config.myModules.gaming.enable {
+            myModules.prismlauncher.enable = lib.mkDefault true;
         })
     ];
 }
