@@ -5,6 +5,7 @@ let
         @define-color background     ${theme.colors.background};
         @define-color border         ${theme.colors.accent};
         @define-color foreground     ${theme.colors.foreground};
+        @define-color theme_fg_color ${theme.colors.foreground};
         @define-color progress-fill  ${theme.colors.accent};
         @define-color progress-empty ${theme.colors.color8};
     '';
