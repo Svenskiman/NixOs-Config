@@ -1,0 +1,27 @@
+myModules.hypr.monitors = [
+    {
+        output = "DP-1";
+        mode = "3840x2160@240.02";
+        position = "1440x560";
+        scale = 1.5;
+        bitdepth = 10;
+    }
+    {
+        output = "DP-2";
+        mode = "2560x1440@143.97";
+        position = "4000x0";
+        scale = 1.0;
+        transform = 1;
+    }
+    {
+        output = "DP-3";
+        mode = "2560x1440@143.97";
+        position = "0x0";
+        scale = 1.0;
+        transform = 3;
+    }
+];
+
+myModules.hypr.sensitivity = -0.25;
+
+myModules.gpu = "amd";

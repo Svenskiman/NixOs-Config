@@ -8,12 +8,6 @@
             description = "True if this machine is a laptop";
         };
 
-        myModules.gpu = lib.mkOption {
-            type = lib.types.enum [ "amd" "nvidia" "none" ];
-            default = "none";
-            description = "The GPU type of the machine.";
-        };
-
         myModules.applications.enable = lib.mkEnableOption "Default applications bundle";
         myModules.desktop.enable = lib.mkEnableOption "Desktop environment bundle";
         myModules.services.enable = lib.mkEnableOption "Services bundle";
