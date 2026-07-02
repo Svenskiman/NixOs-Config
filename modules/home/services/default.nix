@@ -7,5 +7,6 @@
         ./wallpaper.nix
         ./hypridle.nix
         ./hyprlock.nix
+        ./portals.nix
     ];
 }

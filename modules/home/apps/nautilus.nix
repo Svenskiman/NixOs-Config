@@ -13,7 +13,7 @@
         ];
 
         gtk.iconTheme = {
-            name    = "Yaru-blue";
+            name = "Yaru-blue";
             package = pkgs.yaru-theme;
         };
 
@@ -23,29 +23,12 @@
 
         dconf.settings = {
             "org/gnome/desktop/interface" = {
-                icon-theme   = "Yaru-blue";
+                icon-theme = "Yaru-blue";
                 color-scheme = "prefer-dark";
-                gtk-theme    = "adw-gtk3-dark";
+                gtk-theme = "adw-gtk3-dark";
             };
         };
 
         xdg.enable = true;
-        xdg.portal = {
-            enable = true;
-            extraPortals = [
-                pkgs.xdg-desktop-portal-gtk
-                pkgs.xdg-desktop-portal-hyprland
-                pkgs.xdg-desktop-portal-gnome
-            ];
-            configPackages = [
-                pkgs.xdg-desktop-portal-gtk
-                pkgs.xdg-desktop-portal-hyprland
-                pkgs.xdg-desktop-portal-gnome
-            ];
-            config.common = {
-                default = [ "gnome" "hyprland" "gtk" ];
-                "org.freedesktop.impl.portal.Settings" = "gnome";
-            };
-        };
     };
 }
