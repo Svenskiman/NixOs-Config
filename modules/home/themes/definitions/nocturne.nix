@@ -4,8 +4,8 @@
     iconTheme   = "Yaru-blue";
 
     vscode = {
-        name      = "Kiro Dark";
-        extension = "MohdZaid.kiro-theme";
+        name      = "One Dark";
+        extension = "akamud.vscode-theme-onedark";
         settings  = {};
     };
 
