@@ -1,0 +1,59 @@
+.dropdown-panel {
+    background-color: alpha(@background, 0.9);
+    border: 1px solid @accent;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 8px;
+    margin-left: 26px;
+}
+
+.header-section {
+    padding: 8px 4px 16px 4px;
+}
+
+.header-icon {
+    margin-right: 20px;
+    border-radius: 12px;
+}
+
+.header-title {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: @foreground;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    color: alpha(@foreground, 0.6);
+}
+
+.power-pill {
+    background-color: alpha(@color7, 0.08);
+    border-radius: 9999px;
+    padding: 6px 12px;
+    margin-top: 4px;
+}
+
+.power-btn {
+    all: unset;
+    font-size: 18px;
+    color: @foreground;
+    padding: 4px 10px;
+    border-radius: 9999px;
+}
+
+.power-btn:hover {
+    background-color: alpha(@accent, 0.25);
+    color: @accent;
+}
+
+.power-btn-poweroff { color: @color1; }
+.power-btn-logout   { color: @color3; }
+.power-btn-lock     { color: @color4; }
+.power-btn-reboot   { color: @color5; }
+
+.power-btn-poweroff:hover { background-color: alpha(@color1, 0.25); color: @color1; }
+.power-btn-logout:hover   { background-color: alpha(@color3, 0.25); color: @color3; }
+.power-btn-lock:hover     { background-color: alpha(@color4, 0.25); color: @color4; }
+.power-btn-reboot:hover   { background-color: alpha(@color5, 0.25); color: @color5; }

@@ -1,13 +1,13 @@
 { pkgs, lib, config, ... }:
 
 let
-    # ── Programs ────────────────────────────────────────
-    # Logic for applying theme to a specific program
-    # Create a new one for each 'themable' program
+    # Logic for applying themes to a specific program
 
     apply-theme-eww = pkgs.writeShellApplication {
         name = "apply-theme-eww";
+        runtimeInputs = [ pkgs.eww ];
         text = ''
+            eww close dropdown 2>/dev/null || true
             eww reload 2>/dev/null || true
         '';
     };

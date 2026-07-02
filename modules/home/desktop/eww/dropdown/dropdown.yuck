@@ -1,0 +1,76 @@
+(defpoll uptime-status :interval "60s"
+    "awk '{h=int($1/3600); m=int($1%3600/60); printf \"Uptime: %dh %dm\", h, m}' /proc/uptime")
+
+(defwindow dropdown
+    :monitor 0
+    :geometry (geometry
+        :x "0%"
+        :y "0%"
+        :width "400px"
+        :height "600px"
+        :anchor "top left")
+    :stacking "overlay"
+    :windowtype "normal"
+    :wm-ignore false
+    :focusable "ondemand"
+    :onlostfocus "eww close dropdown"
+
+    (box :class "dropdown-panel"
+        :orientation "v"
+        :halign "start"
+        :valign "start"
+        :width 400
+        :height 600
+
+        (header-section)))
+
+
+(defwidget header-section []
+    (box :class "header-section"
+        :orientation "h"
+        :space-evenly false
+        :halign "start"
+        :valign "start"
+        :vexpand false
+
+        (image :class "header-icon"
+            :path "${EWW_CONFIG_DIR}/behemoth.png"
+            :image-width 120
+            :image-height 120)
+
+        (box :class "header-right"
+            :orientation "v"
+            :space-evenly false
+            :halign "start"
+            :valign "center"
+            :spacing 6
+
+            (label :class "header-title"
+                :text "BEHEMOTH"
+                :xalign 0)
+
+            (label :class "header-subtitle"
+                :text uptime-status
+                :xalign 0)
+
+                (box :class "power-pill"
+                    :orientation "h"
+                    :space-evenly false
+                    :halign "start"
+                    :spacing 6
+
+                    (button :class "power-btn power-btn-poweroff"
+                        :onclick "systemctl poweroff"
+                        "")
+
+                    (button :class "power-btn power-btn-logout"
+                        :onclick "loginctl kill-session $XDG_SESSION_ID"
+                        "󰍃")
+
+                    (button :class "power-btn power-btn-lock"
+                        :onclick "loginctl lock-session"
+                        "")
+
+                    (button :class "power-btn power-btn-reboot"
+                        :onclick "systemctl reboot"
+                        "")))))

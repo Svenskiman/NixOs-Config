@@ -3,7 +3,7 @@
 {
     imports = [
         ./screenshot.nix
-        ./eww-scripts.nix
+        ./eww
         ./waybar-media.nix
         ./theme-switcher.nix
         ./clamshell.nix
