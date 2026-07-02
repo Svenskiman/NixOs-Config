@@ -10,7 +10,6 @@
 	home.stateVersion = "26.05";
 	home.sessionVariables = {
         GTK_THEME = "adw-gtk3-dark";
-		ELECTRON_FORCE_DEVICE_SCALE_FACTOR = "1.5";
     };
 
 	gtk = {
