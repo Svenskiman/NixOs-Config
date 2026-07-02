@@ -67,6 +67,7 @@ in
         ./targets/swayosd-colours.nix
         ./targets/vscode-colours.nix
         ./targets/hyprlock-colours.nix
+        ./targets/share-picker-colours.nix
     ];
 
     options = {

@@ -8,5 +8,6 @@
         ./hypridle.nix
         ./hyprlock.nix
         ./portals.nix
+        ./screenshare.nix
     ];
 }
