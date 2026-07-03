@@ -13,6 +13,18 @@ let
         '';
     };
 
+    eww-dropdown-toggle-centered = pkgs.writeShellApplication {
+        name = "eww-dropdown-toggle-centered";
+        runtimeInputs = [ pkgs.eww ];
+        text = ''
+            if eww active-windows | grep -q "dropdown-centered"; then
+                eww close dropdown-centered
+            else
+                eww open dropdown-centered
+            fi
+        '';
+    };
+
     eww-cpu-status = pkgs.writeShellApplication {
         name = "eww-cpu-status";
         runtimeInputs = [ pkgs.gawk pkgs.jq pkgs.coreutils ];
@@ -56,6 +68,7 @@ in
     config = lib.mkIf config.myModules.eww.enable {
         home.packages = [
             eww-dropdown-toggle
+            eww-dropdown-toggle-centered
             eww-cpu-status
             eww-ram-status
             eww-gpu-status

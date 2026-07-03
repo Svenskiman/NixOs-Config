@@ -37,6 +37,33 @@
         (stats-section)))
 
 
+(defwindow dropdown-centered
+    :monitor 0
+    :geometry (geometry
+        :x "0"
+        :y "0"
+        :width "400px"
+        :height "600px"
+        :anchor "center")
+    :stacking "overlay"
+    :windowtype "normal"
+    :wm-ignore false
+    :focusable "ondemand"
+    :onlostfocus "eww close dropdown-centered"
+
+    (box :class "dropdown-panel"
+        :orientation "v"
+        :halign "start"
+        :valign "start"
+        :space-evenly false
+        :spacing 4
+        :width 400
+        :height 600
+
+        (header-section)
+        (stats-section)))
+
+
 (defwidget header-section []
     (box :class "header-section"
         :orientation "h"

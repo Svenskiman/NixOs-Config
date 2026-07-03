@@ -38,6 +38,9 @@ in
             hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"))
             hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
 
+            -- Dropdown menu
+            hl.bind("SUPER + Escape", hl.dsp.exec_cmd("eww-dropdown-toggle-centered"))
+
             -- Workspaces
             for i = 1, 5 do
                 hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
