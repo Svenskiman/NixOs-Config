@@ -7,6 +7,7 @@
     margin-left: 26px;
 }
 
+
 .header-section {
     padding: 8px 4px 16px 4px;
 }
@@ -57,3 +58,53 @@
 .power-btn-logout:hover   { background-color: alpha(@color3, 0.25); color: @color3; }
 .power-btn-lock:hover     { background-color: alpha(@color4, 0.25); color: @color4; }
 .power-btn-reboot:hover   { background-color: alpha(@color5, 0.25); color: @color5; }
+
+
+.stats-section {
+    padding: 8px 4px 4px 4px;
+}
+
+.stats-pill {
+    background-color: alpha(@color7, 0.08);
+    border-radius: 9999px;
+    padding: 8px 14px;
+    margin-bottom: 6px;
+}
+
+.stat-icon {
+    color: @accent;
+    font-size: 15px;
+    padding: 0 10px 0 0;
+}
+
+.stat-label {
+    color: @foreground;
+    font-size: 12px;
+    min-width: 32px;
+}
+
+.stat-bar {
+    margin: 0 10px;
+}
+
+.stat-bar trough {
+    min-height: 5px;
+    background-color: alpha(@foreground, 0.1);
+    border-radius: 9999px;
+}
+
+.stat-bar progress {
+    min-height: 5px;
+    border-radius: 9999px;
+}
+
+.stat-normal   progress { background-color: @color2; }
+.stat-warning  progress { background-color: @color3; }
+.stat-critical progress { background-color: @color1; }
+.stat-disabled progress { background-color: @color8; }
+
+.stat-value {
+    color: @foreground;
+    font-size: 12px;
+    min-width: 34px;
+}

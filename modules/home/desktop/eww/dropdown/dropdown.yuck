@@ -1,6 +1,15 @@
 (defpoll uptime-status :interval "60s"
     "awk '{h=int($1/3600); m=int($1%3600/60); printf \"Uptime: %dh %dm\", h, m}' /proc/uptime")
 
+(defpoll cpu-status :interval "2s" :initial "{\"usage\": 0}"
+    "eww-cpu-status")
+
+(defpoll ram-status :interval "2s" :initial "{\"usage\": 0}"
+    "eww-ram-status")
+
+(defpoll gpu-status :interval "2s" :initial "{\"available\": false, \"usage\": 0}"
+    "eww-gpu-status")
+
 (defwindow dropdown
     :monitor 0
     :geometry (geometry
@@ -19,10 +28,13 @@
         :orientation "v"
         :halign "start"
         :valign "start"
+        :space-evenly false
+        :spacing 4
         :width 400
         :height 600
 
-        (header-section)))
+        (header-section)
+        (stats-section)))
 
 
 (defwidget header-section []
@@ -74,3 +86,67 @@
                     (button :class "power-btn power-btn-reboot"
                         :onclick "systemctl reboot"
                         "")))))
+
+                        
+(defwidget stats-section []
+    (box :class "stats-section"
+        :orientation "v"
+        :space-evenly false
+        :hexpand true
+        :halign "fill"
+        :spacing 6
+
+        (box :class "stats-pill"
+            :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+            (label :class "stat-icon" :text "󰍛")
+            (label :class "stat-label" :text "CPU" :xalign 0)
+            (progress :class {jq(cpu-status, ".usage | tonumber") >= 80
+                    ? "stat-bar stat-critical"
+                    : (jq(cpu-status, ".usage | tonumber") >= 50
+                        ? "stat-bar stat-warning"
+                        : "stat-bar stat-normal")}
+                :hexpand true
+                :value {jq(cpu-status, ".usage | tonumber")})
+            (label :class "stat-value" :text {jq(cpu-status, ".usage") + "%"}))
+
+        (box :class "stats-pill"
+            :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+            (label :class "stat-icon" :text "󱕎")
+            (label :class "stat-label" :text "GPU" :xalign 0)
+            (progress :class {jq(gpu-status, ".available") == "false"
+                    ? "stat-bar stat-disabled"
+                    : (jq(gpu-status, ".usage | tonumber") >= 80
+                        ? "stat-bar stat-critical"
+                        : (jq(gpu-status, ".usage | tonumber") >= 50
+                            ? "stat-bar stat-warning"
+                            : "stat-bar stat-normal"))}
+                :hexpand true
+                :value {jq(gpu-status, ".available") == "true" ? jq(gpu-status, ".usage | tonumber") : 0})
+            (label :class "stat-value" :text {jq(gpu-status, ".available") == "true"
+                    ? jq(gpu-status, ".usage") + "%"
+                    : "n/a"}))
+
+        (box :class "stats-pill"
+            :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+            (label :class "stat-icon" :text "")
+            (label :class "stat-label" :text "RAM" :xalign 0)
+            (progress :class {jq(ram-status, ".usage | tonumber") >= 80
+                    ? "stat-bar stat-critical"
+                    : (jq(ram-status, ".usage | tonumber") >= 50
+                        ? "stat-bar stat-warning"
+                        : "stat-bar stat-normal")}
+                :hexpand true
+                :value {jq(ram-status, ".usage | tonumber")})
+            (label :class "stat-value" :text {jq(ram-status, ".usage") + "%"}))))
