@@ -6,9 +6,14 @@
     };
 
     config = lib.mkIf config.myModules.networking.enable {
-        networking.networkmanager.enable = false;
-
-        # Use iwd as the WiFi backend for NetworkManager (required for Impala TUI)
+        networking.useNetworkd = true;
         networking.wireless.iwd.enable = true;
+
+        # Handle all ethernet interfaces via DHCP automatically
+        systemd.network.networks."10-ethernet" = {
+            matchConfig.Name = "en*";
+            networkConfig.DHCP = "ipv4";
+            linkConfig.RequiredForOnline = "no";
+        };
     };
 }

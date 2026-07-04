@@ -4,6 +4,7 @@
 	imports = [
 		./hardware-configuration.nix
 		./../../modules/system/default.nix
+        ./../../modules/system/services/display-manager.nix
 	];
 
 	networking.hostName = "behemoth";
@@ -11,6 +12,9 @@
     myModules.gpu = "amd";
 
 	# System modules
+    myModules.boot.enable = true;
+    myModules.plymouth.enable = true;
+
     myModules.networking.enable = true;
     myModules.vpn.mullvad.enable = true;
     myModules.docker.enable = true;

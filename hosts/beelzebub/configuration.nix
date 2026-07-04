@@ -4,6 +4,7 @@
     imports = [
         ./hardware-configuration.nix
         ./../../modules/system/default.nix
+        ./../../modules/system/services/display-manager.nix
     ];
 
     networking.hostName = "beelzebub";
@@ -12,6 +13,9 @@
     # services.getty.autologinUser = "svenski";
 
     # System modules
+    myModules.boot.enable = true;
+    myModules.plymouth.enable = true;
+
     myModules.networking.enable = true;
     myModules.vpn.mullvad.enable = true;
     myModules.docker.enable = true;

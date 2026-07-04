@@ -9,4 +9,13 @@
             tree
         ];
     };
+
+    users.users.shrike = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" "docker" ];
+        shell = pkgs.zsh;
+        openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGtYOkzxdgWIBjhVF7ogd7JcAiFRR5pOtaez5Kq51ewC svenski@behemoth"
+        ];
+    };
 }
