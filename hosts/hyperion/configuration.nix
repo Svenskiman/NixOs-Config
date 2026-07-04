@@ -15,7 +15,9 @@
     boot.loader.efi.canTouchEfiVariables = false;
 
     myModules.networking.enable = true;
+    myModules.tailscale.enable = true;
     myModules.docker.enable = true;
+    myModules.secrets.enable = true;
 
     services.openssh = {
         enable = true;
@@ -27,7 +29,6 @@
         };
     };
 
-    myModules.secrets.enable = true;
     sops.defaultSopsFile = ./secrets.yaml;
     sops.secrets = builtins.listToAttrs (map (name: {
         inherit name;

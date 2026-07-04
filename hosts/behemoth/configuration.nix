@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+    hyperionTailscaleIP = "100.75.168.106";
+in
+
 {
 	imports = [
 		./hardware-configuration.nix
@@ -17,6 +21,7 @@
 
     myModules.networking.enable = true;
     myModules.vpn.mullvad.enable = true;
+    myModules.tailscale.enable = true;
     myModules.docker.enable = true;
     myModules.audio.enable = true;
     myModules.bluetooth.enable = true;
@@ -60,7 +65,7 @@
     # Hyperion SSHFS mount
     programs.ssh.knownHosts = {
         hyperion = {
-            hostNames = [ "192.168.50.92" ];
+            hostNames = [ hyperionTailscaleIP ];
             publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1vrrT4UsHH3OW4b02OvnOGViV5dkiPxKJ9yePIGejY";
         };
     };
@@ -71,7 +76,7 @@
     boot.supportedFilesystems."fuse.sshfs" = true;
 
     fileSystems."/mnt/hyperion" = {
-        device = "shrike@192.168.50.92:/home/shrike";
+        device = "shrike@${hyperionTailscaleIP}:/home/shrike";
         fsType = "fuse.sshfs";
         options = [
             "_netdev"

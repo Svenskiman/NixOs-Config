@@ -44,6 +44,7 @@
                 ./hosts/beelzebub/configuration.nix
                 home-manager.nixosModules.home-manager
                 silentSDDM.nixosModules.default
+                sops-nix.nixosModules.sops
                 {
                     home-manager = {
                         useGlobalPkgs = true;
@@ -64,6 +65,7 @@
                 ./hosts/behemoth/configuration.nix
                 home-manager.nixosModules.default
                 silentSDDM.nixosModules.default
+                sops-nix.nixosModules.sops
                 {
                     home-manager = {
                         useGlobalPkgs = true;

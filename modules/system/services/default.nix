@@ -6,6 +6,7 @@
         ./portals.nix
         ./docker.nix
         ./hyprlock.nix
+        ./tailscale.nix
         ./steam.nix
         ./servers
     ];
