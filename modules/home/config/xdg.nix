@@ -58,6 +58,7 @@ in
         myModules.xdg.enable = lib.mkEnableOption "XDG configuration";
         myModules.xdg.user.enable = lib.mkEnableOption "XDG user directories";
         myModules.xdg.desktop.enable = lib.mkEnableOption "XDG desktop entries";
+        myModules.xdg.server.enable = lib.mkEnableOption "Server directories";
     };
 
     config = lib.mkMerge [
@@ -92,6 +93,15 @@ in
                 "Documents/University/.keep".text = "";
                 "Documents/Work/.keep".text       = "";
                 "Documents/Personal/.keep".text   = "";
+            };
+        })
+
+        # Server directories
+        (lib.mkIf config.myModules.xdg.server.enable {
+            home.file = {
+                "Servers/.keep".text = "";
+                "Media/.keep".text   = "";
+                "Backups/.keep".text = "";
             };
         })
 
