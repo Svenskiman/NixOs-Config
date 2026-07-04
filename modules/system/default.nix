@@ -9,5 +9,6 @@
         ./hardware
         ./services
         ./networking
+        ./secrets.nix
     ];
 }

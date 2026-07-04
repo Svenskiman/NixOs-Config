@@ -1,0 +1,10 @@
+keys:
+  - &behemoth_admin age16pk94q5aqwzhjh7zd2epfsjmn70j0hklln4lzw4avzcqedngay0slahfm8
+  - &hyperion_host  age1jdwljjnvxdlkkz0ehn22wq2evgpeaja26zxqsschdvs938nctg8qgrqymf
+
+creation_rules:
+  - path_regex: hosts/hyperion/secrets\.yaml$
+    key_groups:
+      - age:
+        - *behemoth_admin
+        - *hyperion_host

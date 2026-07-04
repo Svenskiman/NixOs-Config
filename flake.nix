@@ -18,10 +18,15 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         flake-compat.url = "github:edolstra/flake-compat";
     };
 
-    outputs = { nixpkgs, home-manager, walker, silentSDDM, flake-compat, ... } @ inputs:
+    outputs = { nixpkgs, home-manager, walker, silentSDDM, flake-compat, sops-nix, ... } @ inputs:
     let
         hyprland-preview-share-picker = (import flake-compat {
             src = builtins.fetchGit {
@@ -78,6 +83,7 @@
             modules = [
                 ./hosts/hyperion/configuration.nix
                 home-manager.nixosModules.home-manager
+                sops-nix.nixosModules.sops
                 {
                     home-manager = {
                         useGlobalPkgs = true;

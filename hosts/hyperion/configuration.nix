@@ -27,6 +27,15 @@
         };
     };
 
+    myModules.secrets.enable = true;
+    sops.defaultSopsFile = ./secrets.yaml;
+    sops.secrets = builtins.listToAttrs (map (name: {
+        inherit name;
+        value.owner = "shrike";
+    }) [
+        "minecraft_friends_rcon_password"
+    ]);
+
     # Docker servers
     myModules.servers.games.minecraft.enable = true;
 

@@ -13,7 +13,10 @@
                 image = "itzg/minecraft-server:latest";
                 autoStart = false;
                 ports = [ "25566:25565" ];
-                volumes = [ "/home/shrike/Servers/Minecraft/friends:/data" ];
+                volumes = [
+                    "/home/shrike/Servers/Minecraft/friends:/data"
+                    "${config.sops.secrets.minecraft_friends_rcon_password.path}:/run/secrets/minecraft_friends_rcon_password:ro"
+                ];
                 environment = {
                     EULA = "TRUE";
                     TYPE = "PAPER";
@@ -28,7 +31,7 @@
                     OPS = "BodaciosBaryonyx";
                     ENABLE_WHITELIST = "true";
                     WHITELIST = "BodaciosBaryonyx,umbald,H2ouk,Charung,lord_slippy";
-                    RCON_PASSWORD = "changeme";
+                    RCON_PASSWORD_FILE = "/run/secrets/minecraft_friends_rcon_password";
                 };
             };
 
@@ -39,15 +42,24 @@
                 volumes = [
                     "/home/shrike/Servers/Minecraft/friends:/data:ro"
                     "/home/shrike/Backups/Minecraft/friends:/backups"
+                    "${config.sops.secrets.minecraft_friends_rcon_password.path}:/run/secrets/minecraft_friends_rcon_password:ro"
                 ];
                 environment = {
-                    CRON_SCHEDULE = "0 4 * * *";
-                    RCON_HOST = "localhost";
-                    RCON_PASSWORD = "changeme";
+                    CRON_SCHEDULE = "0 0 * * *";
+                    RCON_HOST = "mc-friends";
+                    RCON_PASSWORD_FILE = "/run/secrets/minecraft_friends_rcon_password";
                     TZ = "Europe/London";
+                    PRUNE_BACKUPS_DAYS = "7";
                 };
             };
 
+        };
+
+        # Start backup container with server
+        systemd.services.docker-mc-friends-backup = {
+            bindsTo = [ "docker-mc-friends.service" ];
+            after = [ "docker-mc-friends.service" ];
+            wantedBy = [ "docker-mc-friends.service" ];
         };
 
         networking.firewall.allowedTCPPorts = [ 25566 ];
