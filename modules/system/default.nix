@@ -8,6 +8,7 @@
         ./boot
         ./hardware
         ./services
+        ./servers
         ./networking
         ./secrets.nix
     ];
