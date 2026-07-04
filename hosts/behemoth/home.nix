@@ -72,6 +72,9 @@
 	# Dev environment
 	myModules.direnv.enable = true;
 
+	# Games
+	myModules.prismlauncher.enable = true;
+
 	# Scripts
 	myModules.scripts.screenshot.enable = true;
 
