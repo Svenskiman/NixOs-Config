@@ -9,6 +9,8 @@
         networking.useNetworkd = true;
         networking.wireless.iwd.enable = true;
 
+        systemd.network.wait-online.enable = false;
+
         # Handle all ethernet interfaces via DHCP automatically
         systemd.network.networks."10-ethernet" = {
             matchConfig.Name = "en*";

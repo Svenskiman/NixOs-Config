@@ -27,7 +27,7 @@
                 lta = "eza --tree --level=2 --long --icons --git -a";
             };
 
-			# Case insensitive tab completion
+            # Case insensitive tab completion
             initContent = ''
                 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
             '';
@@ -36,9 +36,21 @@
         programs.starship = {
             enable = true;
 
-			# <dir> git:(<branch>) ❯
+            # <user>@<host> <dir> git:(<branch>) ❯
+            # hostname and username only shown over SSH
             settings = {
-                format = "$directory$git_branch$character";
+                format = "$username$hostname$directory$git_branch$character";
+
+                username = {
+                    show_always = false;
+                    format = "[$user](bold cyan)";
+                };
+
+                hostname = {
+                    ssh_only = true;
+                    format = "[@$hostname](bold cyan) ";
+                    disabled = false;
+                };
 
                 directory = {
                     truncation_length = 3;
