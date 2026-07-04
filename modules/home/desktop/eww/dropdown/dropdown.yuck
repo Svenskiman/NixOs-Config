@@ -99,11 +99,11 @@
                     :spacing 6
 
                     (button :class "power-btn power-btn-poweroff"
-                        :onclick "systemctl poweroff"
+                        :onclick "bash -c 'systemctl poweroff &'"
                         "")
 
                     (button :class "power-btn power-btn-logout"
-                        :onclick "loginctl kill-session $XDG_SESSION_ID"
+                        :onclick "bash -c 'loginctl kill-session $XDG_SESSION_ID &'"
                         "󰍃")
 
                     (button :class "power-btn power-btn-lock"
@@ -111,7 +111,7 @@
                         "")
 
                     (button :class "power-btn power-btn-reboot"
-                        :onclick "systemctl reboot"
+                        :onclick "bash -c 'systemctl reboot &'"
                         "")))))
 
                         
