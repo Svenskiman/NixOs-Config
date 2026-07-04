@@ -35,10 +35,12 @@
         value.owner = "shrike";
     }) [
         "minecraft_friends_rcon_password"
+        "valheim_server_password"
     ]);
 
     # Docker servers
     myModules.servers.games.minecraft.enable = true;
+    myModules.servers.games.valheim.enable = true;
 
     programs.zsh.enable = true;
 
