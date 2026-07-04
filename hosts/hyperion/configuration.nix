@@ -27,6 +27,9 @@
         };
     };
 
+    # Docker servers
+    myModules.servers.games.minecraft.enable = true;
+
     programs.zsh.enable = true;
 
     time.timeZone = "Europe/London";

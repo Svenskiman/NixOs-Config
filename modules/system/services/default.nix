@@ -7,5 +7,6 @@
         ./docker.nix
         ./hyprlock.nix
         ./steam.nix
+        ./servers
     ];
 }
