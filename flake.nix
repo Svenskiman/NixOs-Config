@@ -23,10 +23,25 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        lazyvim = {
+            url = "github:pfassina/lazyvim-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         flake-compat.url = "github:edolstra/flake-compat";
     };
 
-    outputs = { nixpkgs, home-manager, walker, silentSDDM, flake-compat, sops-nix, ... } @ inputs:
+    outputs = { 
+        nixpkgs, 
+        home-manager, 
+        walker, 
+        silentSDDM, 
+        flake-compat, 
+        sops-nix, 
+        lazyvim, 
+        ... 
+    } @ inputs:
+
     let
         hyprland-preview-share-picker = (import flake-compat {
             src = builtins.fetchGit {
@@ -36,6 +51,7 @@
             };
         }).defaultNix;
     in
+
     {
         # Laptop
         nixosConfigurations.beelzebub = nixpkgs.lib.nixosSystem {
@@ -73,7 +89,10 @@
                         users.svenski = import ./hosts/behemoth/home.nix;
                         backupFileExtension = "backup";
                         extraSpecialArgs = { inherit inputs hyprland-preview-share-picker; };
-                        sharedModules = [ walker.homeManagerModules.default ];
+                        sharedModules = [ 
+                            walker.homeManagerModules.default
+                            lazyvim.homeManagerModules.default
+                        ];
                     };
                 }
             ];

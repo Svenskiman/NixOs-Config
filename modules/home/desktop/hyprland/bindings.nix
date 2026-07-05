@@ -53,7 +53,6 @@ in
 
             -- Window management
             hl.bind("SUPER + F", hl.dsp.window.fullscreen())
-            hl.bind("ALT + F", hl.dsp.window.pseudo())
             hl.bind("SUPER + T", hl.dsp.window.float())
             hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
             hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })  

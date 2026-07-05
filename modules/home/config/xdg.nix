@@ -40,6 +40,13 @@ let
             icon = "kitty";
             exec = "kitty";
         }
+        {
+            file = "nvim";
+            name = "Neovim";
+            icon = "nvim";
+            exec = "alacritty -e nvim";
+        }
+
     ];
 
     # Custom desktop entries with no corresponding system entry.

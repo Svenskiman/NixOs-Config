@@ -22,7 +22,7 @@
 
 	# Host specific Hyprland settings
 	myModules.hypr.singleWindowAspectRatio = "18 16";
-	myModules.hypr.sensitivity = -0.50;
+    myModules.hypr.sensitivity = -0.50;
 	myModules.hypr.workspaceMonitors = [
 		{ id = 1; monitor = "DP-3"; }
 		{ id = 2; monitor = "DP-1"; }
@@ -71,6 +71,7 @@
 
 	# Dev environment
 	myModules.direnv.enable = true;
+	myModules.neovim.enable = true;
 
 	# Games
 	myModules.prismlauncher.enable = true;

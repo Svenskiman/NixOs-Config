@@ -68,6 +68,7 @@ in
         ./targets/vscode-colours.nix
         ./targets/hyprlock-colours.nix
         ./targets/share-picker-colours.nix
+        ./targets/neovim-colours.nix
     ];
 
     options = {

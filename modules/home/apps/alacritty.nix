@@ -18,8 +18,13 @@
                     };
                     decorations = "none";
                 };
+                font = {
+                        normal = {
+                            family = "JetBrainsMono Nerd Font";
+                            style = "Regular";
+                        };
+                };
             };
         };
-
     };
 }

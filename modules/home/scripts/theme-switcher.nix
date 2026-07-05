@@ -137,6 +137,20 @@ let
         '';
     };
 
+    apply-theme-neovim = pkgs.writeShellApplication {
+      name = "apply-theme-neovim";
+      runtimeInputs = [ pkgs.coreutils ];
+      text = ''
+          THEME_DIR=$1
+         NEOVIM_FILE="$THEME_DIR/neovim.lua"
+  
+          if [ -f "$NEOVIM_FILE" ]; then
+              CS=$(cat "$NEOVIM_FILE")
+              nvim --headless -c "colorscheme $CS" -c "qa" 2>/dev/null || true
+          fi
+      '';
+    };   
+
 
     # ── Inactive ──────────────────────────────────────────
     apply-theme-waybar = pkgs.writeShellApplication {
@@ -188,6 +202,7 @@ let
         ${apply-theme-nautilus}/bin/apply-theme-nautilus "$ICON_THEME"
         ${apply-theme-swayosd}/bin/apply-theme-swayosd
         ${apply-theme-vscode}/bin/apply-theme-vscode "$THEME_DIR"
+        ${apply-theme-neovim}/bin/apply-theme-neovim "$THEME_DIR"
 
         echo "Theme set to $THEME"
     '';
