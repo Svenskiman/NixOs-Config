@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    imports = [
-        ./eww-bar.nix
-        ./eww-dropdown.nix
-    ];
+  imports = [
+    ./eww-bar.nix
+    ./eww-dropdown.nix
+  ];
 }

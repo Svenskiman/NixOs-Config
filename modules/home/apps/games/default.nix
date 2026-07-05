@@ -1,7 +1,7 @@
 { ... }:
 
 {
-    imports = [
-        ./prismlauncher.nix
-    ];
+  imports = [
+    ./prismlauncher.nix
+  ];
 }

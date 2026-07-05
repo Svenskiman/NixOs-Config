@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-    makeBtopTheme = theme: ''
+  makeBtopTheme = theme: ''
     # Main background, empty for terminal default, need to be empty if you want transparent background
     theme[main_bg]="${theme.colors.background}"
 
@@ -85,16 +85,20 @@ let
     theme[process_start]="${theme.colors.color6}"
     theme[process_mid]="${theme.colors.color4}"
     theme[process_end]="${theme.colors.color5}"
-    '';
+  '';
 
-    themeFiles = lib.listToAttrs (map (theme: {
-        name  = "themes/${theme.name}/btop.theme";
-        value = { text = makeBtopTheme theme; };
-    }) config.myModules.themes.definitions);
+  themeFiles = lib.listToAttrs (
+    map (theme: {
+      name = "themes/${theme.name}/btop.theme";
+      value = {
+        text = makeBtopTheme theme;
+      };
+    }) config.myModules.themes.definitions
+  );
 in
 
 {
-    config = lib.mkIf config.myModules.btop.enable {
-        xdg.configFile = themeFiles;
-    };
+  config = lib.mkIf config.myModules.btop.enable {
+    xdg.configFile = themeFiles;
+  };
 }

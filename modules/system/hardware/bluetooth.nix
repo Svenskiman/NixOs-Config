@@ -1,14 +1,19 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-    options = {
-        myModules.bluetooth.enable = lib.mkEnableOption "Enables bluetooth";
-    };
+  options = {
+    myModules.bluetooth.enable = lib.mkEnableOption "Enables bluetooth";
+  };
 
-    config = lib.mkIf config.myModules.bluetooth.enable {
-        hardware.bluetooth = {
-            enable = true;
-            powerOnBoot = true;
-        };
+  config = lib.mkIf config.myModules.bluetooth.enable {
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
     };
+  };
 }

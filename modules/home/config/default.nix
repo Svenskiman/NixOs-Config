@@ -1,9 +1,9 @@
 { ... }:
 
 {
-    imports = [
-        ./settings.nix
-        ./xdg.nix
-        ./zsh.nix
-    ];
+  imports = [
+    ./settings.nix
+    ./xdg.nix
+    ./zsh.nix
+  ];
 }

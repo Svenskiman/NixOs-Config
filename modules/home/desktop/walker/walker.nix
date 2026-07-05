@@ -1,40 +1,41 @@
 { lib, config, ... }:
 
 let
-    # Use the first theme definition as the default theme
-    defaultTheme = builtins.head config.myModules.themes.definitions;
+  # Use the first theme definition as the default theme
+  defaultTheme = builtins.head config.myModules.themes.definitions;
 in
 
 {
 
-    imports = [
-        ./menus/theme-switcher.nix
-        ./menus/wallpaper-switcher.nix
-    ];
+  imports = [
+    ./menus/theme-switcher.nix
+    ./menus/wallpaper-switcher.nix
+  ];
 
-    options = {
-        myModules.walker.enable = lib.mkEnableOption "Walker";
+  options = {
+    myModules.walker.enable = lib.mkEnableOption "Walker";
+  };
+
+  config = lib.mkIf config.myModules.walker.enable {
+    programs.walker = {
+      enable = true;
+      runAsService = true;
+
+      # Merge static config with the default theme name
+      config = (import ./config.nix) // {
+        theme = defaultTheme.name;
+      };
+
+      # Load colour variables from the active theme at runtime.
+      # Must come before style.css so variables are defined before use.
+      themes.${defaultTheme.name} = {
+        style = ''
+          @import "${config.home.homeDirectory}/.local/state/theme/current/walker.css";
+        ''
+        + builtins.readFile ./style.css;
+
+        # layouts.layout = builtins.readFile ./layout.xml;
+      };
     };
-
-    config = lib.mkIf config.myModules.walker.enable {
-        programs.walker = {
-            enable = true;
-            runAsService = true;
-
-            # Merge static config with the default theme name
-            config = (import ./config.nix) // {
-                theme = defaultTheme.name;
-            };
-
-            # Load colour variables from the active theme at runtime.
-            # Must come before style.css so variables are defined before use.
-            themes.${defaultTheme.name} = {
-                style = ''
-                    @import "${config.home.homeDirectory}/.local/state/theme/current/walker.css";
-                '' + builtins.readFile ./style.css;
-
-                # layouts.layout = builtins.readFile ./layout.xml;
-            };
-        };
-    };
+  };
 }

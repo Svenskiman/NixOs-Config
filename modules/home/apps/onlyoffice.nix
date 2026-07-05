@@ -1,34 +1,39 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
-    onlyoffice-scaled = pkgs.writeShellScriptBin "onlyoffice-desktopeditors" ''
-        QT_SCALE_FACTOR=1 \
-        QT_AUTO_SCREEN_SCALE_FACTOR=0 \
-        QT_QPA_PLATFORM=xcb \
-        exec ${pkgs.onlyoffice-desktopeditors}/bin/onlyoffice-desktopeditors "$@"
-    '';
+  onlyoffice-scaled = pkgs.writeShellScriptBin "onlyoffice-desktopeditors" ''
+    QT_SCALE_FACTOR=1 \
+    QT_AUTO_SCREEN_SCALE_FACTOR=0 \
+    QT_QPA_PLATFORM=xcb \
+    exec ${pkgs.onlyoffice-desktopeditors}/bin/onlyoffice-desktopeditors "$@"
+  '';
 in
 
 {
-    options = {
-        myModules.onlyoffice.enable = lib.mkEnableOption "OnlyOffice Desktop Editors";
-    };
+  options = {
+    myModules.onlyoffice.enable = lib.mkEnableOption "OnlyOffice Desktop Editors";
+  };
 
-    config = lib.mkIf config.myModules.onlyoffice.enable {
+  config = lib.mkIf config.myModules.onlyoffice.enable {
 
-        home.packages = [ onlyoffice-scaled ];
+    home.packages = [ onlyoffice-scaled ];
 
-        xdg.dataFile."applications/onlyoffice-desktopeditors.desktop".text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Only Office
-            GenericName=Document Editor
-            Comment=Edit office documents
-            Exec=onlyoffice-desktopeditors %U
-            Terminal=false
-            Icon=${pkgs.onlyoffice-desktopeditors}/share/icons/hicolor/256x256/apps/onlyoffice-desktopeditors.png
-            Categories=Office;WordProcessor;Spreadsheet;Presentation;
-            StartupWMClass=ONLYOFFICE
-        '';
-    };
+    xdg.dataFile."applications/onlyoffice-desktopeditors.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Only Office
+      GenericName=Document Editor
+      Comment=Edit office documents
+      Exec=onlyoffice-desktopeditors %U
+      Terminal=false
+      Icon=${pkgs.onlyoffice-desktopeditors}/share/icons/hicolor/256x256/apps/onlyoffice-desktopeditors.png
+      Categories=Office;WordProcessor;Spreadsheet;Presentation;
+      StartupWMClass=ONLYOFFICE
+    '';
+  };
 }

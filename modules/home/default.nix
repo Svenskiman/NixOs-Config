@@ -1,15 +1,15 @@
 { ... }:
 
 {
-    imports = [
-        ./apps
-        ./config
-        ./defaults
-        ./desktop
-        ./dev
-        ./patches
-        ./scripts
-        ./services
-        ./themes
-    ];
+  imports = [
+    ./apps
+    ./config
+    ./defaults
+    ./desktop
+    ./dev
+    ./patches
+    ./scripts
+    ./services
+    ./themes
+  ];
 }

@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    imports = [
-        ./bootloader.nix
-        ./plymouth.nix
-    ];
+  imports = [
+    ./bootloader.nix
+    ./plymouth.nix
+  ];
 }

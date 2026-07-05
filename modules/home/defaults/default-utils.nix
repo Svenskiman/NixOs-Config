@@ -1,36 +1,41 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-    options = {
-        myModules.defaultUtils.enable = lib.mkEnableOption "Default utils";
-    };
+  options = {
+    myModules.defaultUtils.enable = lib.mkEnableOption "Default utils";
+  };
 
-    config = lib.mkIf config.myModules.defaultUtils.enable {
-        home.packages = with pkgs; [
+  config = lib.mkIf config.myModules.defaultUtils.enable {
+    home.packages = with pkgs; [
 
-            # System
-            wget
-            git
-            fastfetch
-            eza
-            playerctl
+      # System
+      wget
+      git
+      fastfetch
+      eza
+      playerctl
 
-            # TUIs
-            impala
-            bluetui
-            wiremix
-            lazydocker
+      # TUIs
+      impala
+      bluetui
+      wiremix
+      lazydocker
 
-            # Desktop
-            hyprpaper
-            gnome-calculator
+      # Desktop
+      hyprpaper
+      gnome-calculator
 
-            # Notifications
-            mako
-            libnotify
+      # Notifications
+      mako
+      libnotify
 
-            adw-gtk3
-            adwaita-icon-theme
-        ];
-    };
+      adw-gtk3
+      adwaita-icon-theme
+    ];
+  };
 }

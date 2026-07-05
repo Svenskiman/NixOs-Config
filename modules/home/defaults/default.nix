@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    imports = [
-        ./default-apps.nix
-        ./default-utils.nix
-    ];
+  imports = [
+    ./default-apps.nix
+    ./default-utils.nix
+  ];
 }

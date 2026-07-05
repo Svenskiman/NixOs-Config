@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-    makeMakoConfig = theme: ''
+  makeMakoConfig = theme: ''
     default-timeout=2000
     background-color=${theme.colors.background}
     text-color=${theme.colors.foreground}
@@ -19,16 +19,20 @@ let
     [urgency=critical]
     background-color=${theme.colors.background}
     border-color=${theme.colors.color1}
-    '';
+  '';
 
-    themeFiles = lib.listToAttrs (map (theme: {
-        name  = "themes/${theme.name}/mako.ini";
-        value = { text = makeMakoConfig theme; };
-    }) config.myModules.themes.definitions);
+  themeFiles = lib.listToAttrs (
+    map (theme: {
+      name = "themes/${theme.name}/mako.ini";
+      value = {
+        text = makeMakoConfig theme;
+      };
+    }) config.myModules.themes.definitions
+  );
 in
 
 {
-    config = {
-        xdg.configFile = themeFiles;
-    };
+  config = {
+    xdg.configFile = themeFiles;
+  };
 }

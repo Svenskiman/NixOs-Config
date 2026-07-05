@@ -1,11 +1,11 @@
 { ... }:
 
 {
-    imports = [
-        ./screenshot.nix
-        ./eww
-        ./waybar-media.nix
-        ./theme-switcher.nix
-        ./clamshell.nix
-    ];
+  imports = [
+    ./screenshot.nix
+    ./eww
+    ./waybar-media.nix
+    ./theme-switcher.nix
+    ./clamshell.nix
+  ];
 }

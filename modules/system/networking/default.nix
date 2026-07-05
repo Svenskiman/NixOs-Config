@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    imports = [
-        ./networking.nix
-        ./vpn.nix
-    ];
+  imports = [
+    ./networking.nix
+    ./vpn.nix
+  ];
 }

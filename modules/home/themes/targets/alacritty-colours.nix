@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-    makeAlacrittyTOML = theme: ''
+  makeAlacrittyTOML = theme: ''
     [colors.primary]
     background = "${theme.colors.background}"
     foreground = "${theme.colors.foreground}"
@@ -49,16 +49,20 @@ let
     magenta = "${theme.colors.color13}"
     cyan    = "${theme.colors.color14}"
     white   = "${theme.colors.color15}"
-    '';
+  '';
 
-    themeFiles = lib.listToAttrs (map (theme: {
-        name  = "themes/${theme.name}/alacritty.toml";
-        value = { text = makeAlacrittyTOML theme; };
-    }) config.myModules.themes.definitions);
+  themeFiles = lib.listToAttrs (
+    map (theme: {
+      name = "themes/${theme.name}/alacritty.toml";
+      value = {
+        text = makeAlacrittyTOML theme;
+      };
+    }) config.myModules.themes.definitions
+  );
 in
 
 {
-    config = lib.mkIf config.myModules.alacritty.enable {
-        xdg.configFile = themeFiles;
-    };
+  config = lib.mkIf config.myModules.alacritty.enable {
+    xdg.configFile = themeFiles;
+  };
 }

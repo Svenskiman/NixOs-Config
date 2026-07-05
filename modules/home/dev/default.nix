@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    imports = [
-        ./direnv.nix
-        ./neovim/neovim.nix
-    ];
+  imports = [
+    ./direnv.nix
+    ./neovim/neovim.nix
+  ];
 }

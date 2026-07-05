@@ -1,7 +1,7 @@
 { ... }:
 
 {
-    imports = [
-        ./audio.nix
-    ];
+  imports = [
+    ./audio.nix
+  ];
 }

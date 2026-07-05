@@ -1,9 +1,9 @@
 { ... }:
 
 {
-    imports = [
-        ./minecraft.nix
-        ./valheim.nix
-        ./palworld.nix
-    ];
+  imports = [
+    ./minecraft.nix
+    ./valheim.nix
+    ./palworld.nix
+  ];
 }
