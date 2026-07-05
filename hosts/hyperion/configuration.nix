@@ -36,11 +36,22 @@
     }) [
         "minecraft_friends_rcon_password"
         "valheim_server_password"
+        "palworld_server_password"
+        "palworld_admin_password"
     ]);
+
+    sops.templates."palworld-da-bois.env" = {
+        content = ''
+            SERVER_PASSWORD=${config.sops.placeholder.palworld_server_password}
+            ADMIN_PASSWORD=${config.sops.placeholder.palworld_admin_password}
+        '';
+        owner = "root";
+    };
 
     # Docker servers
     myModules.servers.games.minecraft.enable = true;
     myModules.servers.games.valheim.enable = true;
+    myModules.servers.games.palworld.enable = true;
 
     programs.zsh.enable = true;
 
