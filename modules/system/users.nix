@@ -6,6 +6,7 @@
     extraGroups = [
       "wheel"
       "docker"
+      "hermes"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [

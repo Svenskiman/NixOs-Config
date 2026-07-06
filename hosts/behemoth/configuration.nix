@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -32,6 +33,8 @@ in
 
     docker.enable = true;
     ollama.enable = true;
+    hermes.enable = true;
+    searxng.enable = true;
 
     displayManager.sddm.enable = true;
     fonts.enable = true;
@@ -50,7 +53,24 @@ in
     };
   };
 
-  services.gvfs.enable = true;
+  services = {
+    gvfs.enable = true;
+    openssh = {
+      enable = true;
+      openFirewall = false;
+    };
+  };
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    secrets.searxng_secret_key = { };
+    templates."searxng.env" = {
+      content = ''
+        SEARXNG_SECRET=${config.sops.placeholder.searxng_secret_key}
+      '';
+      owner = "root";
+    };
+  };
 
   # Additional drives
   fileSystems = {
