@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./ollama.nix
+    ./lmstudio.nix
     ./hermes.nix
     ./searxng.nix
   ];

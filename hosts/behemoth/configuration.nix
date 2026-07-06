@@ -32,7 +32,7 @@ in
     audio.enable = true;
 
     docker.enable = true;
-    ollama.enable = true;
+    lmstudio.enable = true;
     hermes.enable = true;
     searxng.enable = true;
 

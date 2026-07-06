@@ -27,6 +27,10 @@
       url = "github:NousResearch/hermes-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lmstudio = {
+      url = "github:Daaboulex/lmstudio-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
   };
 
@@ -40,6 +44,7 @@
       sops-nix,
       lazyvim,
       hermes-agent,
+      lmstudio,
       ...
     }@inputs:
 
@@ -82,11 +87,13 @@
         behemoth = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            { nixpkgs.overlays = [ lmstudio.overlays.default ]; }
             ./hosts/behemoth/configuration.nix
             home-manager.nixosModules.default
             silentSDDM.nixosModules.default
             sops-nix.nixosModules.sops
             hermes-agent.nixosModules.default
+            lmstudio.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;

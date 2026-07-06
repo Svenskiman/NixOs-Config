@@ -11,16 +11,13 @@
       addToSystemPackages = true;
 
       settings = {
-        # Create custom model
-        # ollama show qwen3.6:27b-q4_K_M --modelfile > /tmp/qwen-modelfile
-        # echo 'PARAMETER num_ctx 65536' >> /tmp/qwen-modelfile
-        # echo 'PARAMETER num_predict 16384' >> /tmp/qwen-modelfile
-        # sudo ollama create qwen3.6-hermes -f /tmp/qwen-modelfile
+        # Load the GGUF in LM Studio, then verify the model name with:
+        # curl http://localhost:1234/v1/models
         model = {
           provider = "custom";
-          base_url = "http://localhost:11434/v1";
-          default = "qwen3.6-hermes";
-          context_length = 65536;
+          base_url = "http://localhost:1234/v1";
+          default = "qwopus-hermes";
+          context_length = 131072;
         };
 
         agent = {
