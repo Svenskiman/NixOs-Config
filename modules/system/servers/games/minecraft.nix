@@ -32,7 +32,7 @@
       mc-friends = {
         image = "itzg/minecraft-server:latest";
         autoStart = false;
-        ports = [ "25566:25565" ];
+        ports = [ "38079:25565" ];
         volumes = [
           "/home/shrike/Servers/Minecraft/friends:/data"
           "${config.sops.secrets.minecraft_friends_rcon_password.path}:/run/secrets/minecraft_friends_rcon_password:ro"
@@ -87,6 +87,6 @@
       wantedBy = [ "docker-mc-friends.service" ];
     };
 
-    networking.firewall.allowedTCPPorts = [ 25566 ];
+    networking.firewall.allowedTCPPorts = [ 38079 ];
   };
 }
