@@ -11,6 +11,19 @@
   };
 
   config = lib.mkIf config.myModules.ollama.enable {
+
+    # https://github.com/nixos/nixpkgs/issues/487054
+    systemd.services.ollama-gpu-wait = {
+      description = "Wait for AMD GPU to be ready";
+      before = [ "ollama.service" ];
+      wantedBy = [ "ollama.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${pkgs.coreutils}/bin/sleep 30";
+      };
+    };
+
     services.ollama = {
       enable = true;
       package = pkgs.ollama-rocm;
