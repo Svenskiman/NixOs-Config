@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   options = {
@@ -6,6 +11,21 @@
   };
 
   config = lib.mkIf config.myModules.servers.games.minecraft.enable {
+
+    # Create a dedicated Docker network so containers can resolve each other by name
+    systemd.services.docker-network-mc-friends = {
+      description = "Create mc-friends Docker network";
+      before = [
+        "docker-mc-friends.service"
+        "docker-mc-friends-backup.service"
+      ];
+      wantedBy = [ "docker-mc-friends.service" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${pkgs.docker}/bin/docker network inspect mc-friends-net >/dev/null 2>&1 || \
+        ${pkgs.docker}/bin/docker network create mc-friends-net
+      '';
+    };
 
     virtualisation.oci-containers.containers = {
 
@@ -33,6 +53,10 @@
           WHITELIST = "BodaciosBaryonyx,umbald,H2ouk,Charung,lord_slippy";
           RCON_PASSWORD_FILE = "/run/secrets/minecraft_friends_rcon_password";
         };
+        extraOptions = [
+          "--network=mc-friends-net"
+          "--network-alias=mc-friends"
+        ];
       };
 
       mc-friends-backup = {
@@ -51,6 +75,7 @@
           TZ = "Europe/London";
           PRUNE_BACKUPS_DAYS = "7";
         };
+        extraOptions = [ "--network=mc-friends-net" ];
       };
 
     };
