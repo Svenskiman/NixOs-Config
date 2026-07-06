@@ -8,5 +8,6 @@
     ./hyprlock.nix
     ./tailscale.nix
     ./steam.nix
+    ./ollama.nix
   ];
 }
