@@ -57,7 +57,7 @@
           BUILD_OBJECT_DETERIORATION_DAMAGE_RATE = "1.0";
           COLLECTION_DROP_RATE = "1.0";
           COLLECTION_OBJECT_HP_RATE = "1.0";
-          COLLECTION_OBJECT_RESPAWN_SPEED_RATE = "1.0";
+          COLLECTION_OBJECT_RESPAWN_SPEED_RATE = "0.5";
           ENEMY_DROP_ITEM_RATE = "1.0";
           DEATH_PENALTY = "All";
           ENABLE_PLAYER_TO_PLAYER_DAMAGE = "false";
@@ -68,11 +68,12 @@
           ENABLE_AIM_ASSIST_KEYBOARD = "false";
           DROP_ITEM_MAX_NUM = "3000";
           BASE_CAMP_MAX_NUM = "128";
-          BASE_CAMP_WORKER_MAX_NUM = "15";
+          BASE_CAMP_MAX_NUM_IN_GUILD = "10";
+          BASE_CAMP_WORKER_MAX_NUM = "25";
           DROP_ITEM_ALIVE_MAX_HOURS = "1.0";
           COOP_PLAYER_MAX_NUM = "6";
           GUILD_PLAYER_MAX_NUM = "20";
-          PAL_EGG_DEFAULT_HATCHING_TIME = "3.0";
+          PAL_EGG_DEFAULT_HATCHING_TIME = "0.5";
         };
         extraOptions = [
           "--stop-timeout=30"
