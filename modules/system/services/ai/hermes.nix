@@ -11,12 +11,10 @@
       addToSystemPackages = true;
 
       settings = {
-        # Load the GGUF in LM Studio, then verify the model name with:
-        # curl http://localhost:1234/v1/models
         model = {
           provider = "custom";
-          base_url = "http://localhost:1234/v1";
-          default = "qwopus-hermes";
+          base_url = "http://localhost:8080/v1";
+          default = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
           context_length = 131072;
         };
 
