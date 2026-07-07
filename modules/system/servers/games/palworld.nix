@@ -70,8 +70,9 @@
           BASE_CAMP_MAX_NUM = "128";
           BASE_CAMP_WORKER_MAX_NUM = "15";
           DROP_ITEM_ALIVE_MAX_HOURS = "1.0";
-          COOP_PLAYER_MAX_NUM = "4";
+          COOP_PLAYER_MAX_NUM = "6";
           GUILD_PLAYER_MAX_NUM = "20";
+          PAL_EGG_DEFAULT_HATCHING_TIME = "3.0";
         };
         extraOptions = [
           "--stop-timeout=30"
