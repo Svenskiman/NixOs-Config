@@ -75,9 +75,11 @@
       };
     };
 
-    home.sessionVariables = {
-      SHELL = "${pkgs.zsh}/bin/zsh";
-      HERMES_HOME = "/var/lib/hermes/.hermes";
+    home = {
+      sessionVariables = {
+        SHELL = "${pkgs.zsh}/bin/zsh";
+        HERMES_HOME = "/var/lib/hermes/.hermes";
+      };
     };
   };
 }

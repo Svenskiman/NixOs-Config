@@ -116,6 +116,7 @@ in
 
   programs.fuse.userAllowOther = true;
   environment.systemPackages = [ pkgs.sshfs ];
+  environment.localBinInPath = true;
   boot.supportedFilesystems."fuse.sshfs" = true;
 
   fileSystems."/mnt/hyperion" = {
