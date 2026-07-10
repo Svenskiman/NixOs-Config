@@ -20,6 +20,7 @@
 
     virtualisation.oci-containers.containers.searxng = {
       image = "searxng/searxng";
+      autoStart = false;
       ports = [ "8123:8080" ];
       environmentFiles = [ config.sops.templates."searxng.env".path ];
       environment = {

@@ -32,7 +32,11 @@ in
     audio.enable = true;
 
     docker.enable = true;
-    llamaCpp.enable = true;
+    llamaCpp = {
+      enable = true;
+      chat.enable = true;
+      embed.enable = true;
+    };
     hermes.enable = true;
     honcho.enable = true;
     searxng.enable = true;

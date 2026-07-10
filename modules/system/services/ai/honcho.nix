@@ -37,7 +37,7 @@
 
       honcho-db = {
         image = "pgvector/pgvector:pg15";
-        autoStart = true;
+        autoStart = false;
         environment = {
           POSTGRES_DB = "postgres";
           POSTGRES_USER = "postgres";
@@ -57,7 +57,7 @@
 
       honcho-redis = {
         image = "redis:8.2";
-        autoStart = true;
+        autoStart = false;
         volumes = [ "honcho-redis-data:/data" ];
         extraOptions = [
           "--network=honcho-net"
@@ -71,7 +71,7 @@
 
       honcho-api = {
         image = "ghcr.io/plastic-labs/honcho:latest";
-        autoStart = true;
+        autoStart = false;
         dependsOn = [
           "honcho-db"
           "honcho-redis"
@@ -81,8 +81,13 @@
           DB_CONNECTION_URI = "postgresql+psycopg://postgres:postgres@honcho-db:5432/postgres";
           CACHE_URL = "redis://honcho-redis:6379/0?suppress=true";
           CACHE_ENABLED = "true";
-          LLM_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:8080/v1";
+          LLM_OPENAI_COMPATIBLE_BASE_URL = "http://host.docker.internal:8080/v1";
           LLM_OPENAI_COMPATIBLE_API_KEY = "dummy";
+          EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
+          EMBEDDING_MODEL_CONFIG__MODEL = "nomic-ai/nomic-embed-text-v2-moe";
+          EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL = "http://host.docker.internal:8081/v1";
+          LLM_OPENAI_API_KEY = "dummy";
+          EMBEDDING_VECTOR_DIMENSIONS = "768";
         };
         extraOptions = [
           "--network=honcho-net"
@@ -93,7 +98,7 @@
 
       honcho-deriver = {
         image = "ghcr.io/plastic-labs/honcho:latest";
-        autoStart = true;
+        autoStart = false;
         dependsOn = [
           "honcho-db"
           "honcho-redis"
@@ -109,6 +114,11 @@
           CACHE_ENABLED = "true";
           LLM_OPENAI_COMPATIBLE_BASE_URL = "http://host.docker.internal:8080/v1";
           LLM_OPENAI_COMPATIBLE_API_KEY = "dummy";
+          EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
+          EMBEDDING_MODEL_CONFIG__MODEL = "nomic-ai/nomic-embed-text-v2-moe";
+          EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL = "http://host.docker.internal:8081/v1";
+          LLM_OPENAI_API_KEY = "dummy";
+          EMBEDDING_VECTOR_DIMENSIONS = "768";
         };
         extraOptions = [
           "--network=honcho-net"
