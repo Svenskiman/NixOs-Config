@@ -23,16 +23,6 @@
           tool_use_enforcement = true;
         };
 
-        terminal = {
-          backend = "docker";
-          docker_image = "nikolaik/python-nodejs:python3.11-nodejs20";
-          docker_mount_cwd_to_workspace = true;
-          docker_run_as_host_user = true;
-          docker_extra_args = [ "--network=host" ];
-          container_persistent = true;
-          timeout = 180;
-        };
-
         web = {
           backend = "searxng";
           searxng_url = "http://localhost:8123";

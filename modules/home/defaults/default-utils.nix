@@ -19,6 +19,8 @@
       fastfetch
       eza
       playerctl
+      uv
+      python3
 
       # TUIs
       impala
