@@ -34,6 +34,7 @@ in
     docker.enable = true;
     llamaCpp.enable = true;
     hermes.enable = true;
+    honcho.enable = true;
     searxng.enable = true;
 
     displayManager.sddm.enable = true;
