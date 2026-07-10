@@ -100,8 +100,8 @@ window {
 .dropbox-paused  { color: @color3; }
 .dropbox-error   { color: @color1; }
 
-.docker-running { color: @foreground; }
-.docker-idle    { color: @color8; }
+.docker-running { color: @color2; }
+.docker-idle    { color: @foreground; }
 .docker-error   { color: @color1; }
 
 .discord-off  { color: @color8; }
