@@ -93,6 +93,7 @@
 
   # Scripts
   myModules.scripts.screenshot.enable = true;
+  myModules.scripts.aiLocal.enable = true;
 
   # Services
   myModules.services.enable = true;

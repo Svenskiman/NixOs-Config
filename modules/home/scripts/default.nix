@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./ai-local.nix
     ./screenshot.nix
     ./eww
     ./waybar-media.nix
