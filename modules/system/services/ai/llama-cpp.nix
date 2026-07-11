@@ -37,7 +37,7 @@
           enable = true;
           package = pkgs.llama-cpp-rocm;
           settings = {
-            host = "127.0.0.1";
+            host = "0.0.0.0";
             port = 8080;
             "hf-repo" = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
             "hf-file" = "Qwopus3.5-9B-coder-Exp-Q4_K_M.gguf";
@@ -75,7 +75,7 @@
             ExecStart = ''
               ${pkgs.llama-cpp-rocm}/bin/llama-server \
                 --log-disable \
-                --host 127.0.0.1 \
+                --host 0.0.0.0 \
                 --port 8081 \
                 --hf-repo nomic-ai/nomic-embed-text-v2-moe-GGUF \
                 --hf-file nomic-embed-text-v2-moe.Q8_0.gguf \

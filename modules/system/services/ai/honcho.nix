@@ -5,12 +5,49 @@
   ...
 }:
 
+let
+  localLLM = "http://host.docker.internal:8080/v1";
+  localModel = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
+  commonLLMEnv = {
+    LLM_OPENAI_API_KEY = "dummy";
+
+    DERIVER_MODEL_CONFIG__MODEL = localModel;
+    DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+    DERIVER_MODEL_CONFIG__STRUCTURED_OUTPUT_MODE = "json_object";
+
+    SUMMARY_MODEL_CONFIG__MODEL = localModel;
+    SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+
+    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+    DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+    DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+    DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+    DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+
+    EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
+    EMBEDDING_MODEL_CONFIG__MODEL = "nomic-ai/nomic-embed-text-v2-moe";
+    EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL = "http://host.docker.internal:8081/v1";
+    EMBEDDING_VECTOR_DIMENSIONS = "768";
+  };
+in
+
 {
   options = {
     myModules.honcho.enable = lib.mkEnableOption "Honcho memory server";
   };
 
   config = lib.mkIf config.myModules.honcho.enable {
+
+    # Needed otherwise we cant connect when firewall is enabled
+    networking.firewall.trustedInterfaces = [
+      "docker0"
+      "honcho-net"
+    ];
 
     systemd.services.docker-network-honcho = {
       description = "Create honcho Docker network";
@@ -29,7 +66,7 @@
       serviceConfig.Type = "oneshot";
       script = ''
         ${pkgs.docker}/bin/docker network inspect honcho-net >/dev/null 2>&1 || \
-        ${pkgs.docker}/bin/docker network create honcho-net
+        ${pkgs.docker}/bin/docker network create -o "com.docker.network.bridge.name=honcho-net" honcho-net
       '';
     };
 
@@ -81,14 +118,8 @@
           DB_CONNECTION_URI = "postgresql+psycopg://postgres:postgres@honcho-db:5432/postgres";
           CACHE_URL = "redis://honcho-redis:6379/0?suppress=true";
           CACHE_ENABLED = "true";
-          LLM_OPENAI_COMPATIBLE_BASE_URL = "http://host.docker.internal:8080/v1";
-          LLM_OPENAI_COMPATIBLE_API_KEY = "dummy";
-          EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
-          EMBEDDING_MODEL_CONFIG__MODEL = "nomic-ai/nomic-embed-text-v2-moe";
-          EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL = "http://host.docker.internal:8081/v1";
-          LLM_OPENAI_API_KEY = "dummy";
-          EMBEDDING_VECTOR_DIMENSIONS = "768";
-        };
+        }
+        // commonLLMEnv;
         extraOptions = [
           "--network=honcho-net"
           "--network-alias=honcho-api"
@@ -112,14 +143,8 @@
           DB_CONNECTION_URI = "postgresql+psycopg://postgres:postgres@honcho-db:5432/postgres";
           CACHE_URL = "redis://honcho-redis:6379/0?suppress=true";
           CACHE_ENABLED = "true";
-          LLM_OPENAI_COMPATIBLE_BASE_URL = "http://host.docker.internal:8080/v1";
-          LLM_OPENAI_COMPATIBLE_API_KEY = "dummy";
-          EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
-          EMBEDDING_MODEL_CONFIG__MODEL = "nomic-ai/nomic-embed-text-v2-moe";
-          EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL = "http://host.docker.internal:8081/v1";
-          LLM_OPENAI_API_KEY = "dummy";
-          EMBEDDING_VECTOR_DIMENSIONS = "768";
-        };
+        }
+        // commonLLMEnv;
         extraOptions = [
           "--network=honcho-net"
           "--network-alias=honcho-deriver"
