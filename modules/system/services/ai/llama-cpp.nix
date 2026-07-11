@@ -39,8 +39,8 @@
           settings = {
             host = "0.0.0.0";
             port = 8080;
-            "hf-repo" = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
-            "hf-file" = "Qwopus3.5-9B-coder-Exp-Q4_K_M.gguf";
+            "hf-repo" = "Crownelius/Crow-9B-HERETIC-4.6";
+            "hf-file" = "Qwen3.5-9B-heretic-v2.Q5_K_M.gguf";
             "ctx-size" = 131072;
             "n-gpu-layers" = 999;
             "flash-attn" = "on";
@@ -52,13 +52,12 @@
             XDG_CACHE_HOME = "/var/cache/llama-cpp";
             MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp";
             HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+            LLAMA_ARG_CHAT_TEMPLATE_KWARGS = ''{"enable_thinking":false}'';
           };
           wantedBy = lib.mkForce [ ];
         };
       })
 
-      # services.llama-cpp only supports a single instance, so the embedding
-      # server is defined as a raw systemd service instead of using the NixOS module.
       (lib.mkIf config.myModules.llamaCpp.embed.enable {
         systemd.services.llama-cpp-embed = {
           description = "llama.cpp embedding server (nomic-embed-text-v2)";

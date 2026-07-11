@@ -7,7 +7,7 @@
 
 let
   localLLM = "http://host.docker.internal:8080/v1";
-  localModel = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
+  localModel = "Crownelius/Crow-9B-HERETIC-4.6";
   commonLLMEnv = {
     LLM_OPENAI_API_KEY = "dummy";
 

@@ -14,7 +14,7 @@
         model = {
           provider = "custom";
           base_url = "http://localhost:8080/v1";
-          default = "Jackrong/Qwopus3.5-9B-Coder-GGUF";
+          default = "Crownelius/Crow-9B-HERETIC-4.6";
           context_length = 131072;
         };
 
@@ -29,8 +29,9 @@
         };
 
         memory = {
-          memory_enabled = true;
-          user_profile_enabled = true;
+          provider = "honcho";
+          memory_enabled = false;
+          user_profile_enabled = false;
         };
 
         compression = {
