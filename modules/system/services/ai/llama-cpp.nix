@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  m = config.myModules.ai.model;
+in
+
 {
   options = {
     myModules.llamaCpp = {
@@ -18,6 +22,7 @@
     lib.mkMerge [
 
       {
+        # Create ROCm symlink and ensure cache dir is accessible
         systemd.tmpfiles.rules = [
           "L+ /opt/rocm - - - - ${
             pkgs.symlinkJoin {
@@ -39,11 +44,15 @@
           settings = {
             host = "0.0.0.0";
             port = 8080;
-            "hf-repo" = "Crownelius/Crow-9B-HERETIC-4.6";
-            "hf-file" = "Qwen3.5-9B-heretic-v2.Q5_K_M.gguf";
-            "ctx-size" = 131072;
-            "n-gpu-layers" = 999;
+            "hf-repo" = m.hfRepo;
+            "hf-file" = m.hfFile;
+            "ctx-size" = m.contextLength;
+            "n-gpu-layers" = m.gpuLayers;
             "flash-attn" = "on";
+            "temp" = m.temperature;
+            "top-p" = m.topP;
+            "top-k" = m.topK;
+            "repeat-penalty" = m.repeatPenalty;
           };
         };
 
@@ -52,7 +61,9 @@
             XDG_CACHE_HOME = "/var/cache/llama-cpp";
             MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp";
             HSA_OVERRIDE_GFX_VERSION = "11.0.0";
-            LLAMA_ARG_CHAT_TEMPLATE_KWARGS = ''{"enable_thinking":false}'';
+            LLAMA_ARG_CHAT_TEMPLATE_KWARGS = builtins.toJSON {
+              enable_thinking = m.thinking;
+            };
           };
           wantedBy = lib.mkForce [ ];
         };

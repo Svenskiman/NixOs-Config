@@ -6,27 +6,27 @@
 }:
 
 let
+  m = config.myModules.ai.model;
   localLLM = "http://host.docker.internal:8080/v1";
-  localModel = "Crownelius/Crow-9B-HERETIC-4.6";
   commonLLMEnv = {
     LLM_OPENAI_API_KEY = "dummy";
 
-    DERIVER_MODEL_CONFIG__MODEL = localModel;
+    DERIVER_MODEL_CONFIG__MODEL = m.hfRepo;
     DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
     DERIVER_MODEL_CONFIG__STRUCTURED_OUTPUT_MODE = "json_object";
 
-    SUMMARY_MODEL_CONFIG__MODEL = localModel;
+    SUMMARY_MODEL_CONFIG__MODEL = m.hfRepo;
     SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
 
-    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL = m.hfRepo;
     DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL = m.hfRepo;
     DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL = m.hfRepo;
     DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL = m.hfRepo;
     DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL = localModel;
+    DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL = m.hfRepo;
     DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
 
     EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";
@@ -43,7 +43,6 @@ in
 
   config = lib.mkIf config.myModules.honcho.enable {
 
-    # Needed otherwise we cant connect when firewall is enabled
     networking.firewall.trustedInterfaces = [
       "docker0"
       "honcho-net"

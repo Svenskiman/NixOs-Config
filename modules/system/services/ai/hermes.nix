@@ -1,5 +1,9 @@
 { lib, config, ... }:
 
+let
+  m = config.myModules.ai.model;
+in
+
 {
   options = {
     myModules.hermes.enable = lib.mkEnableOption "Hermes AI agent";
@@ -14,8 +18,8 @@
         model = {
           provider = "custom";
           base_url = "http://localhost:8080/v1";
-          default = "Crownelius/Crow-9B-HERETIC-4.6";
-          context_length = 131072;
+          default = m.hfRepo;
+          context_length = m.contextLength;
         };
 
         agent = {
@@ -41,7 +45,7 @@
         };
 
         display = {
-          show_reasoning = false;
+          show_reasoning = m.thinking;
           stream = true;
         };
 
