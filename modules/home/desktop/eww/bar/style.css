@@ -95,6 +95,10 @@ window {
 .mullvad-disconnected { color: @color8; }
 .mullvad-error        { color: @color1; }
 
+.ai-green { color: @color2; }
+.ai-red   { color: @color1; }
+.ai-off   { color: @color8; }
+
 .dropbox-synced  { color: @foreground; }
 .dropbox-syncing { color: @color2; }
 .dropbox-paused  { color: @color3; }

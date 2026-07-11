@@ -364,6 +364,70 @@ let
     '';
   };
 
+  # Polls local AI stack status.
+  # systemd services: all stopped → "off", some stopped → "red", all active then continue.
+  # HTTP health checks: any endpoint unreachable → "red", all reachable → "green".
+  # Emits one JSON line: {"status": "off"|"red"|"green"}
+  eww-ai-status = pkgs.writeShellApplication {
+    name = "eww-ai-status";
+    runtimeInputs = [
+      pkgs.systemd
+      pkgs.curl
+      pkgs.jq
+    ];
+    text = ''
+      services=(
+        llama-cpp
+        llama-cpp-embed
+        docker-searxng
+        docker-honcho-db
+        docker-honcho-redis
+        docker-honcho-api
+        docker-honcho-deriver
+        docker-firecrawl-api
+        docker-firecrawl-playwright
+        docker-firecrawl-rabbitmq
+        docker-firecrawl-postgres
+      )
+
+      total=''${#services[@]}
+      count=0
+
+      # Phase 1: count active services
+      for svc in "''${services[@]}"; do
+        systemctl is-active --quiet "$svc" && count=$((count + 1)) || true
+      done
+
+      if (( count == 0 )); then
+        jq -nc '{status: "off"}'
+        exit 0
+      fi
+
+      if (( count < total )); then
+        jq -nc '{status: "red"}'
+        exit 0
+      fi
+
+      # Phase 2: all services active — check each distinct endpoint once
+      endpoints=(
+        "http://localhost:8080/health"
+        "http://localhost:8081/health"
+        "http://localhost:8000/health"
+        "http://localhost:8123"
+        "http://localhost:3002"
+      )
+
+      for url in "''${endpoints[@]}"; do
+        if ! curl -sf "$url" >/dev/null 2>&1; then
+          jq -nc '{status: "red"}'
+          exit 0
+        fi
+      done
+
+      jq -nc '{status: "green"}'
+    '';
+  };
+
 in
 
 {
@@ -380,6 +444,7 @@ in
       eww-spotify-status
       eww-mullvad-status
       eww-docker-status
+      eww-ai-status
     ];
   };
 }

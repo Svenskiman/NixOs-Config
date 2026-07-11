@@ -25,6 +25,10 @@
 (defpoll mullvad-status :interval "5s" :initial "{\"status\": \"disconnected\"}"
     "eww-mullvad-status")
 
+;; -- Local AI State --
+(defpoll ai-status :interval "5s" :initial "{\"status\": \"off\"}"
+    "eww-ai-status")
+
 ;; -- Dropbox state --
 
 (defpoll dropbox-status :interval "2s"
@@ -218,6 +222,14 @@
                     || jq(mullvad-status, ".status") == "\"error\""
                     ? "󱦛"
                     : "󰳌"}))
+
+        (eventbox :onclick "bash -c 'alacritty --class floating -e bash -c \"ai-status; read -p \\\"Press enter to close...\\\"\" &'"
+            (label :class {jq(ai-status, ".status") == "\"green\""
+                    ? "app-icon ai-green"
+                    : (jq(ai-status, ".status") == "\"red\""
+                        ? "app-icon ai-red"
+                        : "app-icon ai-off")}
+                :text "󰧑"))
 
         (eventbox :onclick "bash -c 'alacritty --class floating -e lazydocker &'"
             (label :class {jq(docker-status, ".status") == "\"running\""
