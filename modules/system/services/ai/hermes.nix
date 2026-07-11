@@ -28,8 +28,8 @@ in
         };
 
         web = {
-          backend = "searxng";
-          searxng_url = "http://localhost:8123";
+          search_backend = "searxng";
+          extract_backend = "firecrawl";
         };
 
         memory = {

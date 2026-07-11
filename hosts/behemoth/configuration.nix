@@ -51,6 +51,7 @@ in
     hermes.enable = true;
     honcho.enable = true;
     searxng.enable = true;
+    firecrawl.enable = true;
 
     displayManager.sddm.enable = true;
     fonts.enable = true;
