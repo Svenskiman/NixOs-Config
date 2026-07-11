@@ -1,0 +1,17 @@
+agents.md
+
+.env
+secrets.yaml.dec
+*.dec
+
+result
+result-*
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+.DS_Store
+Thumbs.db
