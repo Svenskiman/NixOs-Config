@@ -4,11 +4,13 @@
   pkgs,
   ...
 }:
-
 let
   m = config.myModules.ai.model;
+  chatTemplate = pkgs.fetchurl {
+    url = "https://huggingface.co/froggeric/Qwen-Fixed-Chat-Templates/resolve/main/chat_template.jinja";
+    hash = "sha256-0gPzNC2Kf4R03VVWPuzjom5xshxvZnyduck7dis7+Zc=";
+  };
 in
-
 {
   options = {
     myModules.llamaCpp = {
@@ -17,12 +19,9 @@ in
       embed.enable = lib.mkEnableOption "llama.cpp embedding server";
     };
   };
-
   config = lib.mkIf config.myModules.llamaCpp.enable (
     lib.mkMerge [
-
       {
-        # Create ROCm symlink and ensure cache dir is accessible
         systemd.tmpfiles.rules = [
           "L+ /opt/rocm - - - - ${
             pkgs.symlinkJoin {
@@ -36,7 +35,6 @@ in
           }"
         ];
       }
-
       (lib.mkIf config.myModules.llamaCpp.chat.enable {
         services.llama-cpp = {
           enable = true;
@@ -53,9 +51,10 @@ in
             "top-p" = m.topP;
             "top-k" = m.topK;
             "repeat-penalty" = m.repeatPenalty;
+            "jinja" = true;
+            "chat-template-file" = "${chatTemplate}";
           };
         };
-
         systemd.services.llama-cpp = {
           environment = {
             XDG_CACHE_HOME = "/var/cache/llama-cpp";
@@ -68,7 +67,6 @@ in
           wantedBy = lib.mkForce [ ];
         };
       })
-
       (lib.mkIf config.myModules.llamaCpp.embed.enable {
         systemd.services.llama-cpp-embed = {
           description = "llama.cpp embedding server (nomic-embed-text-v2)";
@@ -97,7 +95,6 @@ in
           };
         };
       })
-
     ]
   );
 }

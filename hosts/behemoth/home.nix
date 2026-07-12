@@ -1,15 +1,17 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./../../modules/home/default.nix
   ];
 
-  home.username = "svenski";
-  home.homeDirectory = "/home/svenski";
-  home.stateVersion = "26.05";
-  home.sessionVariables = {
-    GTK_THEME = "adw-gtk3-dark";
+  home = {
+    username = "svenski";
+    homeDirectory = "/home/svenski";
+    stateVersion = "26.05";
+    sessionVariables = {
+      GTK_THEME = "adw-gtk3-dark";
+    };
   };
 
   gtk = {
@@ -20,82 +22,89 @@
     };
   };
 
-  # Host specific Hyprland settings
-  myModules.hypr.singleWindowAspectRatio = "18 16";
-  myModules.hypr.sensitivity = -0.50;
-  myModules.hypr.workspaceMonitors = [
-    {
-      id = 1;
-      monitor = "DP-3";
-    }
-    {
-      id = 2;
-      monitor = "DP-1";
-    }
-    {
-      id = 3;
-      monitor = "DP-1";
-    }
-    {
-      id = 4;
-      monitor = "DP-1";
-    }
-    {
-      id = 5;
-      monitor = "DP-2";
-    }
-  ];
-  myModules.hypr.monitors = [
-    {
-      output = "DP-1";
-      mode = "3840x2160@240.02";
-      position = "1440x560";
-      scale = 1.5;
-      bitdepth = 10;
-    }
-    {
-      output = "DP-2";
-      mode = "2560x1440@143.97";
-      position = "4000x0";
-      scale = 1.0;
-      transform = 1;
-    }
-    {
-      output = "DP-3";
-      mode = "2560x1440@143.97";
-      position = "0x0";
-      scale = 1.0;
-      transform = 3;
-    }
-  ];
+  myModules = {
 
-  # Applications (configured)
-  myModules.applications.enable = true;
+    # Host specific Hyprland settings
+    hypr = {
+      singleWindowAspectRatio = "18 16";
+      sensitivity = -0.50;
+      workspaceMonitors = [
+        {
+          id = 1;
+          monitor = "DP-3";
+        }
+        {
+          id = 2;
+          monitor = "DP-1";
+        }
+        {
+          id = 3;
+          monitor = "DP-1";
+        }
+        {
+          id = 4;
+          monitor = "DP-1";
+        }
+        {
+          id = 5;
+          monitor = "DP-2";
+        }
+      ];
+      monitors = [
+        {
+          output = "DP-1";
+          mode = "3840x2160@240.02";
+          position = "1440x560";
+          scale = 1.5;
+          bitdepth = 10;
+        }
+        {
+          output = "DP-2";
+          mode = "2560x1440@143.97";
+          position = "4000x0";
+          scale = 1.0;
+          transform = 1;
+        }
+        {
+          output = "DP-3";
+          mode = "2560x1440@143.97";
+          position = "0x0";
+          scale = 1.0;
+          transform = 3;
+        }
+      ];
+    };
 
-  # Config
-  myModules.xdg.enable = true;
-  myModules.zsh.enable = true;
+    # Applications (configured)
+    applications.enable = true;
 
-  # Defaults (not configured)
-  myModules.defaultApps.enable = true;
-  myModules.defaultUtils.enable = true;
+    # Config
+    xdg.enable = true;
+    zsh.enable = true;
 
-  # Desktop environment
-  myModules.desktop.enable = true;
-  myModules.waybar.enable = false;
+    # Defaults (not configured)
+    defaultApps.enable = true;
+    defaultUtils.enable = true;
 
-  # Dev environment
-  myModules.direnv.enable = true;
-  myModules.neovim.enable = true;
+    # Desktop environment
+    desktop.enable = true;
+    waybar.enable = false;
 
-  # Games
-  myModules.prismlauncher.enable = true;
+    # Dev environment
+    direnv.enable = true;
+    neovim.enable = true;
+    opencode.enable = true;
 
-  # Scripts
-  myModules.scripts.screenshot.enable = true;
-  myModules.scripts.aiLocal.enable = true;
+    # Games
+    prismlauncher.enable = true;
 
-  # Services
-  myModules.services.enable = true;
+    # Scripts
+    scripts = {
+      screenshot.enable = true;
+      aiLocal.enable = true;
+    };
 
+    # Services
+    services.enable = true;
+  };
 }

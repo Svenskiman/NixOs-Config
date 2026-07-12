@@ -20,6 +20,12 @@
       description = "Context window size in tokens";
     };
 
+    maxOutputTokens = lib.mkOption {
+      type = lib.types.int;
+      default = 8192;
+      description = "Maximum output tokens per response";
+    };
+
     gpuLayers = lib.mkOption {
       type = lib.types.int;
       default = 999;
