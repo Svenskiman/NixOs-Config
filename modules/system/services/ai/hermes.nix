@@ -1,7 +1,8 @@
 { lib, config, ... }:
 
 let
-  m = config.myModules.ai.model;
+  cfg = config.myModules.ai;
+  m = cfg.models.${cfg.activeModel};
 in
 
 {
@@ -18,7 +19,7 @@ in
         model = {
           provider = "custom";
           base_url = "http://localhost:8080/v1";
-          default = m.hfRepo;
+          default = cfg.activeModel;
           context_length = m.contextLength;
         };
 
@@ -45,7 +46,7 @@ in
         };
 
         display = {
-          show_reasoning = m.thinking;
+          show_reasoning = true;
           stream = true;
         };
 

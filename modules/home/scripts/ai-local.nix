@@ -10,7 +10,7 @@ let
     name = "ai-start";
     runtimeInputs = [ pkgs.systemd ];
     text = ''
-      sudo systemctl start llama-cpp
+      sudo systemctl start llama-swap
       sudo systemctl start llama-cpp-embed
       sudo systemctl start docker-searxng
       sudo systemctl start docker-honcho-db
@@ -40,7 +40,7 @@ let
       sudo systemctl stop docker-honcho-db
       sudo systemctl stop docker-searxng
       sudo systemctl stop llama-cpp-embed
-      sudo systemctl stop llama-cpp
+      sudo systemctl stop llama-swap
     '';
   };
 
@@ -52,9 +52,9 @@ let
     ];
     text = ''
       echo "=== Services ==="
-      systemctl is-active --quiet llama-cpp \
-        && echo "llama-cpp (chat):  running" \
-        || echo "llama-cpp (chat):  stopped"
+      systemctl is-active --quiet llama-swap \
+        && echo "llama-swap:        running" \
+        || echo "llama-swap:        stopped"
 
       systemctl is-active --quiet llama-cpp-embed \
         && echo "llama-cpp (embed): running" \
@@ -86,7 +86,7 @@ let
 
       echo ""
       echo "=== Health ==="
-      echo -n "llama-cpp chat:  "
+      echo -n "llama-swap:      "
       curl -sf http://localhost:8080/health || echo "unreachable"
       echo ""
 

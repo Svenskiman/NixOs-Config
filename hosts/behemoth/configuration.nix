@@ -33,22 +33,14 @@ in
 
     docker.enable = true;
 
-    ai.model = {
-      hfRepo = "empero-ai/Qwythos-9B-v2-GGUF";
-      hfFile = "Qwythos-9B-v2-Q4_K_M.gguf";
-      contextLength = 131072;
-      maxOutputTokens = 8192;
-      thinking = true;
-      temperature = 0.6;
-      topP = 0.95;
-      topK = 20;
-      repeatPenalty = 1.05;
+    ai = {
+      activeModel = "qwythos_9B_Q4-K-M";
     };
-    llamaCpp = {
+    llamaSwap = {
       enable = true;
-      chat.enable = true;
       embed.enable = true;
     };
+
     hermes.enable = true;
     honcho.enable = true;
     searxng.enable = true;

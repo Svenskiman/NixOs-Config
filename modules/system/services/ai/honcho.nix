@@ -6,27 +6,32 @@
 }:
 
 let
-  m = config.myModules.ai.model;
+  cfg = config.myModules.ai;
+  activeModel = cfg.models.${cfg.activeModel};
   localLLM = "http://host.docker.internal:8080/v1";
+
   commonLLMEnv = {
     LLM_OPENAI_API_KEY = "dummy";
 
-    DERIVER_MODEL_CONFIG__MODEL = m.hfRepo;
+    DERIVER_MODEL_CONFIG__MODEL = "honcho";
     DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
+  }
+  // lib.optionalAttrs (activeModel.templateFix == "qwen") {
     DERIVER_MODEL_CONFIG__STRUCTURED_OUTPUT_MODE = "json_object";
-
-    SUMMARY_MODEL_CONFIG__MODEL = m.hfRepo;
+  }
+  // {
+    SUMMARY_MODEL_CONFIG__MODEL = "honcho";
     SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
 
-    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL = m.hfRepo;
+    DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL = "honcho";
     DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL = m.hfRepo;
+    DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL = "honcho";
     DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL = m.hfRepo;
+    DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL = "honcho";
     DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL = m.hfRepo;
+    DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL = "honcho";
     DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
-    DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL = m.hfRepo;
+    DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL = "honcho";
     DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL = localLLM;
 
     EMBEDDING_MODEL_CONFIG__TRANSPORT = "openai";

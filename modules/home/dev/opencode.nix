@@ -7,37 +7,67 @@
 }:
 
 let
-  m = osConfig.myModules.ai.model;
+  cfg = osConfig.myModules.ai;
+
+  mkModelEntries =
+    name: m:
+    if m.hasThinking then
+      {
+        "${name}_T" = {
+          name = "${name} (think)";
+          supportsToolCalls = true;
+          limit = {
+            context = m.contextLength;
+            output = m.maxOutputTokens;
+          };
+        };
+        "${name}_NT" = {
+          name = "${name} (no think)";
+          supportsToolCalls = true;
+          limit = {
+            context = m.contextLength;
+            output = m.maxOutputTokens;
+          };
+        };
+      }
+    else
+      {
+        "${name}" = {
+          inherit name;
+          supportsToolCalls = true;
+          limit = {
+            context = m.contextLength;
+            output = m.maxOutputTokens;
+          };
+        };
+      };
+
+  allModels = lib.foldlAttrs (
+    acc: name: m:
+    acc // mkModelEntries name m
+  ) { } cfg.models;
 
   opencodeConfig = {
     "$schema" = "https://opencode.ai/config.json";
 
-    model = "local/${m.hfRepo}";
-    small_model = "local/${m.hfRepo}";
+    model = "local/${cfg.activeModel}";
+    small_model = "local/${cfg.activeModel}";
 
     provider = {
       local = {
         npm = "@ai-sdk/openai-compatible";
-        name = "Local (llama-cpp)";
+        name = "Local (llama-swap)";
         options = {
           baseURL = "http://localhost:8080/v1";
           apiKey = "dummy";
         };
-        models = {
-          "${m.hfRepo}" = {
-            name = m.hfRepo;
-            supportsToolCalls = true;
-            limit = {
-              context = m.contextLength;
-              output = m.maxOutputTokens;
-            };
-          };
-        };
+        models = allModels;
       };
     };
 
     plugin = [ "@honcho-ai/opencode-honcho" ];
 
+    # Dont enable all tools or Opencode has a stroke
     tools = {
       "firecrawl_*" = false;
       firecrawl_scrape = true;

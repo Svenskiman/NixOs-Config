@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ./model.nix
+    ./model-schema.nix
+    ./models.nix
     ./hermes.nix
     ./searxng.nix
-    ./llama-cpp.nix
+    ./llama-swap.nix
     ./honcho.nix
     ./firecrawl.nix
   ];
