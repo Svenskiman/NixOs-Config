@@ -107,6 +107,7 @@ in
         };
 
         systemd.services.llama-swap = {
+          wantedBy = lib.mkForce [ ];
           environment = {
             XDG_CACHE_HOME = "/var/cache/llama-cpp";
             MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp";

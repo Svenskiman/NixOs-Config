@@ -10,10 +10,27 @@ let
 
   apply-theme-eww = pkgs.writeShellApplication {
     name = "apply-theme-eww";
-    runtimeInputs = [ pkgs.eww ];
+    runtimeInputs = [
+      pkgs.eww
+      pkgs.procps
+      pkgs.coreutils
+    ];
     text = ''
       eww close dropdown 2>/dev/null || true
-      eww reload 2>/dev/null || true
+
+      # Give reload a chance first (2s window)
+      if timeout 2s eww reload 2>/dev/null; then
+        exit 0
+      fi
+
+      # Reload timed out or failed daemon is frozen. Force kill and restart.
+      echo "eww reload failed or timed out, force-restarting daemon..." >&2
+      pkill -9 -x eww 2>/dev/null || true
+      sleep 0.5
+
+      eww daemon 2>/dev/null &
+      sleep 0.5
+      eww open bar 2>/dev/null || true
     '';
   };
 

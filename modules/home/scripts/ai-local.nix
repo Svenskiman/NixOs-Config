@@ -43,58 +43,58 @@ let
       pkgs.curl
     ];
     text = ''
-      echo "=== Services ==="
-      systemctl is-active --quiet llama-swap \
-        && echo "llama-swap:        running" \
-        || echo "llama-swap:        stopped"
+      GREEN="\033[0;32m"
+      RED="\033[0;31m"
+      YELLOW="\033[0;33m"
+      BLUE="\033[0;34m"
+      RESET="\033[0m"
 
-      systemctl is-active --quiet llama-cpp-embed \
-        && echo "llama-cpp (embed): running" \
-        || echo "llama-cpp (embed): stopped"
+      print_service() {
+        local name=$1
+        local svc=$2
+        printf "%-20s" "$name"
+        if systemctl is-active --quiet "$svc" 2>/dev/null; then
+          echo -e "''${GREEN}running''${RESET}"
+        else
+          echo -e "''${RED}stopped''${RESET}"
+        fi
+      }
 
-      systemctl is-active --quiet docker-searxng \
-        && echo "searxng:           running" \
-        || echo "searxng:           stopped"
+      check_health() {
+        local name=$1
+        local url=$2
+        local svc=$3
+        printf "%-20s" "$name"
+        if ! systemctl is-active --quiet "$svc" 2>/dev/null; then
+          echo -e "''${YELLOW}stopped (skipped)''${RESET}"
+          return
+        fi
+        if curl -sf --max-time 2 "$url" >/dev/null 2>&1; then
+          echo -e "''${GREEN}ok''${RESET}"
+        else
+          echo -e "''${RED}unreachable''${RESET}"
+        fi
+      }
 
-      systemctl is-active --quiet docker-honcho-db \
-        && echo "honcho-db:         running" \
-        || echo "honcho-db:         stopped"
-
-      systemctl is-active --quiet docker-honcho-redis \
-        && echo "honcho-redis:      running" \
-        || echo "honcho-redis:      stopped"
-
-      systemctl is-active --quiet docker-honcho-api \
-        && echo "honcho-api:        running" \
-        || echo "honcho-api:        stopped"
-
-      systemctl is-active --quiet docker-honcho-deriver \
-        && echo "honcho-deriver:    running" \
-        || echo "honcho-deriver:    stopped"
-
-      systemctl is-active --quiet docker-crawl4ai \
-        && echo "crawl4ai:          running" \
-        || echo "crawl4ai:          stopped"
+      echo -e "''${BLUE}=== Services ===''${RESET}"
+      print_service "llama-swap:"        "llama-swap"
+      print_service "llama-cpp (embed):" "llama-cpp-embed"
+      print_service "searxng:"           "docker-searxng"
+      print_service "honcho-db:"         "docker-honcho-db"
+      print_service "honcho-redis:"      "docker-honcho-redis"
+      print_service "honcho-api:"        "docker-honcho-api"
+      print_service "honcho-deriver:"    "docker-honcho-deriver"
+      print_service "crawl4ai:"          "docker-crawl4ai"
 
       echo ""
-      echo "=== Health ==="
-      echo -n "llama-swap:      "
-      curl -sf http://localhost:8080/health > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
+      echo -e "''${BLUE}=== Health ===''${RESET}"
+      check_health "llama-swap:"        "http://localhost:8080/health" "llama-swap"
+      check_health "llama-cpp (embed):" "http://localhost:8081/health" "llama-cpp-embed"
+      check_health "honcho-api:"        "http://localhost:8000/health" "docker-honcho-api"
+      check_health "searxng:"           "http://localhost:8123"        "docker-searxng"
+      check_health "crawl4ai:"          "http://localhost:11235/health" "docker-crawl4ai"
+
       echo ""
-
-      echo -n "llama-cpp embed: "
-      curl -sf http://localhost:8081/health || echo "unreachable"
-      echo ""
-
-      echo -n "honcho api:      "
-      curl -sf http://localhost:8000/health || echo "unreachable"
-      echo ""
-
-      echo -n "searxng:         "
-      curl -sf http://localhost:8123 > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
-
-      echo -n "crawl4ai:        "
-      curl -sf http://localhost:11235/health > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
     '';
   };
 in

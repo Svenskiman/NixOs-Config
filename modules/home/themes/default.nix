@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 
 let
   # ── Schema ────────────────────────────────────────────────────────────────
@@ -85,7 +85,6 @@ in
         (import ./definitions/nord.nix)
         (import ./definitions/gruvbox.nix)
         (import ./definitions/everforest.nix)
-        (import ./definitions/silent-hill.nix)
         (import ./definitions/nocturne.nix)
         (import ./definitions/oxocarbon.nix)
       ];

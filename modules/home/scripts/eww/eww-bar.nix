@@ -83,13 +83,13 @@ let
       pkgs.gnugrep
     ];
     text = ''
-      if bluetoothctl show | grep -q "Powered: yes"; then
+      if timeout 3s bluetoothctl show 2>/dev/null | grep -q "Powered: yes"; then
           powered=true
       else
           powered=false
       fi
 
-      if bluetoothctl info | grep -q "Connected: yes"; then
+      if timeout 3s bluetoothctl info 2>/dev/null | grep -q "Connected: yes"; then
           connected=true
       else
           connected=false
@@ -117,14 +117,14 @@ let
           sed -E 's/\x1b\[[0-9;]*[a-zA-Z]//g'
       }
 
-      device=$(iwctl device list | strip_ansi | awk '/station/ {print $1; exit}')
+      device=$(timeout 4s iwctl device list 2>/dev/null | strip_ansi | awk '/station/ {print $1; exit}')
 
       if [ -z "$device" ]; then
           jq -nc '{connected: false, signal: 0}'
           exit 0
       fi
 
-      output=$(iwctl station "$device" show | strip_ansi)
+      output=$(timeout 4s iwctl station "$device" show 2>/dev/null | strip_ansi)
 
       if echo "$output" | grep -q "State *connected"; then
           connected=true
@@ -319,7 +319,7 @@ let
       pkgs.jq
     ];
     text = ''
-      output=$(mullvad status 2>/dev/null)
+      output=$(timeout 4s mullvad status 2>/dev/null || echo "")
 
       if echo "$output" | grep -q "^Connected"; then
           status="connected"
@@ -346,7 +346,7 @@ let
       pkgs.jq
     ];
     text = ''
-      if ! docker info >/dev/null 2>&1; then
+      if ! timeout 4s docker info >/dev/null 2>&1; then
           jq -nc '{status: "error", count: 0}'
           exit 0
       fi
@@ -413,7 +413,7 @@ let
       )
 
       for url in "''${endpoints[@]}"; do
-        if ! curl -sf "$url" >/dev/null 2>&1; then
+        if ! curl -sf --max-time 2 "$url" >/dev/null 2>&1; then
           jq -nc '{status: "red"}'
           exit 0
         fi
