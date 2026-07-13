@@ -36,6 +36,7 @@ return {
                         nord = "nord",
                         everforest = "everforest",
                         nocturne = "oxocarbon",
+                        oxocarbon = "oxocarbon",
                     }
                     local cs = colorschemes[theme_name]
                     if cs then

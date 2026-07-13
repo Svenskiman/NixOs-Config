@@ -6,6 +6,7 @@ let
     nord = "nord";
     everforest = "everforest";
     nocturne = "oxocarbon";
+    oxocarbon = "oxocarbon";
   };
 
   makeNeovimTheme =

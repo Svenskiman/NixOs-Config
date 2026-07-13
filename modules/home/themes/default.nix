@@ -87,6 +87,7 @@ in
         (import ./definitions/everforest.nix)
         (import ./definitions/silent-hill.nix)
         (import ./definitions/nocturne.nix)
+        (import ./definitions/oxocarbon.nix)
       ];
     };
   };
