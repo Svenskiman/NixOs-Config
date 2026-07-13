@@ -165,6 +165,24 @@ let
     '';
   };
 
+  apply-theme-opencode = pkgs.writeShellApplication {
+    name = "apply-theme-opencode";
+    runtimeInputs = [ pkgs.jq ];
+    text = ''
+      THEME=$1
+      TUI_JSON="$HOME/.config/opencode/tui.json"
+
+      if [ ! -f "$TUI_JSON" ]; then
+          jq -n '{"$schema":"https://opencode.ai/tui.json"}' > "$TUI_JSON"
+      fi
+
+      jq --arg theme "$THEME" \
+         '. + {"theme": $theme}' \
+         "$TUI_JSON" > /tmp/opencode-tui.json \
+      && mv /tmp/opencode-tui.json "$TUI_JSON"
+    '';
+  };
+
   # ── Inactive ──────────────────────────────────────────
   apply-theme-waybar = pkgs.writeShellApplication {
     name = "apply-theme-waybar";
@@ -214,6 +232,7 @@ let
     ${apply-theme-swayosd}/bin/apply-theme-swayosd
     ${apply-theme-vscode}/bin/apply-theme-vscode "$THEME_DIR"
     ${apply-theme-neovim}/bin/apply-theme-neovim "$THEME_DIR"
+    ${apply-theme-opencode}/bin/apply-theme-opencode "$THEME" 
 
     echo "Theme set to $THEME"
   '';

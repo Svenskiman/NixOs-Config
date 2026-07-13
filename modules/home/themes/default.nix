@@ -75,6 +75,7 @@ in
     ./targets/hyprlock-colours.nix
     ./targets/share-picker-colours.nix
     ./targets/neovim-colours.nix
+    ./targets/opencode-colours.nix
   ];
 
   options = {
