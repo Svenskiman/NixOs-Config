@@ -44,7 +44,8 @@ in
     hermes.enable = true;
     honcho.enable = true;
     searxng.enable = true;
-    firecrawl.enable = true;
+    crawl4ai.enable = true;
+    firecrawl.enable = false;
 
     displayManager.sddm.enable = true;
     fonts.enable = true;

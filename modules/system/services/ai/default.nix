@@ -8,6 +8,7 @@
     ./searxng.nix
     ./llama-swap.nix
     ./honcho.nix
+    ./crawl4ai.nix
     ./firecrawl.nix
   ];
 }

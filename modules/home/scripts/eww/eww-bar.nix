@@ -377,23 +377,19 @@ let
     ];
     text = ''
       services=(
-        llama-cpp
+        llama-swap
         llama-cpp-embed
         docker-searxng
         docker-honcho-db
         docker-honcho-redis
         docker-honcho-api
         docker-honcho-deriver
-        docker-firecrawl-api
-        docker-firecrawl-playwright
-        docker-firecrawl-rabbitmq
-        docker-firecrawl-postgres
+        docker-crawl4ai
       )
 
       total=''${#services[@]}
       count=0
 
-      # Phase 1: count active services
       for svc in "''${services[@]}"; do
         systemctl is-active --quiet "$svc" && count=$((count + 1)) || true
       done
@@ -408,13 +404,12 @@ let
         exit 0
       fi
 
-      # Phase 2: all services active — check each distinct endpoint once
       endpoints=(
         "http://localhost:8080/health"
         "http://localhost:8081/health"
         "http://localhost:8000/health"
         "http://localhost:8123"
-        "http://localhost:3002"
+        "http://localhost:11235/health"
       )
 
       for url in "''${endpoints[@]}"; do

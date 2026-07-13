@@ -17,11 +17,7 @@ let
       sudo systemctl start docker-honcho-redis
       sudo systemctl start docker-honcho-api
       sudo systemctl start docker-honcho-deriver
-      sudo systemctl start docker-firecrawl-redis
-      sudo systemctl start docker-firecrawl-rabbitmq
-      sudo systemctl start docker-firecrawl-postgres
-      sudo systemctl start docker-firecrawl-playwright
-      sudo systemctl start docker-firecrawl-api
+      sudo systemctl start docker-crawl4ai
     '';
   };
 
@@ -29,11 +25,7 @@ let
     name = "ai-stop";
     runtimeInputs = [ pkgs.systemd ];
     text = ''
-      sudo systemctl stop docker-firecrawl-api
-      sudo systemctl stop docker-firecrawl-playwright
-      sudo systemctl stop docker-firecrawl-rabbitmq
-      sudo systemctl stop docker-firecrawl-postgres
-      sudo systemctl stop docker-firecrawl-redis
+      sudo systemctl stop docker-crawl4ai
       sudo systemctl stop docker-honcho-deriver
       sudo systemctl stop docker-honcho-api
       sudo systemctl stop docker-honcho-redis
@@ -80,14 +72,14 @@ let
         && echo "honcho-deriver:    running" \
         || echo "honcho-deriver:    stopped"
 
-      systemctl is-active --quiet docker-firecrawl-api \
-        && echo "firecrawl:         running" \
-        || echo "firecrawl:         stopped"
+      systemctl is-active --quiet docker-crawl4ai \
+        && echo "crawl4ai:          running" \
+        || echo "crawl4ai:          stopped"
 
       echo ""
       echo "=== Health ==="
       echo -n "llama-swap:      "
-      curl -sf http://localhost:8080/health || echo "unreachable"
+      curl -sf http://localhost:8080/health > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
       echo ""
 
       echo -n "llama-cpp embed: "
@@ -101,8 +93,8 @@ let
       echo -n "searxng:         "
       curl -sf http://localhost:8123 > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
 
-      echo -n "firecrawl:       "
-      curl -sf http://localhost:3002 > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
+      echo -n "crawl4ai:        "
+      curl -sf http://localhost:11235/health > /dev/null && echo '{"status":"ok"}' || echo "unreachable"
     '';
   };
 in

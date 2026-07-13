@@ -5,10 +5,8 @@
   osConfig,
   ...
 }:
-
 let
   cfg = osConfig.myModules.ai;
-
   mkModelEntries =
     name: m:
     if m.hasThinking then
@@ -41,18 +39,14 @@ let
           };
         };
       };
-
   allModels = lib.foldlAttrs (
     acc: name: m:
     acc // mkModelEntries name m
   ) { } cfg.models;
-
   opencodeConfig = {
     "$schema" = "https://opencode.ai/config.json";
-
     model = "local/${cfg.activeModel}";
     small_model = "local/${cfg.activeModel}";
-
     provider = {
       local = {
         npm = "@ai-sdk/openai-compatible";
@@ -65,16 +59,9 @@ let
       };
     };
 
-    plugin = [ "@honcho-ai/opencode-honcho" ];
-
-    # Dont enable all tools or Opencode has a stroke
-    tools = {
-      "firecrawl_*" = false;
-      firecrawl_scrape = true;
-      firecrawl_search = true;
-      "searxng_*" = false;
-      searxng_web_search = true;
-    };
+    plugin = [
+      "@honcho-ai/opencode-honcho"
+    ];
 
     mcp = {
       searxng = {
@@ -89,24 +76,22 @@ let
           SEARXNG_URL = "http://localhost:8123";
         };
       };
-      firecrawl = {
+
+      crawl4ai = {
         type = "local";
         command = [
           "npx"
           "-y"
-          "firecrawl-mcp"
+          "mcp-crawl4ai-ts"
         ];
         enabled = true;
         environment = {
-          FIRECRAWL_API_URL = "http://localhost:3002";
-          FIRECRAWL_API_KEY = "dummy";
-          FIRECRAWL_NO_SEARCH_FEEDBACK = "1";
-          FIRECRAWL_NO_ENDPOINT_FEEDBACK = "1";
+          CRAWL4AI_BASE_URL = "http://localhost:11235";
         };
       };
     };
-  };
 
+  };
   honchoConfig = {
     apiKey = "local";
     peerName = "svenski";
@@ -121,26 +106,20 @@ let
     };
   };
 in
-
 {
   options = {
     myModules.opencode.enable = lib.mkEnableOption "OpenCode AI coding agent";
   };
-
   config = lib.mkIf config.myModules.opencode.enable {
-
     home.packages = [
       pkgs.opencode
       pkgs.nodejs
     ];
-
     xdg.configFile."opencode/opencode.json" = {
       text = builtins.toJSON opencodeConfig;
     };
-
     home.file.".honcho/config.json" = {
       text = builtins.toJSON honchoConfig;
     };
-
   };
 }
