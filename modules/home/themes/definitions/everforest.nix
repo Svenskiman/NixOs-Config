@@ -13,7 +13,7 @@
   };
 
   colors = {
-    background = "#2D353B"; # bg0
+    background = "#272E33"; # bg0
     foreground = "#D3C6AA"; # fg
     cursor = "#D3C6AA"; # fg
     accent = "#A7C080"; # green
