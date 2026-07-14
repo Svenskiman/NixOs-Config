@@ -7,7 +7,7 @@
 (defpoll ram-status :interval "2s" :initial "{\"usage\": 0}"
     "eww-ram-status")
 
-(defpoll gpu-status :interval "2s" :initial "{\"available\": false, \"usage\": 0}"
+(defpoll gpu-status :interval "2s" :initial "{\"available\": false, \"usage\": 0, \"vram_used_mb\": 0, \"vram_total_mb\": 0, \"vram_percent\": 0}"
     "eww-gpu-status")
 
 (defwindow dropdown
@@ -160,6 +160,28 @@
             (label :class "stat-value" :text {jq(gpu-status, ".available") == "true"
                     ? jq(gpu-status, ".usage") + "%"
                     : "n/a"}))
+
+
+        (box :class "stats-pill"
+            :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+            (label :class "stat-icon" :text "󰙬")
+            (label :class "stat-label" :text "VRAM" :xalign 0)
+            (progress :class {jq(gpu-status, ".available") == "false"
+                    ? "stat-bar stat-disabled"
+                    : (jq(gpu-status, ".vram_percent | tonumber") >= 80
+                        ? "stat-bar stat-critical"
+                        : (jq(gpu-status, ".vram_percent | tonumber") >= 50
+                            ? "stat-bar stat-warning"
+                            : "stat-bar stat-normal"))}
+                :hexpand true
+                :value {jq(gpu-status, ".available") == "true" ? jq(gpu-status, ".vram_percent | tonumber") : 0})
+            (label :class "stat-value" :text {jq(gpu-status, ".available") == "true"
+                ? jq(gpu-status, ".vram_percent") + "%"
+                : "n/a"}))
 
         (box :class "stats-pill"
             :orientation "h"

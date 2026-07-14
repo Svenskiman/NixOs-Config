@@ -63,15 +63,33 @@ let
 
   eww-gpu-status = pkgs.writeShellApplication {
     name = "eww-gpu-status";
-    runtimeInputs = [ pkgs.jq ];
+    runtimeInputs = [
+      pkgs.rocmPackages.rocm-smi
+      pkgs.gawk
+      pkgs.jq
+    ];
     text = ''
-      FILE="/sys/class/drm/card0/device/gpu_busy_percent"
-      if [ -r "$FILE" ]; then
-          usage=$(cat "$FILE")
-          jq -nc --argjson usage "$usage" '{available: true, usage: $usage}'
-      else
-          jq -nc '{available: false, usage: 0}'
+      raw=$(rocm-smi --showmeminfo vram -u --json 2>/dev/null) || true
+
+      if [ -z "$raw" ]; then
+        jq -nc '{available: false, usage: 0, vram_used_mb: 0, vram_total_mb: 0, vram_percent: 0}'
+        exit 0
       fi
+
+      usage=$(echo "$raw" | jq -r '.card0["GPU use (%)"]')
+      vram_total_b=$(echo "$raw" | jq -r '.card0["VRAM Total Memory (B)"]')
+      vram_used_b=$(echo "$raw" | jq -r '.card0["VRAM Total Used Memory (B)"]')
+
+      vram_total_mb=$(awk -v v="$vram_total_b" 'BEGIN { printf "%d", v / 1024 / 1024 }')
+      vram_used_mb=$(awk -v v="$vram_used_b" 'BEGIN { printf "%d", v / 1024 / 1024 }')
+      vram_percent=$(awk -v u="$vram_used_mb" -v t="$vram_total_mb" 'BEGIN { printf "%d", 100 * u / t }')
+
+      jq -nc \
+        --argjson usage "$usage" \
+        --argjson vram_used_mb "$vram_used_mb" \
+        --argjson vram_total_mb "$vram_total_mb" \
+        --argjson vram_percent "$vram_percent" \
+        '{available: true, usage: $usage, vram_used_mb: $vram_used_mb, vram_total_mb: $vram_total_mb, vram_percent: $vram_percent}'
     '';
   };
 in
