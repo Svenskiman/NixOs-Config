@@ -62,6 +62,11 @@ in
       xwayland.enable = true;
       withUWSM = true;
     };
+
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
 
   services = {
