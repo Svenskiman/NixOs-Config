@@ -26,7 +26,7 @@
         nixd
         statix
         lua-language-server
-        nixfmt-rfc-style
+        nixfmt
       ];
 
       plugins = {

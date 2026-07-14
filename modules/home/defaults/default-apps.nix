@@ -22,7 +22,7 @@
       # Editors
       vim
       vscode
-      sublime4
+      gedit
 
       # Productivity
       obsidian

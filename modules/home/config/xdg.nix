@@ -48,6 +48,12 @@ let
       icon = "nvim";
       exec = "alacritty -e nvim";
     }
+    {
+      file = "org.gnome.gedit";
+      name = "Gedit";
+      icon = "org.gnome.gedit";
+      exec = "gedit";
+    }
 
   ];
 
@@ -64,10 +70,12 @@ in
 
 {
   options = {
-    myModules.xdg.enable = lib.mkEnableOption "XDG configuration";
-    myModules.xdg.user.enable = lib.mkEnableOption "XDG user directories";
-    myModules.xdg.desktop.enable = lib.mkEnableOption "XDG desktop entries";
-    myModules.xdg.server.enable = lib.mkEnableOption "Server directories";
+    myModules.xdg = {
+      enable = lib.mkEnableOption "XDG configuration";
+      user.enable = lib.mkEnableOption "XDG user directories";
+      desktop.enable = lib.mkEnableOption "XDG desktop entries";
+      server.enable = lib.mkEnableOption "Server directories";
+    };
   };
 
   config = lib.mkMerge [
