@@ -83,13 +83,16 @@ let
       pkgs.gnugrep
     ];
     text = ''
-      if timeout 3s bluetoothctl show 2>/dev/null | grep -q "Powered: yes"; then
+      bt_show=$(timeout 3s bluetoothctl show 2>/dev/null || echo "")
+      bt_info=$(timeout 3s bluetoothctl info 2>/dev/null || echo "")
+
+      if echo "$bt_show" | grep -q "Powered: yes"; then
           powered=true
       else
           powered=false
       fi
 
-      if timeout 3s bluetoothctl info 2>/dev/null | grep -q "Connected: yes"; then
+      if echo "$bt_info" | grep -q "Connected: yes"; then
           connected=true
       else
           connected=false
@@ -257,11 +260,11 @@ let
     ];
     text = ''
 
-      MAX_CHARS=25       # Max characters before truncation
-      PAD_TO=28          # Fixed display width (MAX_CHARS + 3 for "...")
+      MAX_CHARS=25 # Max characters before truncation
+      PAD_TO=28 # Fixed display width
 
       output=$(playerctl --player=spotify metadata \
-          --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}§{{artist}}' 2>/dev/null)
+          --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}§{{artist}}' 2>/dev/null || true)
 
       if [ -z "$output" ]; then
           jq -nc '{title: "Nothing playing...", position: "", length: "", status: "Paused", active: false}'
@@ -270,7 +273,7 @@ let
 
       IFS='§' read -r title status position length artist <<< "$output"
 
-      # Build display string — title takes priority, fill remainder with " - artist"
+      # Build display string and have title take priority.
       if [ "''${#title}" -lt $MAX_CHARS ]; then
           remaining=$(( MAX_CHARS - ''${#title} ))
           suffix=" - $artist"
@@ -284,12 +287,10 @@ let
           display="$title"
       fi
 
-      # Pad to fixed width so the label never changes size
       while [ "''${#display}" -lt $PAD_TO ]; do
           display="$display "
       done
 
-      # Convert microseconds to m:ss
       to_timestamp() {
           local us=$1
           local total_seconds=$(( us / 1000000 ))

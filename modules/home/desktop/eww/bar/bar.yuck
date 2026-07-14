@@ -31,7 +31,7 @@
 
 ;; -- Dropbox state --
 
-(defpoll dropbox-status :interval "2s"
+(defpoll dropbox-status :interval "2s" :initial "{\"status\": \"error\"}"
     "eww-dropbox-status")
 
 ;; -- Dcoker state --
@@ -41,30 +41,30 @@
 
 ;; -- Discord state --
 
-(defpoll discord-status :interval "2s"
+(defpoll discord-status :interval "2s" :initial "{\"status\": \"off\"}"
     "eww-discord-status")
 
     
 ;; -- Audio state --
 
-(defpoll audio-status :interval "1s"
+(defpoll audio-status :interval "1s" :initial "{\"volume\": 0, \"muted\": false}"
     "eww-audio-status")
 
 ;; -- Bluetooth state --
 
-(defpoll bluetooth-status :interval "2s"
+(defpoll bluetooth-status :interval "2s" :initial "{\"powered\": false, \"connected\": false}"
     "eww-bluetooth-status")
 
 ;; -- Network state --
 
-(defpoll network-status :interval "2s"
+(defpoll network-status :interval "2s" :initial "{\"connected\": false, \"signal\": 0, \"type\": \"disconnected\"}"
     "eww-network-status")
 
 
 ;; -- Battery state --
 (defvar battery-enabled false)
 
-(defpoll battery-status :interval "30s" :run-while battery-enabled
+(defpoll battery-status :interval "30s" :run-while battery-enabled :initial "{\"capacity\": 0, \"charging\": false}"
     "eww-battery-status")
 
 ;; -- Bar window --
