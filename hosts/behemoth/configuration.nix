@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./drives.nix
     ./../../modules/system/default.nix
+    ./../../modules/system/services/flatpak.nix
     ./../../modules/system/services/display-manager.nix
     ./../../modules/system/services/ai
   ];
@@ -65,6 +66,8 @@
       enable = true;
       binfmt = true;
     };
+
+    nix-ld.enable = true;
   };
 
   services = {

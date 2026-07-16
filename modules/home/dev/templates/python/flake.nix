@@ -33,6 +33,7 @@
               zlib
               libffi
               gcc
+              nix-ld
             ];
 
             enterShell = ''

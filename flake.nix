@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     walker = {
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +38,7 @@
     {
       nixpkgs,
       home-manager,
+      nix-flatpak,
       walker,
       silentSDDM,
       flake-compat,
@@ -84,6 +89,7 @@
           modules = [
             ./hosts/behemoth/configuration.nix
             home-manager.nixosModules.default
+            nix-flatpak.nixosModules.nix-flatpak
             silentSDDM.nixosModules.default
             sops-nix.nixosModules.sops
             hermes-agent.nixosModules.default
