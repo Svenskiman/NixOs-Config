@@ -27,12 +27,15 @@
         statix
         lua-language-server
         nixfmt
+        basedpyright
+        ruff
       ];
 
       plugins = {
         colorscheme = builtins.readFile ./plugins/themes.lua;
         snacks = builtins.readFile ./plugins/snacks.lua;
         lang = builtins.readFile ./plugins/lang.lua;
+        brackets = builtins.readFile ./plugins/brackets.lua;
       };
 
       config = {

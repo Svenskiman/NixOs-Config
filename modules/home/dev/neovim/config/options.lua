@@ -4,6 +4,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.number = true
 vim.o.relativenumber = false
+vim.o.conceallevel = 0
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
