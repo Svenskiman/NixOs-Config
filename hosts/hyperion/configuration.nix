@@ -1,7 +1,5 @@
 {
   config,
-  lib,
-  pkgs,
   ...
 }:
 
@@ -12,17 +10,18 @@
   ];
 
   networking.hostName = "hyperion";
+  programs.zsh.enable = true;
+  time.timeZone = "Europe/London";
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.efi.canTouchEfiVariables = false;
-
-  myModules.networking.enable = true;
-  myModules.tailscale.enable = true;
-  myModules.docker.enable = true;
-  myModules.secrets.enable = true;
+  boot.loader = {
+    grub = {
+      enable = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      device = "nodev";
+    };
+    efi.canTouchEfiVariables = false;
+  };
 
   services.openssh = {
     enable = true;
@@ -34,37 +33,44 @@
     };
   };
 
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets = builtins.listToAttrs (
-    map
-      (name: {
-        inherit name;
-        value.owner = "shrike";
-      })
-      [
-        "minecraft_friends_rcon_password"
-        "valheim_server_password"
-        "palworld_server_password"
-        "palworld_admin_password"
-      ]
-  );
+  myModules = {
+    networking.enable = true;
+    tailscale.enable = true;
+    docker.enable = true;
+    secrets.enable = true;
 
-  sops.templates."palworld-da-bois.env" = {
-    content = ''
-      SERVER_PASSWORD=${config.sops.placeholder.palworld_server_password}
-      ADMIN_PASSWORD=${config.sops.placeholder.palworld_admin_password}
-    '';
-    owner = "root";
+    # Dockerized servers
+    servers = {
+      games = {
+        minecraft.enable = true;
+        valheim.enable = true;
+        palworld.enable = true;
+      };
+    };
   };
 
-  # Docker servers
-  myModules.servers.games.minecraft.enable = true;
-  myModules.servers.games.valheim.enable = true;
-  myModules.servers.games.palworld.enable = true;
+  # Server secrets
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
 
-  programs.zsh.enable = true;
+    secrets = {
+      minecraft_friends_rcon_password.owner = "shrike";
+      valheim_server_password.owner = "shrike";
+      palworld_server_password.owner = "shrike";
+      palworld_admin_password.owner = "shrike";
+    };
 
-  time.timeZone = "Europe/London";
+    # Needed if secrets file is not supported
+    templates = {
+      "palworld-da-bois.env" = {
+        owner = "root";
+        content = ''
+          SERVER_PASSWORD=${config.sops.placeholder.palworld_server_password}
+          ADMIN_PASSWORD=${config.sops.placeholder.palworld_admin_password}
+        '';
+      };
+    };
+  };
 
   system.stateVersion = "26.05";
 }

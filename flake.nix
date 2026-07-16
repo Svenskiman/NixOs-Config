@@ -110,19 +110,17 @@
             ./hosts/hyperion/configuration.nix
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
-            hermes-agent.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.shrike = import ./hosts/hyperion/home.nix;
                 backupFileExtension = "backup";
-                extraSpecialArgs = { inherit inputs hyprland-preview-share-picker; };
+                extraSpecialArgs = { inherit inputs; };
               };
             }
           ];
         };
-
       };
     };
 }

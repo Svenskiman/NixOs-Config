@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -6,9 +6,11 @@
     ./../../modules/home/config/xdg.nix
   ];
 
-  home.username = "shrike";
-  home.homeDirectory = "/home/shrike";
-  home.stateVersion = "26.05";
+  home = {
+    username = "shrike";
+    homeDirectory = "/home/shrike";
+    stateVersion = "26.05";
+  };
 
   myModules.zsh.enable = true;
   myModules.xdg.server.enable = true;

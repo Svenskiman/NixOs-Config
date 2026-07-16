@@ -1,5 +1,5 @@
 {
-  hyprland-preview-share-picker,
+  hyprland-preview-share-picker ? null,
   pkgs,
   lib,
   config,

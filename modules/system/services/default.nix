@@ -8,6 +8,5 @@
     ./hyprlock.nix
     ./tailscale.nix
     ./steam.nix
-    ./ai
   ];
 }
