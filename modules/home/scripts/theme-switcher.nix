@@ -16,19 +16,20 @@ let
       pkgs.coreutils
     ];
     text = ''
-      eww close dropdown 2>/dev/null || true
+      # Close windows gracefully first so GTK can tear down Wayland surfaces
+      eww close-all 2>/dev/null || true
+      sleep 0.3
 
-      # Give reload a chance first (2s window)
-      if timeout 2s eww reload 2>/dev/null; then
-        exit 0
-      fi
+      # Kill the daemon cleanly (SIGTERM, not SIGKILL) so it releases the compositor connection
+      eww kill 2>/dev/null || true
+      sleep 0.3
 
-      # Reload timed out or failed daemon is frozen. Force kill and restart.
-      echo "eww reload failed or timed out, force-restarting daemon..." >&2
+      # If it's still hanging around, force it
       pkill -9 -x eww 2>/dev/null || true
-      sleep 0.5
+      sleep 0.2
 
-      eww daemon 2>/dev/null &
+      # Fresh start
+      eww daemon 2>/dev/null
       sleep 0.5
       eww open bar 2>/dev/null || true
     '';
@@ -238,9 +239,10 @@ let
     ln -sfn "$THEME_DIR" "$HOME/.local/state/theme/current"
     echo "$THEME" > "$HOME/.local/state/theme/active-theme"
 
-    ${apply-theme-eww}/bin/apply-theme-eww
     ${apply-theme-wallpaper}/bin/apply-theme-wallpaper "$THEME"
     ${apply-theme-hyprland}/bin/apply-theme-hyprland
+    ${apply-theme-eww}/bin/apply-theme-eww
+    sleep 0.5
     ${apply-theme-mako}/bin/apply-theme-mako "$THEME_DIR"
     ${apply-theme-walker}/bin/apply-theme-walker
     ${apply-theme-alacritty}/bin/apply-theme-alacritty "$THEME_DIR"
