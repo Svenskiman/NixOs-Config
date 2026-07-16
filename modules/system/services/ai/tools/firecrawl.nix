@@ -7,10 +7,10 @@
 
 {
   options = {
-    myModules.firecrawl.enable = lib.mkEnableOption "Self-hosted Firecrawl scraping service";
+    myModules.ai.tools.firecrawl.enable = lib.mkEnableOption "Self-hosted Firecrawl scraping service";
   };
 
-  config = lib.mkIf config.myModules.firecrawl.enable {
+  config = lib.mkIf config.myModules.ai.tools.firecrawl.enable {
 
     systemd.services.docker-network-firecrawl = {
       description = "Create firecrawl Docker network";

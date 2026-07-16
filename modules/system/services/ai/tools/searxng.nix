@@ -6,10 +6,10 @@
 
 {
   options = {
-    myModules.searxng.enable = lib.mkEnableOption "SearXNG search engine";
+    myModules.ai.tools.searxng.enable = lib.mkEnableOption "SearXNG search engine";
   };
 
-  config = lib.mkIf config.myModules.searxng.enable {
+  config = lib.mkIf config.myModules.ai.tools.searxng.enable {
     environment.etc."searxng/limiter.toml".text = ''
       [botdetection.ip_lists]
       pass_ip = [

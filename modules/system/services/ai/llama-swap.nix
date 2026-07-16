@@ -67,12 +67,12 @@ let
 in
 
 {
-  options.myModules.llamaSwap = {
+  options.myModules.ai.llamaSwap = {
     enable = lib.mkEnableOption "llama-swap model manager";
     embed.enable = lib.mkEnableOption "llama.cpp embedding server";
   };
 
-  config = lib.mkIf config.myModules.llamaSwap.enable (
+  config = lib.mkIf config.myModules.ai.llamaSwap.enable (
     lib.mkMerge [
 
       {
@@ -122,7 +122,7 @@ in
         };
       }
 
-      (lib.mkIf config.myModules.llamaSwap.embed.enable {
+      (lib.mkIf config.myModules.ai.llamaSwap.embed.enable {
         systemd.services.llama-cpp-embed = {
           description = "llama.cpp embedding server (nomic-embed-text-v2)";
           after = [ "network.target" ];

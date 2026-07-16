@@ -34,18 +34,20 @@ in
     docker.enable = true;
 
     ai = {
+      # Default model
       activeModel = "qwythos_9B_Q4-K-M";
+      llamaSwap = {
+        enable = true;
+        embed.enable = true;
+      };
+      hermes.enable = true;
+      tools = {
+        honcho.enable = true;
+        searxng.enable = true;
+        crawl4ai.enable = true;
+        firecrawl.enable = false;
+      };
     };
-    llamaSwap = {
-      enable = true;
-      embed.enable = true;
-    };
-
-    hermes.enable = true;
-    honcho.enable = true;
-    searxng.enable = true;
-    crawl4ai.enable = true;
-    firecrawl.enable = false;
 
     displayManager.sddm.enable = true;
     fonts.enable = true;

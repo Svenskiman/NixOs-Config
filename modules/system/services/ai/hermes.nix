@@ -7,10 +7,10 @@ in
 
 {
   options = {
-    myModules.hermes.enable = lib.mkEnableOption "Hermes AI agent";
+    myModules.ai.hermes.enable = lib.mkEnableOption "Hermes AI agent";
   };
 
-  config = lib.mkIf config.myModules.hermes.enable {
+  config = lib.mkIf config.myModules.ai.hermes.enable {
     services.hermes-agent = {
       enable = true;
       addToSystemPackages = true;

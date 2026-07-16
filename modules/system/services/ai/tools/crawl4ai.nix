@@ -2,10 +2,10 @@
 
 {
   options = {
-    myModules.crawl4ai.enable = lib.mkEnableOption "Crawl4AI web scraping service";
+    myModules.ai.tools.crawl4ai.enable = lib.mkEnableOption "Crawl4AI web scraping service";
   };
 
-  config = lib.mkIf config.myModules.crawl4ai.enable {
+  config = lib.mkIf config.myModules.ai.tools.crawl4ai.enable {
 
     virtualisation.oci-containers.containers = {
       crawl4ai = {

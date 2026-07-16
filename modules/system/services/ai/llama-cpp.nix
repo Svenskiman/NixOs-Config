@@ -13,13 +13,13 @@ let
 in
 {
   options = {
-    myModules.llamaCpp = {
+    myModules.ai.llamaCpp = {
       enable = lib.mkEnableOption "llama.cpp servers";
       chat.enable = lib.mkEnableOption "llama.cpp chat server";
       embed.enable = lib.mkEnableOption "llama.cpp embedding server";
     };
   };
-  config = lib.mkIf config.myModules.llamaCpp.enable (
+  config = lib.mkIf config.myModules.ai.llamaCpp.enable (
     lib.mkMerge [
       {
         systemd.tmpfiles.rules = [
@@ -35,7 +35,7 @@ in
           }"
         ];
       }
-      (lib.mkIf config.myModules.llamaCpp.chat.enable {
+      (lib.mkIf config.myModules.ai.llamaCpp.chat.enable {
         services.llama-cpp = {
           enable = true;
           package = pkgs.llama-cpp-rocm;
@@ -67,7 +67,7 @@ in
           wantedBy = lib.mkForce [ ];
         };
       })
-      (lib.mkIf config.myModules.llamaCpp.embed.enable {
+      (lib.mkIf config.myModules.ai.llamaCpp.embed.enable {
         systemd.services.llama-cpp-embed = {
           description = "llama.cpp embedding server (nomic-embed-text-v2)";
           after = [ "network.target" ];

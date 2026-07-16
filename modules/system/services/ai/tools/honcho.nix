@@ -43,10 +43,10 @@ in
 
 {
   options = {
-    myModules.honcho.enable = lib.mkEnableOption "Honcho memory server";
+    myModules.ai.tools.honcho.enable = lib.mkEnableOption "Honcho memory server";
   };
 
-  config = lib.mkIf config.myModules.honcho.enable {
+  config = lib.mkIf config.myModules.ai.tools.honcho.enable {
 
     networking.firewall.trustedInterfaces = [
       "docker0"
