@@ -36,6 +36,7 @@
         snacks = builtins.readFile ./plugins/snacks.lua;
         lang = builtins.readFile ./plugins/lang.lua;
         brackets = builtins.readFile ./plugins/brackets.lua;
+        inlayhint = builtins.readFile ./plugins/inlayhint.lua;
       };
 
       config = {
