@@ -440,7 +440,7 @@ in
       eww-spotify-status
       eww-mullvad-status
       eww-docker-status
-      eww-ai-status
+      #eww-ai-status
     ];
   };
 }

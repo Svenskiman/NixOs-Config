@@ -8,8 +8,10 @@
   config = lib.mkIf config.myModules.steam.enable {
     programs.steam = {
       enable = true;
-      remotePlay.openFirewall = false;
+      remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+      protontricks.enable = true;
     };
   };
 }

@@ -38,6 +38,7 @@
 
       adw-gtk3
       adwaita-icon-theme
+      protonup-qt
     ];
   };
 }

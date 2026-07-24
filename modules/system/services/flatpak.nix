@@ -17,7 +17,6 @@ _:
       # Give bottles access to proton and game files
       "com.usebottles.bottles".Context.filesystems = [
         "/mnt/games"
-        "/mnt/games/SteamLibrary"
         "~/.steam"
         "~/.local/share/Steam"
       ];
