@@ -36,18 +36,6 @@ in
       ];
     };
 
-    "/mnt/4tb-hdd" = {
-      device = "/dev/disk/by-uuid/ef6e43f2-34a5-46af-932f-c81c78bd1474";
-      fsType = "ext4";
-      options = [
-        "defaults"
-        "noatime"
-        "nofail"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=600"
-      ];
-    };
-
     # Mount server drive
     "/mnt/hyperion" = {
       device = "shrike@${hyperionTailscaleIP}:/home/shrike";
