@@ -30,18 +30,19 @@
     audio.enable = true;
     docker.enable = true;
 
+    # Swapping to a spark but keeping as fallback
     ai = {
       # Default model
       activeModel = "qwythos_9B_Q4-K-M";
       llamaSwap = {
-        enable = true;
-        embed.enable = true;
+        enable = false;
+        embed.enable = false;
       };
-      hermes.enable = true;
+      hermes.enable = false;
       tools = {
-        honcho.enable = true;
-        searxng.enable = true;
-        crawl4ai.enable = true;
+        honcho.enable = false;
+        searxng.enable = false;
+        crawl4ai.enable = false;
         firecrawl.enable = false;
       };
     };
