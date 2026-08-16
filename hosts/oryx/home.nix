@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+{
   imports = [
     ../../modules/home/config/zsh.nix
     ../../modules/home/apps/btop.nix
@@ -24,4 +25,6 @@
       lazydocker
     ];
   };
+
+  programs.alacritty.settings.window.decorations = lib.mkForce "full";
 }

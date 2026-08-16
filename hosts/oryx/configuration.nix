@@ -4,7 +4,9 @@
   users.users.benmiller = {
     home = "/Users/benmiller";
     shell = pkgs.zsh;
+    uid = 502;
   };
+  users.knownUsers = [ "benmiller" ];
 
   programs.zsh.enable = true;
 
