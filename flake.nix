@@ -145,7 +145,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.benmiller = import ./hosts/macbook/home.nix;
+              users.benmiller = import ./hosts/oryx/home.nix;
               extraSpecialArgs = { inherit inputs; };
             };
           }
