@@ -15,5 +15,6 @@
   system.primaryUser = "benmiller";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
+  ids.gids.nixbld = 350;
   system.stateVersion = 4;
 }
