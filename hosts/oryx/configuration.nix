@@ -12,7 +12,7 @@
     "nix-command"
     "flakes"
   ];
-  services.nix-daemon.enable = true;
+  system.primaryUser = "benmiller";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   system.stateVersion = 4;
