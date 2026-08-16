@@ -12,6 +12,11 @@
     "nix-command"
     "flakes"
   ];
+
+  fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+
+  environment.systemPackages = [ pkgs.alacritty ];
+
   system.primaryUser = "benmiller";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
