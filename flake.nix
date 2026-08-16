@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat.url = "github:edolstra/flake-compat";
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -45,6 +50,7 @@
       sops-nix,
       lazyvim,
       hermes-agent,
+      nix-darwin,
       ...
     }@inputs:
 
@@ -127,6 +133,23 @@
             }
           ];
         };
+      };
+
+      # Mac
+      darwinConfigurations.oryx = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          ./hosts/macbook/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.benmiller = import ./hosts/macbook/home.nix;
+              extraSpecialArgs = { inherit inputs; };
+            };
+          }
+        ];
       };
     };
 }
