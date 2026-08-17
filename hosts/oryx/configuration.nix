@@ -9,6 +9,7 @@
   users.knownUsers = [ "benmiller" ];
 
   programs.zsh.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -17,7 +18,25 @@
 
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
-  environment.systemPackages = [ pkgs.alacritty ];
+  environment.systemPackages = with pkgs; [ 
+    alacritty 
+    vscode
+  ];
+
+  # Homebrew casks
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "zap";   # removes casks not listed here on rebuild
+    };
+    casks = [
+      "jetbrains-toolbox"
+      "docker-desktop"
+      "sublime-text"
+      "spotify"
+    ];
+  };
 
   system.primaryUser = "benmiller";
   nixpkgs.hostPlatform = "aarch64-darwin";

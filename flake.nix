@@ -37,6 +37,9 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
   };
 
   outputs =
@@ -51,6 +54,7 @@
       lazyvim,
       hermes-agent,
       nix-darwin,
+      nix-homebrew,
       ...
     }@inputs:
 
@@ -141,6 +145,7 @@
         modules = [
           ./hosts/oryx/configuration.nix
           home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
           {
             home-manager = {
               useGlobalPkgs = true;
@@ -148,7 +153,14 @@
               users.benmiller = import ./hosts/oryx/home.nix;
               extraSpecialArgs = { inherit inputs; };
             };
-          }
+          }                         
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = false;
+              user = "benmiller";
+            };                       
+          }                          
         ];
       };
     };
