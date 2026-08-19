@@ -18,7 +18,7 @@
       extras = {
         lang.nix = {
           enable = true;
-          installDependencies = false;
+          installDependencies = true;
         };
       };
 
@@ -33,10 +33,12 @@
 
       plugins = {
         colorscheme = builtins.readFile ./plugins/themes.lua;
-        snacks = builtins.readFile ./plugins/snacks.lua;
-        lang = builtins.readFile ./plugins/lang.lua;
-        brackets = builtins.readFile ./plugins/brackets.lua;
-        inlayhint = builtins.readFile ./plugins/inlayhint.lua;
+        snacks      = builtins.readFile ./plugins/snacks.lua;
+        lang        = if pkgs.stdenv.isDarwin
+                      then builtins.readFile ./plugins/lang-darwin.lua
+                      else builtins.readFile ./plugins/lang.lua;
+        brackets    = builtins.readFile ./plugins/brackets.lua;
+        inlayhint   = builtins.readFile ./plugins/inlayhint.lua;
       };
 
       config = {

@@ -144,6 +144,7 @@
         system = "aarch64-darwin";
         modules = [
           ./hosts/oryx/configuration.nix
+          ./modules/darwin/default.nix
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -152,6 +153,7 @@
               useUserPackages = true;
               users.benmiller = import ./hosts/oryx/home.nix;
               extraSpecialArgs = { inherit inputs; };
+              sharedModules = [ lazyvim.homeManagerModules.default ];
             };
           }                         
           {

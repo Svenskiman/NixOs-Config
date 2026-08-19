@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
   networking.hostName = "oryx";
 
   users.users.benmiller = {
@@ -9,38 +11,30 @@
   users.knownUsers = [ "benmiller" ];
 
   programs.zsh.enable = true;
-  nixpkgs.config.allowUnfree = true;
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
-  environment.systemPackages = with pkgs; [ 
-    alacritty 
-    vscode
-  ];
-
-  # Homebrew casks
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";   # removes casks not listed here on rebuild
+  # Darwin modules
+  myModules = {
+    nix.enable = true;
+    homebrew = {
+      enable = true;
+      brews = [ "ddev/ddev/ddev" ];
+      casks = [
+        "alacritty"
+        "discord"
+        "docker-desktop"
+        "jetbrains-toolbox"
+        "keepassxc"
+        "kiro"
+        "spotify"
+        "sublime-text"
+      ];
     };
-    casks = [
-      "jetbrains-toolbox"
-      "docker-desktop"
-      "sublime-text"
-      "spotify"
-    ];
   };
 
   system.primaryUser = "benmiller";
   nixpkgs.hostPlatform = "aarch64-darwin";
-
   ids.gids.nixbld = 350;
   system.stateVersion = 4;
 }
