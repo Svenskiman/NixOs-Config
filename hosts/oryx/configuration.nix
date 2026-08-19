@@ -17,6 +17,7 @@
   # Darwin modules
   myModules = {
     nix.enable = true;
+    macSettings.enable = true;
     homebrew = {
       enable = true;
       brews = [ "ddev/ddev/ddev" ];
@@ -29,6 +30,7 @@
         "kiro"
         "spotify"
         "sublime-text"
+        "tailscale-app"
       ];
     };
   };
