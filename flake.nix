@@ -9,7 +9,6 @@
     };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     walker = {
       url = "github:abenz1267/walker";
@@ -155,14 +154,14 @@
               extraSpecialArgs = { inherit inputs; };
               sharedModules = [ lazyvim.homeManagerModules.default ];
             };
-          }                         
+          }
           {
             nix-homebrew = {
               enable = true;
               enableRosetta = false;
               user = "benmiller";
-            };                       
-          }                          
+            };
+          }
         ];
       };
     };

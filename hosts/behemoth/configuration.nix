@@ -1,5 +1,4 @@
 {
-  config,
   ...
 }:
 
@@ -30,11 +29,9 @@
     audio.enable = true;
     docker.enable = true;
 
-    # Swapping to a spark but keeping as fallback
     ai = {
-      # Default model
-      activeModel = "qwythos_9B_Q4-K-M";
 
+      # DGX Spark box
       remote = {
         enable = true;
         displayName = "Keats";
@@ -45,17 +42,7 @@
         maxOutputTokens = 32768;
       };
 
-      llamaSwap = {
-        enable = false;
-        embed.enable = false;
-      };
       hermes.enable = false;
-      tools = {
-        honcho.enable = false;
-        searxng.enable = false;
-        crawl4ai.enable = false;
-        firecrawl.enable = false;
-      };
     };
 
     displayManager.sddm.enable = true;
@@ -92,13 +79,6 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets.searxng_secret_key = { };
-    templates."searxng.env" = {
-      content = ''
-        SEARXNG_SECRET=${config.sops.placeholder.searxng_secret_key}
-      '';
-      owner = "root";
-    };
   };
 
   system.stateVersion = "26.05";

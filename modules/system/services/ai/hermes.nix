@@ -1,8 +1,7 @@
 { lib, config, ... }:
 
 let
-  cfg = config.myModules.ai;
-  m = cfg.models.${cfg.activeModel};
+  remote = config.myModules.ai.remote;
 in
 
 {
@@ -18,19 +17,14 @@ in
       settings = {
         model = {
           provider = "custom";
-          base_url = "http://localhost:8080/v1";
-          default = cfg.activeModel;
-          context_length = m.contextLength;
+          base_url = remote.baseURL;
+          default = remote.modelId;
+          context_length = remote.contextLength;
         };
 
         agent = {
           max_turns = 60;
           tool_use_enforcement = true;
-        };
-
-        web = {
-          search_backend = "searxng";
-          extract_backend = "firecrawl";
         };
 
         memory = {

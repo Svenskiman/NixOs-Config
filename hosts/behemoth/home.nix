@@ -101,7 +101,6 @@
     # Scripts
     scripts = {
       screenshot.enable = true;
-      aiLocal.enable = true;
     };
 
     # Services

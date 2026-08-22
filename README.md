@@ -13,12 +13,18 @@ My multi-host NixOS configuration using Hyprland and Home manager.
 ## Hosts
 
 ### Behemoth - Desktop
-Primary desktop with multiple monitors. Local AI stack running off the GPU using llama-swap.
+Primary desktop with multi-monitor setup. 
 
 ### Beelzebub - Laptop
 
 ### Hyperion - Server
 Currently just hosts dockerized game servers. File system is mounted onto Behemoth.
+
+### Oryx - Macbook 
+Managed with Nix-Darwin.
+
+### Keats - AI box
+Not managed by this repo. DGX Spark serving AI models.
 
 ---
 
@@ -69,15 +75,8 @@ Currently just hosts dockerized game servers. File system is mounted onto Behemo
 │   │   │   ├── display-manager.nix
 │   │   │   ├── portals.nix
 │   │   │   └── ai/
-│   │   │       ├── model-schema.nix  # Shared model type + myModules.ai.{models,activeModel} options
-│   │   │       ├── models.nix        
-│   │   │       ├── llama-swap.nix    # llama-swap model manager + embedding server
-│   │   │       ├── hermes.nix       
-│   │   │       └── tools/
-│   │   │           ├── honcho.nix    
-│   │   │           ├── searxng.nix  
-│   │   │           ├── crawl4ai.nix  
-│   │   │           └── firecrawl.nix 
+│   │   │       ├── model-schema.nix  # myModules.ai.remote options
+│   │   │       └── hermes.nix       
 │   │   └── servers/
 │   │       └── games/
 │   │           ├── minecraft.nix
@@ -112,12 +111,11 @@ Currently just hosts dockerized game servers. File system is mounted onto Behemo
 │       ├── dev/
 │       │   ├── direnv.nix
 │       │   ├── neovim.nix       # LazyVim via lazyvim-nix flake
-│       │   ├── opencode.nix     # OpenCode AI coding agent + Honcho plugin config
+│       │   ├── opencode.nix     # OpenCode AI coding agent
 │       │   └── templates/       # Reusable devenv flakes (e.g. Python)
 │       ├── patches/
 │       │   └── audio.nix        # Zenbook mic boost fix
 │       ├── scripts/
-│       │   ├── ai-local.nix     # ai-start / ai-stop / ai-status
 │       │   ├── screenshot.nix   # grim + slurp + satty
 │       │   ├── theme-switcher.nix
 │       │   ├── clamshell.nix
@@ -137,8 +135,7 @@ Currently just hosts dockerized game servers. File system is mounted onto Behemo
 │           └── targets/         # Per-app colour file generators
 │
 └── assets/
-    └── icons/                   # SVGs and PNGs used in EWW
-```
+    └── icons/                   # SVGs and PNGs used in EWW```
 
 ---
 

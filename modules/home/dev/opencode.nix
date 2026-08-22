@@ -6,134 +6,57 @@
   ...
 }:
 let
-  cfg = osConfig.myModules.ai;
-  remote = cfg.remote;
-
-  mkModelEntries =
-    name: m:
-    if m.hasThinking then
-      {
-        "${name}_T" = {
-          name = "${name} (think)";
-          supportsToolCalls = true;
-          limit = {
-            context = m.contextLength;
-            output = m.maxOutputTokens;
-          };
-        };
-        "${name}_NT" = {
-          name = "${name} (no think)";
-          supportsToolCalls = true;
-          limit = {
-            context = m.contextLength;
-            output = m.maxOutputTokens;
-          };
-        };
-      }
-    else
-      {
-        "${name}" = {
-          inherit name;
-          supportsToolCalls = true;
-          limit = {
-            context = m.contextLength;
-            output = m.maxOutputTokens;
-          };
-        };
-      };
-
-  allModels = lib.foldlAttrs (
-    acc: name: m:
-    acc // mkModelEntries name m
-  ) { } cfg.models;
-
-  activeRef = if remote.enable then "keats/${remote.modelId}" else "local/${cfg.activeModel}";
-
-  providers =
-    if remote.enable then
-      {
-        keats = {
-          npm = "@ai-sdk/openai-compatible";
-          name = remote.displayName;
-          options = {
-            baseURL = remote.baseURL;
-            apiKey = "dummy";
-          };
-          models.${remote.modelId} = {
-            name = remote.modelName;
-            supportsToolCalls = true;
-            limit = {
-              context = remote.contextLength;
-              output = remote.maxOutputTokens;
-            };
-          };
-        };
-      }
-    else
-      {
-        local = {
-          npm = "@ai-sdk/openai-compatible";
-          name = "Local (llama-swap)";
-          options = {
-            baseURL = "http://localhost:8080/v1";
-            apiKey = "dummy";
-          };
-          models = allModels;
-        };
-      };
+  remote = osConfig.myModules.ai.remote;
 
   opencodeConfig = {
     "$schema" = "https://opencode.ai/config.json";
-    model = activeRef;
-    small_model = activeRef;
-    provider = providers;
+    model = "keats/${remote.modelId}";
+    small_model = "keats/${remote.modelId}";
 
-    plugin = [
-      "@honcho-ai/opencode-honcho"
-    ];
-
-    mcp = {
-      searxng = {
-        type = "local";
-        command = [
-          "npx"
-          "-y"
-          "mcp-searxng"
-        ];
-        enabled = true;
-        environment = {
-          SEARXNG_URL = "http://localhost:8123";
-        };
+    provider.keats = {
+      npm = "@ai-sdk/openai-compatible";
+      name = remote.displayName;
+      options = {
+        baseURL = remote.baseURL;
+        apiKey = "dummy";
       };
-
-      crawl4ai = {
-        type = "local";
-        command = [
-          "npx"
-          "-y"
-          "mcp-crawl4ai-ts"
-        ];
-        enabled = true;
-        environment = {
-          CRAWL4AI_BASE_URL = "http://localhost:11235";
+      models.${remote.modelId} = {
+        name = remote.modelName;
+        supportsToolCalls = true;
+        limit = {
+          context = remote.contextLength;
+          output = remote.maxOutputTokens;
         };
       };
     };
 
-  };
+    plugin = [ ];
 
-  honchoConfig = {
-    apiKey = "local";
-    peerName = "svenski";
-    baseUrl = "http://localhost:8000";
-    hosts = {
-      opencode = {
-        workspace = "opencode";
-        aiPeer = "opencode";
-        recallMode = "hybrid";
-        sessionStrategy = "per-directory";
-      };
-    };
+    mcp =
+      (lib.optionalAttrs (remote.searxngURL != null) {
+        searxng = {
+          type = "local";
+          command = [
+            "npx"
+            "-y"
+            "mcp-searxng"
+          ];
+          enabled = true;
+          environment.SEARXNG_URL = remote.searxngURL;
+        };
+      })
+      // (lib.optionalAttrs (remote.crawl4aiURL != null) {
+        crawl4ai = {
+          type = "local";
+          command = [
+            "npx"
+            "-y"
+            "mcp-crawl4ai-ts"
+          ];
+          enabled = true;
+          environment.CRAWL4AI_BASE_URL = remote.crawl4aiURL;
+        };
+      });
   };
 in
 {
@@ -147,9 +70,6 @@ in
     ];
     xdg.configFile."opencode/opencode.json" = {
       text = builtins.toJSON opencodeConfig;
-    };
-    home.file.".honcho/config.json" = {
-      text = builtins.toJSON honchoConfig;
     };
   };
 }
