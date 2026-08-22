@@ -34,6 +34,17 @@
     ai = {
       # Default model
       activeModel = "qwythos_9B_Q4-K-M";
+
+      remote = {
+        enable = true;
+        displayName = "Keats";
+        baseURL = "http://keats:8000/v1";
+        modelId = "qwen";
+        modelName = "Qwen3.5 122B";
+        contextLength = 262144;
+        maxOutputTokens = 32768;
+      };
+
       llamaSwap = {
         enable = false;
         embed.enable = false;

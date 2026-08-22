@@ -7,6 +7,8 @@
 }:
 let
   cfg = osConfig.myModules.ai;
+  remote = cfg.remote;
+
   mkModelEntries =
     name: m:
     if m.hasThinking then
@@ -39,25 +41,52 @@ let
           };
         };
       };
+
   allModels = lib.foldlAttrs (
     acc: name: m:
     acc // mkModelEntries name m
   ) { } cfg.models;
+
+  activeRef = if remote.enable then "keats/${remote.modelId}" else "local/${cfg.activeModel}";
+
+  providers =
+    if remote.enable then
+      {
+        keats = {
+          npm = "@ai-sdk/openai-compatible";
+          name = remote.displayName;
+          options = {
+            baseURL = remote.baseURL;
+            apiKey = "dummy";
+          };
+          models.${remote.modelId} = {
+            name = remote.modelName;
+            supportsToolCalls = true;
+            limit = {
+              context = remote.contextLength;
+              output = remote.maxOutputTokens;
+            };
+          };
+        };
+      }
+    else
+      {
+        local = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "Local (llama-swap)";
+          options = {
+            baseURL = "http://localhost:8080/v1";
+            apiKey = "dummy";
+          };
+          models = allModels;
+        };
+      };
+
   opencodeConfig = {
     "$schema" = "https://opencode.ai/config.json";
-    model = "local/${cfg.activeModel}";
-    small_model = "local/${cfg.activeModel}";
-    provider = {
-      local = {
-        npm = "@ai-sdk/openai-compatible";
-        name = "Local (llama-swap)";
-        options = {
-          baseURL = "http://localhost:8080/v1";
-          apiKey = "dummy";
-        };
-        models = allModels;
-      };
-    };
+    model = activeRef;
+    small_model = activeRef;
+    provider = providers;
 
     plugin = [
       "@honcho-ai/opencode-honcho"
@@ -92,6 +121,7 @@ let
     };
 
   };
+
   honchoConfig = {
     apiKey = "local";
     peerName = "svenski";
