@@ -248,31 +248,46 @@ let
     '';
   };
 
-  # Polls Spotify playback state via playerctl.
-  # Emits one JSON line: {"title": "...", "position": "m:ss", "length": "m:ss", "status": "Playing"|"Paused", "active": true|false}
-  # Title takes priority — remaining characters filled with " - artist", truncated if needed.
-  # Position and length are empty strings when nothing is playing.
   eww-spotify-status = pkgs.writeShellApplication {
     name = "eww-spotify-status";
     runtimeInputs = [
       pkgs.playerctl
       pkgs.jq
+      pkgs.gawk
+      pkgs.curl
+      pkgs.coreutils
     ];
     text = ''
-
       MAX_CHARS=25 # Max characters before truncation
       PAD_TO=28 # Fixed display width
-
       output=$(playerctl --player=spotify metadata \
-          --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}§{{artist}}' 2>/dev/null || true)
-
+          --format '{{title}}§{{status}}§{{position}}§{{mpris:length}}§{{artist}}§{{album}}§{{mpris:artUrl}}' 2>/dev/null || true)
       if [ -z "$output" ]; then
-          jq -nc '{title: "Nothing playing...", position: "", length: "", status: "Paused", active: false}'
+          jq -nc \
+              '{title: "Nothing playing...", raw_title: "Nothing playing...", artist: "", album: "", art: "", position: "", length: "", percent: 0, status: "Paused", active: false}'
           exit 0
       fi
-
-      IFS='§' read -r title status position length artist <<< "$output"
-
+      IFS='§' read -r title status position length artist album arturl <<< "$output"
+      # -- Album art --
+      # Cached per art URL, not per track
+      # Empty `art` is fine — the widget falls back to its CSS background colour.
+      cache_dir="''${XDG_CACHE_HOME:-$HOME/.cache}/eww/covers"
+      mkdir -p "$cache_dir"
+      art=""
+      if [ -n "$arturl" ]; then
+          key=$(echo -n "$arturl" | md5sum | cut -d' ' -f1)
+          cover="$cache_dir/$key.jpg"
+          if [ ! -s "$cover" ]; then
+              # Spotify's Linux client emits a dead open.spotify.com URL; i.scdn.co resolves.
+              fetch_url="''${arturl/https:\/\/open.spotify.com\/image\//https:\/\/i.scdn.co\/image\/}"
+              if curl -sfL --max-time 5 -o "$cover.tmp" "$fetch_url"; then
+                  mv "$cover.tmp" "$cover"
+              else
+                  rm -f "$cover.tmp"
+              fi
+          fi
+          [ -s "$cover" ] && art="$cover"
+      fi
       # Build display string and have title take priority.
       if [ "''${#title}" -lt $MAX_CHARS ]; then
           remaining=$(( MAX_CHARS - ''${#title} ))
@@ -286,11 +301,9 @@ let
       else
           display="$title"
       fi
-
       while [ "''${#display}" -lt $PAD_TO ]; do
           display="$display "
       done
-
       to_timestamp() {
           local us=$1
           local total_seconds=$(( us / 1000000 ))
@@ -298,16 +311,21 @@ let
           local seconds=$(( total_seconds % 60 ))
           printf "%d:%02d" "$minutes" "$seconds"
       }
-
       position_fmt=$(to_timestamp "$position")
       length_fmt=$(to_timestamp "$length")
-
+      percent=$(awk -v p="$position" -v l="$length" \
+          'BEGIN { if (l > 0) printf "%d", 100 * p / l; else printf "0" }')
       jq -nc \
           --arg title "$display" \
+          --arg raw_title "$title" \
+          --arg artist "$artist" \
+          --arg album "$album" \
+          --arg art "$art" \
           --arg position "$position_fmt" \
           --arg length "$length_fmt" \
+          --argjson percent "$percent" \
           --arg status "$status" \
-          '{title: $title, position: $position, length: $length, status: $status, active: true}'
+          '{title: $title, raw_title: $raw_title, artist: $artist, album: $album, art: $art, position: $position, length: $length, percent: $percent, status: $status, active: true}'
     '';
   };
 

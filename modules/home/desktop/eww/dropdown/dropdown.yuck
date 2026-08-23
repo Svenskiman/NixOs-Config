@@ -27,14 +27,16 @@
     (box :class "dropdown-panel"
         :orientation "v"
         :halign "start"
-        :valign "start"
+        :valign "fill"
         :space-evenly false
         :spacing 4
         :width 400
         :height 600
 
         (header-section)
-        (stats-section)))
+        (stats-section)
+        (box :vexpand true)
+        (spotify-section)))
 
 
 (defwindow dropdown-centered
@@ -54,15 +56,16 @@
     (box :class "dropdown-panel"
         :orientation "v"
         :halign "start"
-        :valign "start"
+        :valign "fill"
         :space-evenly false
         :spacing 4
         :width 400
         :height 600
 
         (header-section)
-        (stats-section)))
-
+        (stats-section)
+        (box :vexpand true)
+        (spotify-section)))
 
 (defwidget header-section []
     (box :class "header-section"
@@ -199,3 +202,79 @@
                 :hexpand true
                 :value {jq(ram-status, ".usage | tonumber")})
             (label :class "stat-value" :text {jq(ram-status, ".usage") + "%"}))))
+
+
+(defwidget spotify-section []
+    (box :class "spotify-section"
+        :orientation "v"
+        :space-evenly false
+        :hexpand true
+        :halign "fill"
+        :spacing 10
+
+        ;; -- Cover + track info --
+        (box :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+
+            (box :class "spotify-cover"
+                :style "background-image: url('file://${replace(jq(spotify-status, ".art"), "\"", "")}'); background-size: cover;")
+
+            (box :class "spotify-meta"
+                :orientation "v"
+                :space-evenly false
+                :hexpand true
+                :halign "fill"
+                :valign "center"
+                :spacing 2
+
+                (label :class "spotify-track-title"
+                    :text {replace(jq(spotify-status, ".raw_title"), "\"", "")}
+                    :limit-width 28
+                    :xalign 0)
+
+                (label :class "spotify-track-artist"
+                    :text {replace(jq(spotify-status, ".artist"), "\"", "")}
+                    :limit-width 32
+                    :xalign 0)))
+
+        ;; -- Media controls --
+        (box :class "spotify-controls"
+            :orientation "h"
+            :space-evenly false
+            :halign "center"
+            :valign "center"
+            :spacing 18
+
+            (button :class "spotify-btn"
+                :onclick "playerctl --player=spotify previous"
+                "")
+
+            (button :class "spotify-btn spotify-btn-primary"
+                :onclick "playerctl --player=spotify play-pause"
+                {jq(spotify-status, ".status") == "\"Playing\"" ? "󰏤" : "󰐊"})
+
+            (button :class "spotify-btn"
+                :onclick "playerctl --player=spotify next"
+                ""))
+
+        ;; -- Progress --
+        (box :orientation "h"
+            :space-evenly false
+            :hexpand true
+            :halign "fill"
+            :valign "center"
+
+            (label :class "spotify-time"
+                :text {replace(jq(spotify-status, ".position"), "\"", "")}
+                :xalign 0)
+
+            (progress :class "spotify-progress"
+                :hexpand true
+                :value {jq(spotify-status, ".percent | tonumber")})
+
+            (label :class "spotify-time"
+                :text {replace(jq(spotify-status, ".length"), "\"", "")}
+                :xalign 1))))

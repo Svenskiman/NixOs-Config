@@ -5,7 +5,7 @@
 
 ;; -- Spotify state --
 
-(defpoll spotify-status :interval "1s" :initial "{\"title\": \"Nothing playing...\", \"position\": \"\", \"length\": \"\", \"status\": \"Paused\", \"active\": false}"
+(defpoll spotify-status :interval "1s" :initial "{\"title\": \"Nothing playing...\", \"raw_title\": \"Nothing playing...\", \"artist\": \"\", \"album\": \"\", \"position\": \"\", \"length\": \"\", \"percent\": 0, \"status\": \"Paused\", \"active\": false}"
     "eww-spotify-status")
 
     

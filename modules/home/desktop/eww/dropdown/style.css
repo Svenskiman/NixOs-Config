@@ -108,3 +108,71 @@
     font-size: 12px;
     min-width: 34px;
 }
+
+
+.spotify-section {
+    padding: 12px 4px 4px 4px;
+}
+
+.spotify-cover {
+    background-color: alpha(@color7, 0.12);
+    min-width: 96px;
+    min-height: 96px;
+    border-radius: 8px;
+    margin-right: 14px;
+}
+
+.spotify-track-title {
+    color: @foreground;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.spotify-track-artist {
+    color: alpha(@foreground, 0.6);
+    font-size: 13px;
+}
+
+.spotify-controls {
+    padding: 10px 0 6px 0;
+}
+
+.spotify-section .spotify-btn {
+    all: unset;
+    color: @foreground;
+    font-size: 20px;
+    padding: 6px 12px;
+    border-radius: 9999px;
+}
+
+.spotify-section .spotify-btn:hover {
+    background-color: alpha(@accent, 0.25);
+    color: @accent;
+}
+
+.spotify-section .spotify-btn-primary {
+    font-size: 26px;
+    padding: 6px 14px;
+}
+
+.spotify-time {
+    color: alpha(@foreground, 0.6);
+    font-size: 12px;
+    min-width: 38px;
+}
+
+.spotify-progress {
+    margin: 0 10px;
+}
+
+.spotify-progress trough {
+    min-height: 5px;
+    background-color: alpha(@foreground, 0.1);
+    border-radius: 9999px;
+}
+
+.spotify-progress progress {
+    min-height: 5px;
+    border-radius: 9999px;
+    background-color: @accent;
+}
