@@ -64,7 +64,6 @@ in
   imports = [
     ./first-boot.nix
     ./targets/eww-colours.nix
-    ./targets/waybar-colours.nix
     ./targets/hyprland-colours.nix
     ./targets/mako-colours.nix
     ./targets/walker-colours.nix

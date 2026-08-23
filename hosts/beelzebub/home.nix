@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -45,7 +45,6 @@
 
   # Desktop environment
   myModules.desktop.enable = true;
-  myModules.waybar.enable = false; # Override as we use EWW instead
 
   # Dev environment
   myModules.direnv.enable = true;

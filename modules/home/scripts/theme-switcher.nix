@@ -197,16 +197,6 @@ let
     '';
   };
 
-  # ── Inactive ──────────────────────────────────────────
-  apply-theme-waybar = pkgs.writeShellApplication {
-    name = "apply-theme-waybar";
-    runtimeInputs = [ pkgs.procps ];
-    text = ''
-      # SIGUSR2 triggers a CSS reload without restarting
-      pkill -SIGUSR2 waybar 2>/dev/null || true
-    '';
-  };
-
   # ── Orchestration ──────────────────────────────────────────
   # Calls each programs theme application
   nix-theme-set = pkgs.writeShellScriptBin "nix-theme-set" ''

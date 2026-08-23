@@ -88,7 +88,6 @@
 
     # Desktop environment
     desktop.enable = true;
-    waybar.enable = false;
 
     # Dev environment
     direnv.enable = true;

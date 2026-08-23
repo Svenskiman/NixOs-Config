@@ -30,7 +30,6 @@
     (lib.mkIf config.myModules.desktop.enable {
       myModules.hypr.enable = lib.mkDefault true;
       myModules.eww.enable = lib.mkDefault true;
-      myModules.waybar.enable = lib.mkDefault true;
       myModules.walker.enable = lib.mkDefault true;
     })
 
