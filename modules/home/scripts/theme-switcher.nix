@@ -24,13 +24,9 @@ let
       eww kill 2>/dev/null || true
       sleep 0.3
 
-      # If it's still hanging around, force it
-      pkill -9 -x eww 2>/dev/null || true
+      pkill -KILL -f '^eww ' 2>/dev/null || true
+      pkill -KILL -f 'eww-workspace-listener' 2>/dev/null || true
       sleep 0.2
-
-      # Fresh start
-      eww daemon 2>/dev/null
-      sleep 0.5
       eww open bar 2>/dev/null || true
     '';
   };
