@@ -58,9 +58,6 @@
   # Services
   myModules.services.enable = true;
 
-  # Clamshell
-  myModules.clamshell.enable = false;
-
   # Uncomment if not using SDDM
   # programs.bash = {
   #     enable = true;
