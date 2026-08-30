@@ -6,6 +6,12 @@
 }:
 
 {
+
+  imports = [
+    ./bar/scripts.nix
+    ./dropdown/scripts.nix
+  ];
+
   options = {
     myModules.eww.enable = lib.mkEnableOption "Eww";
   };
