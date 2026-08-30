@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   makeAlacrittyTOML = theme: ''
@@ -59,10 +64,30 @@ let
       };
     }) config.myModules.themes.definitions
   );
+
+  apply-theme-alacritty = pkgs.writeShellApplication {
+    name = "apply-theme-alacritty";
+    runtimeInputs = [ pkgs.coreutils ];
+    text = ''
+      THEME_DIR=$2
+
+      mkdir -p "$HOME/.config/alacritty"
+      chmod 644 "$HOME/.config/alacritty/colors.toml" 2>/dev/null || true
+      cp "$THEME_DIR/alacritty.toml" "$HOME/.config/alacritty/colors.toml"
+      chmod 644 "$HOME/.config/alacritty/colors.toml"
+    '';
+  };
 in
 
 {
   config = lib.mkIf config.myModules.alacritty.enable {
     xdg.configFile = themeFiles;
+
+    myModules.themes.hooks = [
+      {
+        name = "apply-theme-alacritty";
+        package = apply-theme-alacritty;
+      }
+    ];
   };
 }

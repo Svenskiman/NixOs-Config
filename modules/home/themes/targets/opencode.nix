@@ -1,10 +1,16 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   makeOpencodeTheme =
     theme:
     let
       c = theme.colors;
+      s = theme.semantic;
     in
     builtins.toJSON {
       "$schema" = "https://opencode.ai/theme.json";
@@ -23,16 +29,16 @@ let
           light = c.color4;
         };
         error = {
-          dark = c.color1;
-          light = c.color1;
+          dark = s.error;
+          light = s.error;
         };
         warning = {
-          dark = c.color3;
-          light = c.color3;
+          dark = s.warning;
+          light = s.warning;
         };
         success = {
-          dark = c.color2;
-          light = c.color2;
+          dark = s.success;
+          light = s.success;
         };
         info = {
           dark = c.color6;
@@ -43,8 +49,8 @@ let
           light = c.foreground;
         };
         textMuted = {
-          dark = c.color8;
-          light = c.color8;
+          dark = s.muted;
+          light = s.muted;
         };
         background = {
           dark = c.background;
@@ -229,10 +235,38 @@ let
       };
     }) config.myModules.themes.definitions
   );
+
+  apply-theme-opencode = pkgs.writeShellApplication {
+    name = "apply-theme-opencode";
+    runtimeInputs = [
+      pkgs.jq
+      pkgs.coreutils
+    ];
+    text = ''
+      THEME=$1
+      TUI_JSON="$HOME/.config/opencode/tui.json"
+
+      if [ ! -f "$TUI_JSON" ]; then
+          jq -n '{"$schema":"https://opencode.ai/tui.json"}' > "$TUI_JSON"
+      fi
+
+      jq --arg theme "$THEME" \
+         '. + {"theme": $theme}' \
+         "$TUI_JSON" > /tmp/opencode-tui.json \
+      && mv /tmp/opencode-tui.json "$TUI_JSON"
+    '';
+  };
 in
 
 {
   config = lib.mkIf config.myModules.opencode.enable {
     xdg.configFile = themeFiles;
+
+    myModules.themes.hooks = [
+      {
+        name = "apply-theme-opencode";
+        package = apply-theme-opencode;
+      }
+    ];
   };
 }
