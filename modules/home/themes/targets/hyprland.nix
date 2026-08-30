@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   # Convert #RRGGBB to Hyprland's rgba(RRGGBBaa) format
@@ -23,10 +28,25 @@ let
       };
     }) config.myModules.themes.definitions
   );
+
+  apply-theme-hyprland = pkgs.writeShellApplication {
+    name = "apply-theme-hyprland";
+    runtimeInputs = [ pkgs.hyprland ];
+    text = ''
+      hyprctl reload > /dev/null 2>&1
+    '';
+  };
 in
 
 {
   config = lib.mkIf config.myModules.hypr.enable {
     xdg.configFile = themeFiles;
+
+    myModules.themes.hooks = [
+      {
+        name = "apply-theme-hyprland";
+        package = apply-theme-hyprland;
+      }
+    ];
   };
 }

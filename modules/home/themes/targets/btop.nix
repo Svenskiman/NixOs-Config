@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   makeBtopTheme = theme: ''
@@ -21,7 +26,7 @@ let
     theme[selected_fg]="${theme.colors.accent}"
 
     # Color of inactive/disabled text
-    theme[inactive_fg]="${theme.colors.color8}"
+    theme[inactive_fg]="${theme.semantic.muted}"
 
     # Color of text appearing on top of graphs, i.e uptime and current network graph scaling
     theme[graph_text]="${theme.colors.foreground}"
@@ -42,9 +47,9 @@ let
     theme[div_line]="${theme.colors.color8}"
 
     # Temperature graph color (Green -> Yellow -> Red)
-    theme[temp_start]="${theme.colors.color2}"
-    theme[temp_mid]="${theme.colors.color3}"
-    theme[temp_end]="${theme.colors.color1}"
+    theme[temp_start]="${theme.semantic.success}"
+    theme[temp_mid]="${theme.semantic.warning}"
+    theme[temp_end]="${theme.semantic.error}"
 
     # CPU graph colors
     theme[cpu_start]="${theme.colors.color6}"
@@ -95,10 +100,34 @@ let
       };
     }) config.myModules.themes.definitions
   );
+
+  apply-theme-btop = pkgs.writeShellApplication {
+    name = "apply-theme-btop";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.procps
+    ];
+    text = ''
+      THEME_DIR=$2
+
+      mkdir -p "$HOME/.config/btop/themes"
+      chmod 644 "$HOME/.config/btop/themes/current.theme" 2>/dev/null || true
+      cp "$THEME_DIR/btop.theme" "$HOME/.config/btop/themes/current.theme"
+      chmod 644 "$HOME/.config/btop/themes/current.theme"
+      pkill -SIGUSR2 btop 2>/dev/null || true
+    '';
+  };
 in
 
 {
   config = lib.mkIf config.myModules.btop.enable {
     xdg.configFile = themeFiles;
+
+    myModules.themes.hooks = [
+      {
+        name = "apply-theme-btop";
+        package = apply-theme-btop;
+      }
+    ];
   };
 }
