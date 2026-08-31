@@ -23,7 +23,7 @@ return {
                                 },
                                 home_manager = {
                                     expr =
-                                    '(builtins.getFlake "/home/svenski/.config/nixconf").homeConfigurations.svenski.options',
+                                    '(builtins.getFlake "/home/svenski/.config/nixconf").nixosConfigurations.behemoth.options.home-manager.users.type.getSubOptions []',
                                 },
                             },
                         },
@@ -33,13 +33,32 @@ return {
         },
     },
 
+    -- QML LSP (Quickshell)
+    {
+        "neovim/nvim-lspconfig",
+        opts = {
+            servers = {
+                qmlls = {
+                    cmd = { "qmlls" },
+                    filetypes = { "qml", "qmljs" },
+                },
+            },
+        },
+    },
+
+    -- QML syntax highlighting
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = function(_, opts)
+            vim.list_extend(opts.ensure_installed or {}, { "qmljs" })
+        end,
+    },
+
     -- Python LSP
     {
         "neovim/nvim-lspconfig",
         opts = {
             servers = {
-                -- your existing nixd block stays here...
-
                 basedpyright = {},
                 ruff = {
                     cmd = { "uv", "run", "ruff", "server" },
