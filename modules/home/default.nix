@@ -7,7 +7,6 @@
     ./defaults
     ./desktop
     ./dev
-    ./patches
     ./scripts
     ./services
     ./themes

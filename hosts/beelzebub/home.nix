@@ -49,9 +49,6 @@
   # Dev environment
   myModules.direnv.enable = true;
 
-  # Patches
-  myModules.audioFixes.zenbookMicBoost.enable = true;
-
   # Scripts
   myModules.scripts.screenshot.enable = true;
 
