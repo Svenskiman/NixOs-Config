@@ -15,7 +15,7 @@ Item {
         anchors.centerIn: parent
 
         text: root.altFormat ? Time.long : Time.short
-        color: "#e2cca9"
+        color: Theme.colors.foreground
         font.family: "JetBrainsMono Nerd Font"
         font.pixelSize: 16
         font.weight: Font.Medium

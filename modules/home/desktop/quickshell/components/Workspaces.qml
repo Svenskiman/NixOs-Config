@@ -1,6 +1,7 @@
 import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
+import qs.services
 
 RowLayout {
     spacing: 8
@@ -14,7 +15,7 @@ RowLayout {
             property bool isActiveWorkspace: Hyprland.focusedWorkspace?.id === index + 1
 
             text: isActiveWorkspace ? "X" : index + 1
-            color: isActiveWorkspace ? "#d8a657" : "#a89984"
+            color: isActiveWorkspace ? Theme.colors.accent : Theme.colors.color7
             font.family: "JetBrainsMono Nerd Font"
             font.pixelSize: 16
 

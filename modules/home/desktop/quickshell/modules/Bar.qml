@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import qs.services
 import qs.components
 
 PanelWindow {
@@ -7,7 +8,7 @@ PanelWindow {
     anchors.left: true
     anchors.right: true
     implicitHeight: 40
-    color: "#282828"
+    color: Theme.colors.background
 
     Workspaces {
         anchors.left: parent.left
