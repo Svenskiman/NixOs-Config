@@ -88,7 +88,7 @@
 
     # Desktop environment
     desktop.enable = true;
-    eww.enable = true;
+    eww.enable = false;
     quickshell.enable = true;
 
     # Dev environment

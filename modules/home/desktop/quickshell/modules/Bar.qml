@@ -12,19 +12,32 @@ PanelWindow {
     implicitHeight: 40
     color: Theme.colors.background
 
-    // Left group
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 8
         anchors.rightMargin: 8
         spacing: 8
 
-        Pill {
-            Workspaces {}
+        // Left group
+        RowLayout {
+            spacing: 8
+
+            Pill {
+                Workspaces {}
+            }
         }
 
         Item {
             Layout.fillWidth: true
+        }
+
+        // Right group
+        RowLayout {
+            spacing: 8
+
+            Pill {
+                Volume {}
+            }
         }
     }
 

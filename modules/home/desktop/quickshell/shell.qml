@@ -12,4 +12,6 @@ ShellRoot {
             screen: modelData
         }
     }
+
+    AudioPanel {}
 }
