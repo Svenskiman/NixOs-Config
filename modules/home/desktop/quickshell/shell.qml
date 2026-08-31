@@ -1,24 +1,15 @@
 //@ pragma ShellId nixshell
 
 import Quickshell
-import QtQuick
+import qs.modules
 
 ShellRoot {
-    PanelWindow {
-        anchors {
-            top: true
-            left: true
-            right: true
-        }
+    Variants {
+        model: Quickshell.screens
 
-        implicitHeight: 40
-        color: "#282828"
-
-        Text {
-            anchors.centerIn: parent
-            text: "text"
-            color: "#e2cca9"
-            font.pixelSize: 16
+        Bar {
+            required property var modelData
+            screen: modelData
         }
     }
 }
