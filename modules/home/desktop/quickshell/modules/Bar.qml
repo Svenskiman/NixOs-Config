@@ -36,7 +36,8 @@ PanelWindow {
             spacing: 8
 
             Pill {
-                Volume {}
+                BluetoothIcon {}
+                AudioIcon {}
             }
         }
     }

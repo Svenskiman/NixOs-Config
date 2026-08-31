@@ -43,7 +43,7 @@ Panel {
             text: "OUTPUT"
             color: Theme.colors.color7
             font.family: "JetBrainsMono Nerd Font"
-            font.pixelSize: 12
+            font.pixelSize: 16
         }
 
         Text {
@@ -51,7 +51,7 @@ Panel {
             text: Math.round(Audio.volume * 100) + "%"
             color: Theme.colors.foreground
             font.family: "JetBrainsMono Nerd Font"
-            font.pixelSize: 12
+            font.pixelSize: 16
         }
     }
 
@@ -63,8 +63,9 @@ Panel {
 
     DeviceList {
         width: parent.width
+        maxRows: 3
         devices: Audio.sinks
-        active: Audio.sink
+        isActiveFor: device => device === Audio.sink
         onSelected: device => Audio.setSink(device)
     }
 
@@ -78,7 +79,7 @@ Panel {
             text: "INPUT"
             color: Theme.colors.color7
             font.family: "JetBrainsMono Nerd Font"
-            font.pixelSize: 12
+            font.pixelSize: 16
         }
 
         Text {
@@ -86,7 +87,7 @@ Panel {
             text: Math.round(Audio.inputVolume * 100) + "%"
             color: Theme.colors.foreground
             font.family: "JetBrainsMono Nerd Font"
-            font.pixelSize: 12
+            font.pixelSize: 16
         }
     }
 
@@ -98,8 +99,9 @@ Panel {
 
     DeviceList {
         width: parent.width
+        maxRows: 3
         devices: Audio.sources
-        active: Audio.source
+        isActiveFor: device => device === Audio.source
         onSelected: device => Audio.setSource(device)
     }
 }

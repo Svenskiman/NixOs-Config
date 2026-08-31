@@ -13,5 +13,6 @@ ShellRoot {
         }
     }
 
+    BluetoothPanel {}
     AudioPanel {}
 }

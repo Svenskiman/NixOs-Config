@@ -16,6 +16,6 @@ Rectangle {
     RowLayout {
         id: layout
         anchors.centerIn: parent
-        spacing: 8
+        spacing: 16
     }
 }
