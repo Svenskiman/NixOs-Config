@@ -5,6 +5,8 @@ AGENTS.md
 secrets.yaml.dec
 *.dec
 
+modules/home/desktop/quickshell/.qmlls.ini
+
 result
 result-*
 

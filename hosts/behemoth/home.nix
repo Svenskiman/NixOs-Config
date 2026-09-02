@@ -88,6 +88,8 @@
 
     # Desktop environment
     desktop.enable = true;
+    eww.enable = false;
+    quickshell.enable = true;
 
     # Dev environment
     direnv.enable = true;

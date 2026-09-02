@@ -5,6 +5,7 @@
     ./schema.nix
     ./theme-switcher.nix
     ./targets/eww.nix
+    ./targets/quickshell.nix
     ./targets/hyprland.nix
     ./targets/mako.nix
     ./targets/walker.nix
