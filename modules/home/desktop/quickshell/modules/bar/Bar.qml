@@ -32,6 +32,10 @@ PanelWindow {
             Layout.fillWidth: true
         }
 
+        Pill {
+            Discord {}
+        }
+
         // Right group
         RowLayout {
             spacing: 8
