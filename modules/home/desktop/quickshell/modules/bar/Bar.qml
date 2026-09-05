@@ -33,6 +33,7 @@ PanelWindow {
         }
 
         Pill {
+            Mullvad {}
             Dropbox {}
             Docker {}
             Discord {}
