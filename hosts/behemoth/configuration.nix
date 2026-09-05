@@ -23,6 +23,7 @@
     plymouth.enable = true;
 
     networking.enable = true;
+    networking.backend = "networkmanager";
     tailscale.enable = true;
     vpn.mullvad.enable = true;
     bluetooth.enable = true;

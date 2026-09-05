@@ -36,6 +36,7 @@ PanelWindow {
             spacing: 8
 
             Pill {
+                WifiIcon {}
                 BluetoothIcon {}
                 AudioIcon {}
             }
