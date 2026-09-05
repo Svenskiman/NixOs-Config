@@ -3,6 +3,8 @@
 import Quickshell
 import qs.modules.bar
 import qs.modules.bar.panels
+import qs.modules.system
+import qs.modules
 
 ShellRoot {
     Variants {
@@ -18,4 +20,8 @@ ShellRoot {
     Wifi {}
     Bluetooth {}
     Audio {}
+
+    System {}
+
+    Ipc {}
 }
