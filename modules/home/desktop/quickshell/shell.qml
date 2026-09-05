@@ -1,7 +1,8 @@
 //@ pragma ShellId nixshell
 
 import Quickshell
-import qs.modules
+import qs.modules.bar
+import qs.modules.bar.panels
 
 ShellRoot {
     Variants {
@@ -13,7 +14,7 @@ ShellRoot {
         }
     }
 
-    WifiPanel {}
-    BluetoothPanel {}
-    AudioPanel {}
+    Wifi {}
+    Bluetooth {}
+    Audio {}
 }

@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.services
 import qs.components
+import qs.modules.bar.components
 
 PanelWindow {
     anchors.top: true
@@ -36,9 +37,9 @@ PanelWindow {
             spacing: 8
 
             Pill {
-                WifiIcon {}
-                BluetoothIcon {}
-                AudioIcon {}
+                Wifi {}
+                Bluetooth {}
+                Audio {}
             }
         }
     }
