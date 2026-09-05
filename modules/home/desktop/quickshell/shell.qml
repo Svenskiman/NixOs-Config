@@ -14,6 +14,7 @@ ShellRoot {
         }
     }
 
+    Tailscale {}
     Wifi {}
     Bluetooth {}
     Audio {}

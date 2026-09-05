@@ -44,6 +44,7 @@ PanelWindow {
             spacing: 8
 
             Pill {
+                Tailscale {}
                 Wifi {}
                 Bluetooth {}
                 Audio {}
