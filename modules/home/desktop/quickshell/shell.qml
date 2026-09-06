@@ -1,10 +1,11 @@
 //@ pragma ShellId nixshell
 
 import Quickshell
+import qs.modules
 import qs.modules.bar
 import qs.modules.bar.panels
 import qs.modules.system
-import qs.modules
+import qs.modules.wallpapers
 
 ShellRoot {
     Variants {
@@ -22,6 +23,9 @@ ShellRoot {
     Audio {}
 
     System {}
+
+    Wallpapers {}
+    Preloader {}
 
     Ipc {}
 }
