@@ -18,8 +18,8 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
 -- Walker Menus
 hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker --width 500 --maxheight 300"))
-hl.bind("SUPER + SHIFT + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:themes --width 500 --maxheight 300"))
-hl.bind("SUPER + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:wallpapers --width 800 --maxheight 400"))
+hl.bind("SUPER + SHIFT + CTRL + Space", hl.dsp.exec_cmd("qs -c nixshell ipc call panel toggle themes"))
+hl.bind("SUPER + CTRL + Space", hl.dsp.exec_cmd("qs -c nixshell ipc call panel toggle wallpapers"))
 
 -- Screenshots
 hl.bind("SUPER + SHIFT + grave", hl.dsp.exec_cmd("capture-screenshot"))
@@ -33,7 +33,7 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
 
 -- Dropdown menu
-hl.bind("SUPER + Escape", hl.dsp.exec_cmd("eww-dropdown-toggle-centered"))
+hl.bind("SUPER + Escape", hl.dsp.exec_cmd("qs -c nixshell ipc call panel toggle system"))
 
 -- Workspaces
 for i = 1, 5 do

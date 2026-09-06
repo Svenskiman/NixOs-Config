@@ -2,6 +2,11 @@
 
 import Quickshell
 import qs.modules
+import qs.modules.bar
+import qs.modules.bar.panels
+import qs.modules.system
+import qs.modules.themes
+import qs.modules.wallpapers
 
 ShellRoot {
     Variants {
@@ -13,7 +18,16 @@ ShellRoot {
         }
     }
 
-    WifiPanel {}
-    BluetoothPanel {}
-    AudioPanel {}
+    Tailscale {}
+    Wifi {}
+    Bluetooth {}
+    Audio {}
+
+    System {}
+
+    Wallpapers {}
+    Themes {}
+
+    Preloader {}
+    Ipc {}
 }

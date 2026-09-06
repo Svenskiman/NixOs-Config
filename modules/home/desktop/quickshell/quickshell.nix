@@ -25,6 +25,7 @@ in
 
     home.packages = [
       inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.rocmPackages.rocm-smi
     ];
 
     xdg.configFile."quickshell/${configName}".source = config.lib.file.mkOutOfStoreSymlink qmlSource;

@@ -7,6 +7,14 @@ PanelWindow {
 
     required property string name
 
+    // "topRight" or "centre"
+    property string position: "topRight"
+
+    property int panelWidth: 420
+
+    // 0 means size to content
+    property int panelHeight: 0
+
     default property alias content: container.data
 
     visible: Runtime.openPanel === root.name
@@ -30,13 +38,15 @@ PanelWindow {
 
     // The visible panel box
     Rectangle {
-        anchors.top: parent.top
-        anchors.right: parent.right
+        anchors.top: root.position === "topRight" ? parent.top : undefined
+        anchors.right: root.position === "topRight" ? parent.right : undefined
+        anchors.centerIn: root.position === "centre" ? parent : undefined
+
         anchors.topMargin: 48
         anchors.rightMargin: 8
 
-        implicitWidth: 420
-        implicitHeight: container.implicitHeight + 32
+        implicitWidth: root.panelWidth
+        implicitHeight: root.panelHeight > 0 ? root.panelHeight : container.implicitHeight + 32
 
         radius: 12
         color: Theme.colors.background

@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.services
 import qs.components
+import qs.modules.bar.components
 
 PanelWindow {
     anchors.top: true
@@ -31,14 +32,22 @@ PanelWindow {
             Layout.fillWidth: true
         }
 
+        Pill {
+            Mullvad {}
+            Dropbox {}
+            Docker {}
+            Discord {}
+        }
+
         // Right group
         RowLayout {
             spacing: 8
 
             Pill {
-                WifiIcon {}
-                BluetoothIcon {}
-                AudioIcon {}
+                Tailscale {}
+                Wifi {}
+                Bluetooth {}
+                Audio {}
             }
         }
     }
