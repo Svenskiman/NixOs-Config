@@ -38,7 +38,14 @@ PanelWindow {
 
     readonly property int count: root.items.length
 
-    readonly property string currentLabel: root.count === 0 ? "" : root.items[root.currentIndex].label
+    // Guards the item itself rather than `count`, which can lag a cycle
+    // behind `items` and leave the index pointing past the end of the list
+    readonly property string currentLabel: root.items?.[root.currentIndex]?.label ?? ""
+
+    // The list changes underneath us when the theme switches, so an index
+    // left over from the previous set has to be pulled back into range
+    onItemsChanged: if (root.currentIndex >= root.count)
+        root.currentIndex = 0
 
     function step(direction) {
         if (root.count === 0)
@@ -130,7 +137,9 @@ PanelWindow {
                     width: isCentre ? root.selectedWidth : root.slideWidth
                     height: root.slideHeight
 
-                    path: root.count === 0 ? "" : root.items[itemIndex].image
+                    // Same guard as currentLabel: a stale `count` can produce
+                    // an index that looks valid but isn't
+                    path: root.items?.[itemIndex]?.image ?? ""
                     selected: isCentre
                 }
             }
