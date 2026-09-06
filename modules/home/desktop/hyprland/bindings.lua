@@ -18,7 +18,7 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
 -- Walker Menus
 hl.bind("SUPER + Space", hl.dsp.exec_cmd("walker --width 500 --maxheight 300"))
-hl.bind("SUPER + SHIFT + CTRL + SPACE", hl.dsp.exec_cmd("walker -m menus:themes --width 500 --maxheight 300"))
+hl.bind("SUPER + SHIFT + CTRL + Space", hl.dsp.exec_cmd("qs -c nixshell ipc call panel toggle themes"))
 hl.bind("SUPER + CTRL + Space", hl.dsp.exec_cmd("qs -c nixshell ipc call panel toggle wallpapers"))
 
 -- Screenshots

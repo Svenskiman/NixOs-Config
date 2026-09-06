@@ -5,6 +5,7 @@ import qs.modules
 import qs.modules.bar
 import qs.modules.bar.panels
 import qs.modules.system
+import qs.modules.themes
 import qs.modules.wallpapers
 
 ShellRoot {
@@ -25,7 +26,8 @@ ShellRoot {
     System {}
 
     Wallpapers {}
-    Preloader {}
+    Themes {}
 
+    Preloader {}
     Ipc {}
 }
