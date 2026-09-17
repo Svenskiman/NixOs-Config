@@ -69,11 +69,11 @@
       #     bitdepth = 10;
       #   }
       #   {
-          # output = "DP-2";
-          # mode = "2560x1440@143.97";
-          # position = "4000x0";
-          # scale = 1.0;
-          # transform = 1;
+      # output = "DP-2";
+      # mode = "2560x1440@143.97";
+      # position = "4000x0";
+      # scale = 1.0;
+      # transform = 1;
       #   }
       #   {
       #     output = "DP-3";
@@ -104,7 +104,10 @@
     # Dev environment
     direnv.enable = true;
     neovim.enable = true;
-    opencode.enable = true;
+    opencode = {
+      enable = true;
+      jetbrains.enable = true;
+    };
 
     # Games
     prismlauncher.enable = true;

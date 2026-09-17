@@ -23,6 +23,7 @@
       vim
       vscode
       gedit
+      jetbrains-toolbox
 
       # Productivity
       obsidian

@@ -6,6 +6,7 @@
     ../../modules/home/apps/btop.nix
     ../../modules/home/apps/alacritty.nix
     ../../modules/home/dev/neovim/neovim.nix
+    ../../modules/home/dev/opencode
   ];
 
   home = {
@@ -19,6 +20,7 @@
     btop.enable = true;
     alacritty.enable = true;
     neovim.enable = true;
+    opencode.enable = true;
   };
 
   # CLI packages

@@ -3,7 +3,7 @@
 {
   imports = [
     ./direnv.nix
-    ./opencode.nix
+    ./opencode
     ./neovim/neovim.nix
   ];
 }
