@@ -1,4 +1,5 @@
 {
+  pkgs,
   ...
 }:
 
@@ -67,7 +68,30 @@
       binfmt = true;
     };
 
-    nix-ld.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        # Python packages
+        stdenv.cc.cc.lib
+        zlib
+        openssl
+        libffi
+        libpq
+        glib
+
+        # GUI apps (JetBrains IDEs)
+        xorg.libX11
+        xorg.libXext
+        xorg.libXrender
+        xorg.libXtst
+        xorg.libXi
+        xorg.libXrandr
+        xorg.libXcursor
+        libGL
+        freetype
+        fontconfig
+      ];
+    };
   };
 
   services = {
