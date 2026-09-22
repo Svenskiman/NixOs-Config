@@ -20,7 +20,11 @@
     btop.enable = true;
     alacritty.enable = true;
     neovim.enable = true;
-    opencode.enable = true;
+    opencode = {
+      enable = true;
+      # Create acp.json
+      jetbrains.enable = true;
+    };
   };
 
   # CLI packages
