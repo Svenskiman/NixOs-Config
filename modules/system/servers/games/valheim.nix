@@ -33,7 +33,7 @@
             "-modifier deathpenalty normal"
             "-modifier resources more"
             "-modifier raids normal"
-            "-modifier portals normal"
+            "-modifier portals casual"
           ];
         };
         extraOptions = [
