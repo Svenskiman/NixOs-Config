@@ -31,6 +31,7 @@
         "spotify"
         "sublime-text"
         "tailscale-app"
+        "blankie"
       ];
     };
   };
