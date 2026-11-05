@@ -7,6 +7,7 @@
     ../../modules/home/apps/alacritty.nix
     ../../modules/home/dev/neovim/neovim.nix
     ../../modules/home/dev/opencode
+    ../../modules/home/dev/tmux.nix
   ];
 
   home = {
@@ -20,6 +21,10 @@
     btop.enable = true;
     alacritty.enable = true;
     neovim.enable = true;
+    tmux = {
+      enable = true;
+      privateScripts.enable = true;
+    };
     # opencode = {
     #   enable = true;
     #   # Create acp.json
