@@ -32,6 +32,7 @@
         "sublime-text"
         "tailscale-app"
         "blankie"
+        "obsidian"
       ];
     };
   };

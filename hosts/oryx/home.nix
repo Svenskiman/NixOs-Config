@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -37,7 +37,11 @@
     pyenv
     postgresql
     nodejs_24
+    uv
   ];
+
+  home.file.".npmrc".text = ''prefix=${config.home.homeDirectory}/.npm-global'';
+  home.sessionPath = [ "$HOME/.npm-global/bin" "$HOME/.local/bin" ];
 
   # pyenv init (work requirement)
   programs.zsh.initExtra = ''
