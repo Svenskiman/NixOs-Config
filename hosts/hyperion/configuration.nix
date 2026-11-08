@@ -42,7 +42,10 @@
     # Dockerized servers
     servers = {
       games = {
-        minecraft.enable = true;
+        minecraft = {
+          friends.enable = true;
+          fahare.enable = true;
+        };
         valheim.enable = true;
         palworld.enable = true;
       };
