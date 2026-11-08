@@ -127,7 +127,7 @@ in
       virtualisation.oci-containers.containers.mc-fahare = {
         image = "itzg/minecraft-server:latest";
         autoStart = false;
-        ports = [ "38080:25565" ];
+        ports = [ "25566:25565" ];
         volumes = [ "${fahareDataDir}:/data" ];
         environment = {
           EULA = "TRUE";
@@ -146,19 +146,23 @@ in
           OPS = "BodaciosBaryonyx";
           ENABLE_WHITELIST = "true";
           ENFORCE_WHITELIST = "true";
-          WHITELIST = "BodaciosBaryonyx,umbald,H2ouk,Charung,lord_slippy";
+          WHITELIST = "BodaciosBaryonyx,umbald,H2ouk,Charung,lord_slippy,Truhero123";
         };
         extraOptions = [ "--stop-timeout=60" ];
       };
 
       # Ensure the data dir is owned by shrike (Docker would otherwise create it as root),
       # then drop in the Nix-managed Fahare config before the container starts.
-      systemd.services.docker-mc-fahare.preStart = lib.mkBefore ''
-        ${pkgs.coreutils}/bin/install -d -o shrike -g users ${fahareDataDir} ${fahareDataDir}/plugins ${fahareDataDir}/plugins/Fahare
-        ${pkgs.coreutils}/bin/install -m 644 -o shrike -g users ${fahareConfig} ${fahareDataDir}/plugins/Fahare/config.yml
-      '';
+      # Starting this server stops the friends server (they share port 38079), and vice versa.
+      systemd.services.docker-mc-fahare = {
+        conflicts = [ "docker-mc-friends.service" ];
+        preStart = lib.mkBefore ''
+          ${pkgs.coreutils}/bin/install -d -o shrike -g users ${fahareDataDir} ${fahareDataDir}/plugins ${fahareDataDir}/plugins/Fahare
+          ${pkgs.coreutils}/bin/install -m 644 -o shrike -g users ${fahareConfig} ${fahareDataDir}/plugins/Fahare/config.yml
+        '';
+      };
 
-      networking.firewall.allowedTCPPorts = [ 38080 ];
+      networking.firewall.allowedTCPPorts = [ 25566 ];
     })
   ];
 }
