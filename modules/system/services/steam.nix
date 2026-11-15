@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   options = {
@@ -13,5 +13,7 @@
       localNetworkGameTransfers.openFirewall = true;
       protontricks.enable = true;
     };
+    programs.gamemode.enable = true;
+    environment.systemPackages = [ pkgs.mangohud ];
   };
 }
